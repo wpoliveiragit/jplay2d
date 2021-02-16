@@ -1,0 +1,11 @@
+Na documentação, trocar todas as palavras frames por quadros
+
+refazer a classe watch
+
+
+
+add hitbox em GameObject
+
+trocar todos os "Window.getInstance()" por "Window.INSTANCE"
+
+sprite - criar uma gravidade de pulo ou mesmo uma ideia de altura de pulo
