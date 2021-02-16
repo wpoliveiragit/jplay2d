@@ -16,37 +16,42 @@ public class Janela {
 
 	private Window window;
 	private Keyboard keyboard;
-	private GameImage fundoDaTela;
-
+	private GameImage background;
+	private boolean loop = true;
 	private Boneco boneco;
 
 	public Janela() {
 		window = new Window(800, 600);
 		keyboard = window.getKeyboard();
 		keyboard.addKey(KeyEvent.VK_CONTROL);
-		fundoDaTela = new GameImage(Utils.MEGAMAN_BACKDROP);
+		background = new GameImage(Main.MEGAMAN_BACKDROP);
 		boneco = new Boneco(window, 500);
 	}
 
 	public void start() {
-		while (true) {
+		while (loop) {
 			draw();
 			boneco.comando();
 			window.delay(10);
-			if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {
-				break;
-			}
+			controle();
 		}
 		window.exit();
 	}
 
 	private void draw() {
-		fundoDaTela.draw();
+		background.draw();
 		boneco.draw();
 		window.drawText("Pular:  Barra de espaço.", 20, 20, Color.YELLOW);
 		window.drawText("Atirar: Control.", 20, 40, Color.YELLOW);
 		window.drawText("Setas movem o boneco.", 20, 60, Color.YELLOW);
+		window.drawText("ESC: Fecha o aplicativo.", 20, 80, Color.YELLOW);
 		window.update();
+	}
+
+	private void controle() {
+		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {
+			loop = false;
+		}
 	}
 
 }
