@@ -11,9 +11,8 @@ import java.awt.event.KeyEvent;
 import br.com.wellington.jplay2D.GameImage;
 import br.com.wellington.jplay2D.Keyboard;
 import br.com.wellington.jplay2D.Window;
-import br.com.wellington.jplay2D.utils.Constantes;
 
-public class MainMegaMan {
+public class Janela {
 
 	private Window window;
 	private Keyboard keyboard;
@@ -21,11 +20,11 @@ public class MainMegaMan {
 
 	private Boneco boneco;
 
-	public MainMegaMan() {
+	public Janela() {
 		window = new Window(800, 600);
 		keyboard = window.getKeyboard();
 		keyboard.addKey(KeyEvent.VK_CONTROL);
-		fundoDaTela = new GameImage(Constantes.MEGAMAN_BACKDROP);
+		fundoDaTela = new GameImage(Utils.MEGAMAN_BACKDROP);
 		boneco = new Boneco(window, 500);
 	}
 

@@ -21,12 +21,7 @@ public interface Constantes {
 	public static final String PATH_PONG = PATH + "/pong/";
 	public static final String PATH_ROTACIONANDO = PATH + "/rotacionando/";
 
-	// MEGAMAN
-	public static final String MEGAMAN_SPRITE_TIRO = PATH_MEGAMAN + "tiro.png";
-	public static final String MEGAMAN_SPRITE_MEGAMAN = PATH_MEGAMAN + "boneco.png";
-	public static final String MEGAMAN_BACKDROP = PATH_MEGAMAN + "fundo.png";
-	public static final String MEGAMAN_SOM_EXPLOSAO = PATH_MEGAMAN + "explosao.wav";
-	public static final String MEGAMAN_SOM_MUZZLESHOT = PATH_MEGAMAN + "muzzleshot.wav";
+	
 
 	// JOGO DA MEMORIA
 	public static final String JOGO_DA_MEMORIA_IMG_MOUSE = PATH_JOGO_DA_MEMORIA + "mouse.png";

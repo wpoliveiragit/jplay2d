@@ -38,7 +38,7 @@ public class Boneco {
 		this.solo = solo;
 		this.quadro = quadro;
 		teclado = quadro.getKeyboard();
-		sprite = new Sprite(Constantes.MEGAMAN_SPRITE_MEGAMAN, 28);
+		sprite = new Sprite(Utils.MEGAMAN_SPRITE_MEGAMAN, 28);
 		sprite.setTotalDuration(1960);
 		sprite.setFloor(solo);
 		move(Keyboard.RIGHT_KEY, 16, 17, 2, 0);
@@ -73,7 +73,7 @@ public class Boneco {
 			Tiro tiro = balas.get(i);
 			if (tiro.isOnFloor() || tiro.x < 1 || tiro.x + tiro.width > quadro.getWidth()) {
 				balas.remove(i--);
-				new Sound(Constantes.MEGAMAN_SOM_EXPLOSAO).play();
+				new Sound(Utils.MEGAMAN_SOM_EXPLOSAO).play();
 				continue;
 			}
 			tiro.fall();
@@ -84,7 +84,7 @@ public class Boneco {
 		// atirar
 		if (teclado.keyDown(KeyEvent.VK_CONTROL)) {
 			balas.add(new Tiro());
-			new Sound(Constantes.MEGAMAN_SOM_MUZZLESHOT).play();
+			new Sound(Utils.MEGAMAN_SOM_MUZZLESHOT).play();
 		}
 		// vai pra esquerda
 		if (teclado.keyDown(Keyboard.LEFT_KEY) && sprite.x > 1) {
@@ -123,7 +123,7 @@ public class Boneco {
 
 		/** Cria um objeto de tiro. */
 		public Tiro() {
-			super(Constantes.MEGAMAN_SPRITE_TIRO, 7);
+			super(Utils.MEGAMAN_SPRITE_TIRO, 7);
 			setTotalDuration(200);
 			setGravity(0.0098);
 			setFloor(solo);
