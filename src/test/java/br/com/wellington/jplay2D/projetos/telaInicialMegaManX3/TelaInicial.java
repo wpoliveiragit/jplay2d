@@ -1,5 +1,6 @@
 package br.com.wellington.jplay2D.projetos.telaInicialMegaManX3;
 
+import br.com.wellington.jplay2D.Animation;
 import br.com.wellington.jplay2D.Keyboard;
 import br.com.wellington.jplay2D.Sound;
 import br.com.wellington.jplay2D.Sprite;
@@ -12,7 +13,7 @@ import br.com.wellington.jplay2D.Window;
 public class TelaInicial extends Window {
 	private static final long serialVersionUID = 1L;
 
-	private Sprite backGround;
+	private Animation backGround;
 	private Keyboard keyboard;
 	private int escolha = 0;
 	private Sound musica;
