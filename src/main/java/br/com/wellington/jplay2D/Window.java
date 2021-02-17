@@ -33,6 +33,7 @@ import javax.swing.JOptionPane;
  * Main class of the framework. Your main function is to drawn images on screen.
  */
 public class Window extends JFrame {
+	private static final long serialVersionUID = 1L;
 
 	private static Window instance;
 	private Mouse mouse;
@@ -306,6 +307,16 @@ public class Window extends JFrame {
 	@Override
 	public void setSize(Dimension d) {
 		this.setSize(d.width, d.height);
+	}
+
+	/**
+	 * COnfigura uma nova imagem para a seta do mouse.
+	 * 
+	 * @param pathImage O caminho da imagem.
+	 */
+	public void setCursorImage(String pathImage) {
+		setCursor(createCustomCursor(pathImage));
+
 	}
 
 }

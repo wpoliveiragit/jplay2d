@@ -21,8 +21,6 @@ public interface Constantes {
 	public static final String PATH_PONG = PATH + "/pong/";
 	public static final String PATH_ROTACIONANDO = PATH + "/rotacionando/";
 
-	
-
 	// JOGO DA MEMORIA
 	public static final String JOGO_DA_MEMORIA_IMG_MOUSE = PATH_JOGO_DA_MEMORIA + "mouse.png";
 	public static final String JOGO_DA_MEMORIA_IMG_FUNDO = PATH_JOGO_DA_MEMORIA + "fundo.png";
@@ -91,14 +89,5 @@ public interface Constantes {
 	public static final String ROTACIONANDO_GROUND = PATH_ROTACIONANDO + "ground.png";
 	public static final String ROTACIONANDO_SPRITE = PATH_ROTACIONANDO + "sprite.png";
 	public static final String ROTACIONANDO_LIMITE = PATH_ROTACIONANDO + "limite.png";
-
-	// TELA INICIAL MEGAMAN X3
-	public static final String PATH_TELA_MEGAMAN_X3 = "/telaInicialMegaManX3/";
-
-	public static final String MEGAMAN_X3_IMG_MOUSE = PATH_TELA_MEGAMAN_X3 + "mouse.png";
-	public static final String MEGAMAN_X3_IMG_TELA_INICIAL = PATH_TELA_MEGAMAN_X3 + "telaInicial.png";
-
-	public static final String MEGAMAN_X3_SOM_MUSICA = PATH_TELA_MEGAMAN_X3 + "musica.wav";
-	public static final String MEGAMAN_X3_SOM_TROCA = PATH_TELA_MEGAMAN_X3 + "troca.wav";
 
 }

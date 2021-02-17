@@ -12,6 +12,6 @@ public class Main {
 	public static final String MEGAMAN_SOM_MUZZLESHOT = Constantes.PATH_MEGAMAN + "muzzleshot.wav";
 
 	public static void main(String[] args) {
-		new Janela().start();
+		new Janela(800, 600).start();
 	}
 }

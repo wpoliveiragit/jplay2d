@@ -1,116 +1,74 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.com.wellington.jplay2D.projetos.telaInicialMegaManX3;
 
 import br.com.wellington.jplay2D.Keyboard;
 import br.com.wellington.jplay2D.Sound;
 import br.com.wellington.jplay2D.Sprite;
 import br.com.wellington.jplay2D.Window;
-import br.com.wellington.jplay2D.utils.Constantes;
 
 /**
  * @author Gefersom Cardoso Lima Federal Fluminense University - UFF - Brazil
  *         Computer Science
  */
-public class TelaInicial implements Constantes{
+public class TelaInicial extends Window {
+	private static final long serialVersionUID = 1L;
 
-	private Window window;
 	private Sprite backGround;
 	private Keyboard keyboard;
-	private int opcaoEscolhida = 0;
+	private int escolha = 0;
 	private Sound musica;
+	private boolean loop = true;
 
 	public TelaInicial() {
-		carregarObjetos();
-		loop();
-		descarregarObjetos();
-	}
+		super(800, 600);
+		setCursorImage(Main.PATH_MOUSE);
 
-	private void carregarObjetos() {
-		// Cria uma janela com dimensão de 800 x 600.
-		window = new Window(800, 600);
+		backGround = new Sprite(Main.PATH_TELA_INICIAL, 3);
 
-		// Muda a imagem do cursor do mouse.
-		window.setCursor(window.createCustomCursor(MEGAMAN_X3_IMG_MOUSE));
-
-		// Carrega o sprite a ser usado, o valor 3 corresponde ao número de frames
-		// usados.
-		backGround = new Sprite(MEGAMAN_X3_IMG_TELA_INICIAL, 3);
-
-		// Captura uma instância de teclado presetente pela janela que criamos.
-		keyboard = window.getKeyboard();
-
-		// Como as teclas padrões do teclado, up, down, left, right
-		// são adiconadas com o comportamento Keyboard.DETECT_EVERY_PRESS,
-		// mudamos o coportamento para DETECT_INITIAL_PRESS_ONLY. Para entender
-		// o que aconteceria sem não fizessemos isso, apague os comandos abaixo e
-		// execute o jogo:
+		keyboard = getKeyboard();
 		keyboard.setBehavior(Keyboard.UP_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
 		keyboard.setBehavior(Keyboard.DOWN_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
 
-		musica = new Sound(MEGAMAN_X3_SOM_MUSICA);
-		musica.setRepeat(true);// faz a música se repetir continuamente.
+		musica = new Sound(Main.PATH_MUSICA);
+		musica.setRepeat(true);
 	}
 
-	private void desenhar() {
-		// Desenha a imagem usada como fundo da tela.
+	@Override
+	public void update() {
 		backGround.draw();
-
-		// Mostra as atualizações - esse método não pode faltar e tem
-		// que ser o último a ser chamado.
-		window.update();
+		super.update();
 	}
 
-	// Escolha de opções do menu...
-	private void verificarOpcaoEscolhida() {
-
-		boolean escolheuUmaOpcao = true;
-
-		// Se a tecla foi pressionada...
-		if (keyboard.keyDown(Keyboard.UP_KEY)) {
-			// O if serve para não deixar que a opção seja menor que zero.
-			if (opcaoEscolhida > 0)
-				opcaoEscolhida--;
-		} else {
-			// Se a tecla para baixo foi pressionada...
-			if (keyboard.keyDown(Keyboard.DOWN_KEY)) {
-				// O if serve para não deixar que a opção seja maior que dois.
-				if (opcaoEscolhida < 2)
-					opcaoEscolhida++;
-			} else {
-				escolheuUmaOpcao = false;
+	private void controle() {
+		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {// SAIR
+			loop = false;
+		}
+		if (keyboard.keyDown(Keyboard.UP_KEY)) {// CIMA
+			escolha--;
+			if (escolha < 0) {
+				escolha = 0;
+				return;
 			}
+			backGround.setCurrFrame(escolha);
+			new Sound(Main.PATH_SOM_TROCA_SELECAO).play();
+			return;
 		}
-
-		if (escolheuUmaOpcao) {
-			new Sound(MEGAMAN_X3_SOM_TROCA).play();
+		if (keyboard.keyDown(Keyboard.DOWN_KEY)) {// BAICO
+			escolha++;
+			if (escolha > 2) {
+				escolha = 2;
+				return;
+			}
+			backGround.setCurrFrame(escolha);
+			new Sound(Main.PATH_SOM_TROCA_SELECAO).play();
 		}
-
-		// Seta a opção do menu escolhida pelo usuário.
-		backGround.setCurrFrame(opcaoEscolhida);
 	}
 
-	private void descarregarObjetos() {
-		window.exit();
-		window = null;
-		backGround = null;
-		keyboard = null;
-	}
-
-	private void loop() {
+	public void start() {
 		musica.play();
-		boolean sair = false;
-		do {
-			desenhar();
-			verificarOpcaoEscolhida();
-
-			// Se apertar a tecla ESC, sai da tela inicial.
-			if (keyboard.keyDown(Keyboard.ESCAPE_KEY))
-				sair = true;
-
-		} while (sair == false);
+		while (loop) {
+			update();
+			controle();
+		}
+		exit();
 	}
 }

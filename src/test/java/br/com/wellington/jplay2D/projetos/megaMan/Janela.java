@@ -20,8 +20,8 @@ public class Janela {
 	private boolean loop = true;
 	private Boneco boneco;
 
-	public Janela() {
-		window = new Window(800, 600);
+	public Janela(int x, int y) {
+		window = new Window(x, y);
 		keyboard = window.getKeyboard();
 		keyboard.addKey(KeyEvent.VK_CONTROL);
 		background = new GameImage(Main.MEGAMAN_BACKDROP);
@@ -31,7 +31,6 @@ public class Janela {
 	public void start() {
 		while (loop) {
 			draw();
-			boneco.comando();
 			window.delay(10);
 			controle();
 		}
@@ -52,6 +51,7 @@ public class Janela {
 		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {
 			loop = false;
 		}
+		boneco.comando();
 	}
 
 }
