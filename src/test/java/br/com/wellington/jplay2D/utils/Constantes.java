@@ -17,7 +17,7 @@ public interface Constantes {
 	public static final String PATH_JOGO_DA_MEMORIA = PATH + "/jogoDaMemoria/";
 	public static final String PATH_LANCANDO = PATH + "/lancando/";
 	public static final String PATH_MOVIMENTANDO = PATH + "/movimentando/";
-	public static final String PATH_PARALAXE = PATH + "/paralaxe/";
+
 	public static final String PATH_PONG = PATH + "/pong/";
 	public static final String PATH_ROTACIONANDO = PATH + "/rotacionando/";
 
@@ -53,13 +53,6 @@ public interface Constantes {
 	public static final String MOVIMENTANDO_FUNDO = PATH_MOVIMENTANDO + "fundo.png";
 	public static final String MOVIMENTANDO_SQUARE = PATH_MOVIMENTANDO + "square.png";
 	public static final String MOVIMENTANDO_GROUND = PATH_MOVIMENTANDO + "ground.png";
-
-	// PARALLAX
-	public static final String FUNDO_0 = PATH_PARALAXE + "f0.png";
-	public static final String FUNDO_1 = PATH_PARALAXE + "f1.png";
-	public static final String FUNDO_2 = PATH_PARALAXE + "f2.png";
-	public static final String FUNDO_3 = PATH_PARALAXE + "f3.png";
-	public static final String FUNDO_4 = PATH_PARALAXE + "f4.png";
 
 	// PONG
 	public static String PONG_SOM_BATEU = PATH_PONG + "bateu.wav";

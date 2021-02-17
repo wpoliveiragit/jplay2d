@@ -13,11 +13,12 @@ import br.com.wellington.jplay2D.Window;
 public class TelaInicial extends Window {
 	private static final long serialVersionUID = 1L;
 
-	private Animation backGround;
 	private Keyboard keyboard;
-	private int escolha = 0;
+	private Animation backGround;
+
 	private Sound musica;
 	private boolean loop = true;
+	private int escolha = 0;
 
 	public TelaInicial() {
 		super(800, 600);
