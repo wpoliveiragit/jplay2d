@@ -11,33 +11,42 @@ import br.com.wellington.jplay2D.utils.Constantes;
  *
  * @author Leandro Emiliano Guimarães ---UFF--- Computer Science
  */
-public class Movimentando {
+public class Movimentando extends Window {
+	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
+	private GameImage fundo;
+	private Sprite quadrado;
+	private Sprite ground;
+	private Physics fisica;
+	private boolean loop = true;
 
-		Window win = new Window(800, 600);
-		GameImage fundo = new GameImage(Constantes.MOVIMENTANDO_FUNDO);
+	public Movimentando() {
+		super(800, 600);
+		fundo = new GameImage(Constantes.MOVIMENTANDO_FUNDO);
 
-		Physics fisica = new Physics();
+		fisica = new Physics();
 		fisica.createWorld(800, 600);
 
-		Sprite quadrado = new Sprite(Constantes.MOVIMENTANDO_SQUARE);
+		quadrado = new Sprite(Constantes.MOVIMENTANDO_SQUARE);
 
 		fisica.createBodyFromSprite(quadrado, false);
 
 		quadrado.setX(400);
 		quadrado.setY(0);
 
-		Sprite ground = new Sprite(Constantes.MOVIMENTANDO_GROUND);
+		ground = new Sprite(Constantes.MOVIMENTANDO_GROUND);
 		fisica.createBodyFromSprite(ground, true);
 
 		ground.setY(500);
 		ground.setFriction(0);
+	}
 
-		while (true) {
+	public void start() {
+		while (loop) {
 			// Se apertar a tecla ESC, sai da tela inicial.
-			if (win.getKeyboard().keyDown(Keyboard.ESCAPE_KEY))
-				break;
+			if (getKeyboard().keyDown(Keyboard.ESCAPE_KEY)) {
+				loop = false;
+			}
 			fundo.draw();
 
 			if (quadrado.getX() > 0)
@@ -58,10 +67,11 @@ public class Movimentando {
 			quadrado.applyForceYFromKeyboard(Keyboard.UP_KEY, Keyboard.DOWN_KEY, 50, Keyboard.DETECT_EVERY_PRESS, true);
 
 			fisica.update();
-			win.update();
-			win.delay(12);
+			update();
+			delay(12);
 
 		}
-		win.exit();
+		exit();
 	}
+
 }
