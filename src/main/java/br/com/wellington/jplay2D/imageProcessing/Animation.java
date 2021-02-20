@@ -1,21 +1,13 @@
-/*
- * The use this code commercially must only be done with permission of the author.
- * Any modification shall be advised and sent to the author.
- * The author is not responsible for any problem therefrom the use of this frameWork.
- *
- * @author Gefersom Cardoso Lima
- * Federal Fluminense University
- * Computer Science
- */
-
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.imageProcessing;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
+import br.com.wellington.jplay2D.window.Window;
+
 /**
- * Class responsible for animating a GameImage using pieces of the image, such
- * as frames.
+ * Classe responsável por animar uma GameImage usando pedaços da imagem, como
+ * frames.
  */
 public class Animation extends GameImage {
 	private int initialFrame;

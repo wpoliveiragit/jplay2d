@@ -3,7 +3,7 @@ package _br.com.wellington.jplay2D.projetos.investigador;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.wellington.jplay2D.Scene;
+import br.com.wellington.jplay2D.scene.Scene;
 
 /**
  * Definição do que a classe representa ou administra

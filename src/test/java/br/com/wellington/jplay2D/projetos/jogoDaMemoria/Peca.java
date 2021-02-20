@@ -5,7 +5,7 @@
 
 package br.com.wellington.jplay2D.projetos.jogoDaMemoria;
 
-import br.com.wellington.jplay2D.Animation;
+import br.com.wellington.jplay2D.imageProcessing.Animation;
 
 /**
  * @author Gefersom Cardoso Lima Federal Fluminense University Computer Science

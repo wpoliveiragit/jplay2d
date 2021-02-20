@@ -1,14 +1,4 @@
-/*
- * The use this code commercially must only be done with permission of the author.
- * Any modification shall be advised and sent to the author.
- * The author is not responsible for any problem therefrom the use of this frameWork.
- *
- * @author Gefersom Cardoso Lima
- * Federal Fluminense University
- * Computer Science
- */
-
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.oi;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,7 +7,6 @@ import java.util.Hashtable;
 /**
  * Class responsible for handling the keys of keyboard and its behavior.
  */
-
 public final class Keyboard extends InputBase implements KeyListener {
 	/** The direction key for above of the keyboard. */
 	public static final int UP_KEY = 38;

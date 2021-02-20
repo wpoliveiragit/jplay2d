@@ -4,10 +4,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Scene;
-import br.com.wellington.jplay2D.Sprite;
-import br.com.wellington.jplay2D.TileInfo;
+import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.imageProcessing.TileInfo;
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.scene.Scene;
 
 /**
  * Definição do que a classe representa ou administra

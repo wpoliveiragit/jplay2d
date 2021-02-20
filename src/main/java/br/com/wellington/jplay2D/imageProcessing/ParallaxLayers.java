@@ -1,10 +1,5 @@
+package br.com.wellington.jplay2D.imageProcessing;
 
-package br.com.wellington.jplay2D;
-
-/**
- *
- * @author Leandro Emiliano Guimarães --UFF--- Computer Science
- */
 public class ParallaxLayers extends GameImage {
 
 	private double velX = 0;
@@ -27,7 +22,6 @@ public class ParallaxLayers extends GameImage {
 	 * @param vel_Y - set the velocity of the layer in the y-axis.
 	 */
 	public void setVel(double vel_X, double vel_Y) {
-
 		this.velX = vel_X;
 		this.velY = vel_Y;
 

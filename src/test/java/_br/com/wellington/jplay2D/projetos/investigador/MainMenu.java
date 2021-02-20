@@ -3,9 +3,9 @@ package _br.com.wellington.jplay2D.projetos.investigador;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import br.com.wellington.jplay2D.GameImage;
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Window;
+import br.com.wellington.jplay2D.imageProcessing.GameImage;
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.window.Window;
 
 /**
  * Classe responsavem pela apresentação da imagem inicial do programa.

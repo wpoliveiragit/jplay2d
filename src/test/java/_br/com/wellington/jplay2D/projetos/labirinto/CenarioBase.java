@@ -5,8 +5,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.wellington.jplay2D.Scene;
-import br.com.wellington.jplay2D.TileInfo;
+import br.com.wellington.jplay2D.imageProcessing.TileInfo;
+import br.com.wellington.jplay2D.scene.Scene;
 
 public class CenarioBase implements Constantes {
 

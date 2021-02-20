@@ -1,10 +1,10 @@
 package br.com.wellington.jplay2D.projetos.telaInicialMegaManX3;
 
-import br.com.wellington.jplay2D.Animation;
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Sound;
-import br.com.wellington.jplay2D.Sprite;
-import br.com.wellington.jplay2D.Window;
+import br.com.wellington.jplay2D.imageProcessing.Animation;
+import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.sound.Sound;
+import br.com.wellington.jplay2D.window.Window;
 
 /**
  * @author Gefersom Cardoso Lima Federal Fluminense University - UFF - Brazil

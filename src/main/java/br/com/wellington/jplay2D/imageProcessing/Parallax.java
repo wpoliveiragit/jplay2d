@@ -1,11 +1,7 @@
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.imageProcessing;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Leandro Emiliano Guimarães ---UFF--- Computer Science
- */
 public class Parallax {
 
 	ArrayList<ParallaxLayers> layers = new ArrayList<ParallaxLayers>();

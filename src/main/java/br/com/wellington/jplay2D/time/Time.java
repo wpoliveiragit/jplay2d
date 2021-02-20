@@ -1,25 +1,18 @@
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.time;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
-/*
- * The use this code commercially must only be done with permission of the author.
- * Any modification shall be advised and sent to the author.
- * The author is not responsible for any problem therefrom the use of this frameWork.
- *
- * @author Gefersom Cardoso Lima
- * Universidade Federal Fluminense - UFF - Brasil - 2010
- * Ciência da Computação
- */
+import br.com.wellington.jplay2D.window.Window;
 
 /**
  * Class used to manipulate time.
  */
 public class Time {
-	private javax.swing.Timer timer;
+	private Timer timer;
 	private Font font;
 	private Color color;
 	private int currentSecond;

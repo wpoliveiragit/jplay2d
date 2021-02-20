@@ -4,10 +4,10 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Sound;
-import br.com.wellington.jplay2D.Sprite;
-import br.com.wellington.jplay2D.Window;
+import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.sound.Sound;
+import br.com.wellington.jplay2D.window.Window;
 
 public class Boneco {
 

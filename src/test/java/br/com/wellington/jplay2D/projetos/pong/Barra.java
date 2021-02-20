@@ -5,8 +5,8 @@
 
 package br.com.wellington.jplay2D.projetos.pong;
 
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Sprite;
+import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.utils.Constantes;
 
 /**

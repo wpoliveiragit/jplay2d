@@ -1,19 +1,11 @@
-/*
- * The use this code commercially must only be done with permission of the author.
- * Any modification shall be advised and sent to the author.
- * The author is not responsible for any problem therefrom the use of this frameWork.
- *
- * @author Gefersom Cardoso Lima
- * Federal Fluminense University
- * Computer Science
- */
-
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.oi;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
+import br.com.wellington.jplay2D.imageProcessing.GameObject;
 
 /**
  * Class responsible for handling mouse actions.

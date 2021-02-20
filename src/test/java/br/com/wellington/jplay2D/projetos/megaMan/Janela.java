@@ -8,9 +8,9 @@ package br.com.wellington.jplay2D.projetos.megaMan;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
-import br.com.wellington.jplay2D.GameImage;
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Window;
+import br.com.wellington.jplay2D.imageProcessing.GameImage;
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.window.Window;
 
 public class Janela {
 

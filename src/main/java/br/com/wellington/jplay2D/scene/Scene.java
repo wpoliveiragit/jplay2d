@@ -1,15 +1,4 @@
-/*
- * The use this code commercially must only be done with permission of the author.
- * Any modification shall be advised and sent to the author.
- * The author is not responsible for any problem therefrom the use of this frameWork.
- *
- * 
- * @author VisionLab/PUC-Rio
- * Modifications by Gefersom Cardoso Lima  
- *                  Federal Fluminense University
- *                  Computer Science
- */
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.scene;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -24,6 +13,12 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import br.com.wellington.jplay2D.imageProcessing.GameImage;
+import br.com.wellington.jplay2D.imageProcessing.GameObject;
+import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.imageProcessing.TileInfo;
+import br.com.wellington.jplay2D.window.Window;
 
 /**
  * Class responsible for handling a Scenario.

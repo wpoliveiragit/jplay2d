@@ -1,8 +1,8 @@
 package _br.com.wellington.jplay2D.projetos.investigador;
 
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Scene;
-import br.com.wellington.jplay2D.Window;
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.scene.Scene;
+import br.com.wellington.jplay2D.window.Window;
 
 /**
  * Definição do que a classe representa ou administra

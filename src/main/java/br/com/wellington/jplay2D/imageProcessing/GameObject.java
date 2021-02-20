@@ -1,15 +1,4 @@
-/**
- * The use this code commercially must only be done with permission of the author.
- * Any modification shall be advised and sent to the author.
- * The author is not responsible for any problem therefrom the use of this frameWork.
- * @author Gefersom Cardoso Lima
- * @version 1.0
- * @since 01/2011
- * Federal Fluminense University
- * Computer Science
- */
-
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.imageProcessing;
 
 /**
  * The most basic class presents in the framework. Base class for almost all

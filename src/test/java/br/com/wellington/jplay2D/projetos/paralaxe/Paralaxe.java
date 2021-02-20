@@ -1,8 +1,8 @@
 package br.com.wellington.jplay2D.projetos.paralaxe;
 
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Parallax;
-import br.com.wellington.jplay2D.Window;
+import br.com.wellington.jplay2D.imageProcessing.Parallax;
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.window.Window;
 
 /**
  *

@@ -1,4 +1,4 @@
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.imageProcessing;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -6,22 +6,9 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.ImageIcon;
 
-/*
- * The use this code commercially must only be done with permission of the author.
- * Any modification shall be advised and sent to the author.
- * The author is not responsible for any problem therefrom the use of this frameWork.
- *
- * @author Gefersom Cardoso Lima
- * Universidade Federal Fluminense - UFF - Brasil - 2010
- * Ciência da Computação
- */
+import br.com.wellington.jplay2D.window.Window;
 
-/**
- * Class responsible for modeling an image.
- * 
- * @version 1.0
- * @author Gefersom Cardoso Lima Federal Fluminense University Computer Science
- */
+/** Class responsible for modeling an image. */
 public class GameImage extends GameObject {
 
 	/**
@@ -53,13 +40,8 @@ public class GameImage extends GameObject {
 		this.height = image.getHeight(null);
 	}
 
-	/**
-	 * Draw an image on the screen.
-	 */
+	/** Draw an image on the screen. */
 	public void draw() {
-		// Window.instance.getGameGraphics().drawImage(image, (int)x, (int)y, width,
-		// height, null);
-
 		Graphics2D g2d = (Graphics2D) Window.getInstance().getGameGraphics();
 		AffineTransform tx = new AffineTransform();
 
@@ -73,12 +55,6 @@ public class GameImage extends GameObject {
 
 		g2d.drawImage(image, newx, newy, width, height, null);
 	}
-
-	/** Draw an image on the screen. */
-//    public void draw()
-//    {
-//            Window.getInstance().getGameGraphics().drawImage(image, (int) x, (int) y, width, height, null);
-//    }
 
 	public void drawPartially(int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
 		Window.getInstance().getGameGraphics().drawImage(image, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);

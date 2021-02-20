@@ -1,14 +1,4 @@
-/*
- * The use this code commercially must only be done with permission of the author.
- * Any modification shall be advised and sent to the author.
- * The author is not responsible for any problem therefrom the use of this frameWork.
- *
- * @author Gefersom Cardoso Lima
- * Federal Fluminense University
- * Computer Science
- */
-
-package br.com.wellington.jplay2D;
+package br.com.wellington.jplay2D.window;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -28,10 +18,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * Main class of the framework. Your main function is to drawn images on screen.
- */
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.oi.Mouse;
+
+/** Main class of the framework. */
 public class Window extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -81,7 +71,7 @@ public class Window extends JFrame {
 	 * 
 	 * @return Window
 	 */
-	static Window getInstance() {
+	public static Window getInstance() {
 		return instance;
 	}
 
@@ -186,22 +176,15 @@ public class Window extends JFrame {
 		g2.drawString(message, x, y);
 	}
 
-	/**
-	 * Closes the window and exit the program.
-	 */
+	/** Closes the window and exit the program. */
 	public void exit() {
 		dispose();
 		System.exit(0);
 	}
 
-	/**
-	 * Creates a mouse cursor using an image.
-	 * 
-	 * @param imageName image path.
-	 * @return Cursor
-	 */
-	public Cursor createCustomCursor(String imageName) {
-		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().getImage(imageName),
+	/** Creates a mouse cursor using an image. */
+	public Cursor createCustomCursor(String namePath) {
+		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().getImage(namePath),
 				new java.awt.Point(), "cursor");
 		return cursor;
 	}
@@ -276,9 +259,7 @@ public class Window extends JFrame {
 
 	}
 
-	/**
-	 * Disable the full display mode.
-	 */
+	/** Disable the full display mode. */
 	public void restoreScreen() {
 		device.setFullScreenWindow(null);
 		super.setLocationRelativeTo(null);

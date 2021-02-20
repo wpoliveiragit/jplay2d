@@ -1,7 +1,7 @@
 package _br.com.wellington.jplay2D.projetos.investigador;
 
-import br.com.wellington.jplay2D.GameObject;
-import br.com.wellington.jplay2D.TileInfo;
+import br.com.wellington.jplay2D.imageProcessing.GameObject;
+import br.com.wellington.jplay2D.imageProcessing.TileInfo;
 
 /**
  * Definição do que a classe representa ou administra

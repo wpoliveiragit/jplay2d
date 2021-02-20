@@ -9,12 +9,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 
-import br.com.wellington.jplay2D.GameImage;
-import br.com.wellington.jplay2D.Keyboard;
-import br.com.wellington.jplay2D.Sound;
-import br.com.wellington.jplay2D.Time;
-import br.com.wellington.jplay2D.Window;
+import br.com.wellington.jplay2D.imageProcessing.GameImage;
+import br.com.wellington.jplay2D.oi.Keyboard;
+import br.com.wellington.jplay2D.sound.Sound;
+import br.com.wellington.jplay2D.time.Time;
 import br.com.wellington.jplay2D.utils.Constantes;
+import br.com.wellington.jplay2D.window.Window;
 
 /**
  * @author Gefersom Cardoso Lima Federal Fluminense University - UFF - Brazil
