@@ -39,8 +39,8 @@ public class Scene {
 	private double yOffset = 0;
 
 	public Scene() {
-		centerPositionX = Window.getInstance().getWidth() / 2;
-		centerPositionY = Window.getInstance().getHeight() / 2;
+		centerPositionX = Window.getInstance().getJFrame().getWidth() / 2;
+		centerPositionY = Window.getInstance().getJFrame().getHeight() / 2;
 	}
 
 	/**
@@ -197,9 +197,9 @@ public class Scene {
 		int tileWidth = tiles[0].width;
 		int tileHeight = tiles[0].height;
 
-		int minLine = max(0, (centerPositionY - Window.getInstance().getHeight() / 2) / tileHeight);
-		int maxLine = min(tileLayer.size(), (int) Math
-				.ceil(((double) centerPositionY + Window.getInstance().getHeight() / 2) / (double) tileHeight));
+		int minLine = max(0, (centerPositionY - Window.getInstance().getJFrame().getHeight() / 2) / tileHeight);
+		int maxLine = min(tileLayer.size(), (int) Math.ceil(
+				((double) centerPositionY + Window.getInstance().getJFrame().getHeight() / 2) / (double) tileHeight));
 
 		int line = minLine;
 		int drawY = startDrawY;
@@ -209,9 +209,10 @@ public class Scene {
 
 			int drawX = startDrawX;
 
-			int minColumn = max(0, (centerPositionX - Window.getInstance().getWidth() / 2) / tileWidth);
-			int maxColumn = min(tileLine.size(), (int) Math
-					.ceil(((double) centerPositionX + Window.getInstance().getWidth() / 2.0) / (double) tileWidth));
+			int minColumn = max(0, (centerPositionX - Window.getInstance().getJFrame().getWidth() / 2) / tileWidth);
+			int maxColumn = min(tileLine.size(),
+					(int) Math.ceil(((double) centerPositionX + Window.getInstance().getJFrame().getWidth() / 2.0)
+							/ (double) tileWidth));
 
 			for (int c = minColumn; c < maxColumn; c++) {
 				TileInfo tile = (TileInfo) tileLine.get(c);
@@ -247,12 +248,12 @@ public class Scene {
 		int tileHeight = tiles[0].height;
 
 		int line = 0;
-		int drawY = -(centerPositionY - Window.getInstance().getHeight() / 2);
+		int drawY = -(centerPositionY - Window.getInstance().getJFrame().getHeight() / 2);
 
 		do {
 			ArrayList tileLine = (ArrayList) tileLayer.get(line);
 
-			int drawX = -(centerPositionX - Window.getInstance().getWidth() / 2);
+			int drawX = -(centerPositionX - Window.getInstance().getJFrame().getWidth() / 2);
 
 			for (int c = 0; c < tileLine.size(); c++) {
 				TileInfo tile = (TileInfo) tileLine.get(c);
@@ -351,18 +352,18 @@ public class Scene {
 		int tileWidth = tiles[0].width;
 		int tileHeight = tiles[0].height;
 
-		double x = object.x - Window.getInstance().getWidth() / 2;
-		double y = object.y - Window.getInstance().getHeight() / 2;
+		double x = object.x - Window.getInstance().getJFrame().getWidth() / 2;
+		double y = object.y - Window.getInstance().getJFrame().getHeight() / 2;
 
 		UpdateCenterPosition(x, y);
 
 		int line = 0;
-		int drawY = -(centerPositionY - Window.getInstance().getHeight() / 2);
+		int drawY = -(centerPositionY - Window.getInstance().getJFrame().getHeight() / 2);
 
 		do {
 			ArrayList tileLine = (ArrayList) tileLayer.get(line);
 
-			int drawX = -(centerPositionX - Window.getInstance().getWidth() / 2);
+			int drawX = -(centerPositionX - Window.getInstance().getJFrame().getWidth() / 2);
 
 			for (int c = 0; c < tileLine.size(); c++) {
 				TileInfo tileInfo = (TileInfo) tileLine.get(c);
@@ -387,9 +388,9 @@ public class Scene {
 			element.draw();
 		}
 		if (movedx)
-			xOffset = Window.getInstance().getWidth() / 2 - object.x;
+			xOffset = Window.getInstance().getJFrame().getWidth() / 2 - object.x;
 		if (movedy)
-			yOffset = Window.getInstance().getHeight() / 2 - object.y;
+			yOffset = Window.getInstance().getJFrame().getHeight() / 2 - object.y;
 
 	}
 
@@ -404,19 +405,19 @@ public class Scene {
 
 		ArrayList tileLine = (ArrayList) tileLayer.get(0);
 
-		if (centerPositionX > tileWidth * tileLine.size() - Window.getInstance().getWidth() / 2) {
-			centerPositionX = tileWidth * tileLine.size() - Window.getInstance().getWidth() / 2;
+		if (centerPositionX > tileWidth * tileLine.size() - Window.getInstance().getJFrame().getWidth() / 2) {
+			centerPositionX = tileWidth * tileLine.size() - Window.getInstance().getJFrame().getWidth() / 2;
 			movedx = false;
-		} else if (centerPositionX < Window.getInstance().getWidth() / 2) {
-			centerPositionX = Window.getInstance().getWidth() / 2;
+		} else if (centerPositionX < Window.getInstance().getJFrame().getWidth() / 2) {
+			centerPositionX = Window.getInstance().getJFrame().getWidth() / 2;
 			movedx = false;
 		}
 
-		if (centerPositionY > tileHeight * tileLayer.size() - Window.getInstance().getHeight() / 2) {
-			centerPositionY = tileHeight * tileLayer.size() - Window.getInstance().getHeight() / 2;
+		if (centerPositionY > tileHeight * tileLayer.size() - Window.getInstance().getJFrame().getHeight() / 2) {
+			centerPositionY = tileHeight * tileLayer.size() - Window.getInstance().getJFrame().getHeight() / 2;
 			movedy = false;
-		} else if (centerPositionY < Window.getInstance().getHeight() / 2) {
-			centerPositionY = Window.getInstance().getHeight() / 2;
+		} else if (centerPositionY < Window.getInstance().getJFrame().getHeight() / 2) {
+			centerPositionY = Window.getInstance().getJFrame().getHeight() / 2;
 			movedy = false;
 		}
 	}

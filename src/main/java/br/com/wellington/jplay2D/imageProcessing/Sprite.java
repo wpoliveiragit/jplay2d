@@ -68,7 +68,7 @@ public class Sprite extends Animation {
 			this.x -= velocity;
 		}
 
-		if (keyboard.keyDown(rightKey) && this.x + this.width < Window.getInstance().getWidth()) {
+		if (keyboard.keyDown(rightKey) && this.x + this.width < Window.getInstance().getJFrame().getWidth()) {
 			this.x += velocity;
 		}
 	}
@@ -96,7 +96,7 @@ public class Sprite extends Animation {
 			this.y -= velocity;
 		}
 
-		if (keyboard.keyDown(downKey) && this.y + this.height < Window.getInstance().getHeight()) {
+		if (keyboard.keyDown(downKey) && this.y + this.height < Window.getInstance().getJFrame().getHeight()) {
 			this.y += velocity;
 		}
 	}
@@ -166,13 +166,13 @@ public class Sprite extends Animation {
 				this.setX(0);
 			}
 
-			if (keyboard.keyDown(rightKey) && px + this.width / 2 < Window.getInstance().getWidth())
+			if (keyboard.keyDown(rightKey) && px + this.width / 2 < Window.getInstance().getJFrame().getWidth())
 
 				this.body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
 
-			else if (px + this.width / 2 > Window.getInstance().getWidth()) {
+			else if (px + this.width / 2 > Window.getInstance().getJFrame().getWidth()) {
 				this.cancelForces();
-				this.setX(Window.getInstance().getWidth() - this.width);
+				this.setX(Window.getInstance().getJFrame().getWidth() - this.width);
 			}
 
 		} else {
@@ -188,9 +188,9 @@ public class Sprite extends Animation {
 
 				this.body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
 
-			else if (px + this.width / 2 > Window.getInstance().getWidth())
+			else if (px + this.width / 2 > Window.getInstance().getJFrame().getWidth())
 
-				this.setX(Window.getInstance().getWidth() - this.width);
+				this.setX(Window.getInstance().getJFrame().getWidth() - this.width);
 
 		}
 	}
@@ -263,13 +263,13 @@ public class Sprite extends Animation {
 				this.setY(0);
 			}
 
-			if (keyboard.keyDown(downKey) && py + this.height / 2 < Window.getInstance().getHeight())
+			if (keyboard.keyDown(downKey) && py + this.height / 2 < Window.getInstance().getJFrame().getHeight())
 
 				this.body.applyForce(new Vec2(0, -velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
 
-			else if (py + this.height / 2 > Window.getInstance().getHeight()) {
+			else if (py + this.height / 2 > Window.getInstance().getJFrame().getHeight()) {
 				this.cancelForces();
-				this.setY(Window.getInstance().getHeight() - this.height);
+				this.setY(Window.getInstance().getJFrame().getHeight() - this.height);
 			}
 		} else {
 			if (keyboard.keyDown(upKey))
@@ -290,7 +290,7 @@ public class Sprite extends Animation {
 	 * @param velocity speed of locomotion in pixels.
 	 */
 	public void moveTo(double x, double y, double velocity) {
-		if (this.x < x && (this.x + this.width < Window.getInstance().getWidth())) {
+		if (this.x < x && (this.x + this.width < Window.getInstance().getJFrame().getWidth())) {
 			this.x += velocity;
 		} else {
 			if (this.x > x)

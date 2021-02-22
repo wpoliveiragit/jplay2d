@@ -1,8 +1,6 @@
 package br.com.wellington.jplay2D.window;
 
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,8 +10,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,11 +17,11 @@ import javax.swing.JOptionPane;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.oi.Mouse;
 
-/** Main class of the framework. */
-public class Window extends JFrame {
-	private static final long serialVersionUID = 1L;
+/** Classe inicial do framework. Responsavel pelo desenho de imagens na tela. */
+public class Window {
 
-	private static Window instance;
+	private JFrame jframe = new JFrame();
+	private static Window instance = null;
 	private Mouse mouse;
 	private Keyboard keyboard;
 	private BufferStrategy buffer;
@@ -36,201 +32,80 @@ public class Window extends JFrame {
 	private DisplayMode displayMode;
 	private GraphicsDevice device;
 
-	/*
-	 * Creates an Window with width and height in pixels.
-	 */
+	/** Cria o controle do game. Não pode ser instanciado duas */
 	public Window(int width, int height) {
-		device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		displayMode = new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
-		mouse = new Mouse();
-		keyboard = new Keyboard();
+		if (instance == null) {
+			
+			device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			displayMode = new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
+			
+			mouse = new Mouse();
+			keyboard = new Keyboard();
 
-		addMouseListener(mouse);
-		addMouseMotionListener(mouse);
-		addKeyListener(keyboard);
+			jframe.addMouseListener(mouse);
+			jframe.addMouseMotionListener(mouse);
+			jframe.addKeyListener(keyboard);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(width, height);
-		setLocationRelativeTo(null);
-		setUndecorated(true);
-		setVisible(true);
+			jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setSize(width, height);
+			jframe.setLocationRelativeTo(null);
+			jframe.setUndecorated(true);
+			jframe.setVisible(true);
 
-		createBufferStrategy(2);
-		buffer = getBufferStrategy();
+			jframe.createBufferStrategy(2);
+			buffer = jframe.getBufferStrategy();
 
-		graphics = buffer.getDrawGraphics();
-		currTime = System.currentTimeMillis();
-		lastTime = 0;
-		totalTime = 0;
-
-		instance = this;
+			graphics = buffer.getDrawGraphics();
+			currTime = System.currentTimeMillis();
+			lastTime = 0;
+			totalTime = 0;
+			instance = this;
+			return;
+		}
+		throw new RuntimeException("[ERRO] ");
 	}
 
-	/**
-	 * Returns an instance of the current window.
-	 * 
-	 * @return Window
-	 */
-	public static Window getInstance() {
-		return instance;
-	}
-
-	/**
-	 * Returns an instance of keyboard.
-	 * 
-	 * @return Keyboard
-	 */
-	public Keyboard getKeyboard() {
-		return keyboard;
-	}
-
-	/**
-	 * Returns an instance of mouse.
-	 * 
-	 * @return Mouse
-	 */
-	public Mouse getMouse() {
-		return mouse;
-	}
-
-	/**
-	 * Returns an instance of Graphics.
-	 * 
-	 * @return graphics
-	 */
-	public Graphics getGameGraphics() {
-		return graphics;
-	}
-
-	/**
-	 * Refreshes the window with the new information drawn in the buffer.
-	 */
+	/** Atualiza o buffer da janela. */
 	public void update() {
 		graphics.dispose();
 		buffer.show();
 		Toolkit.getDefaultToolkit().sync();
 		graphics = buffer.getDrawGraphics();
+
+		updateTotalTime();
+	}
+
+	/** Atualiza o tempo total de execução do aplicativo. */
+	private void updateTotalTime() {
 		lastTime = currTime;
 		currTime = System.currentTimeMillis();
 		totalTime += currTime - lastTime;
 	}
 
 	/**
-	 * Delay the execution of the program.
-	 * 
-	 * @param time Millisecond time.
-	 */
-	public void delay(long time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException ex) {
-			Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
-
-	/**
-	 * Returns the time passed between the previous frame and the current frame.
-	 * 
-	 * @return long Millisecond time.
-	 */
-	public long deltaTime() {
-		return currTime - lastTime;
-	}
-
-	/**
-	 * Total time passed since the start of creation of the window.
-	 * 
-	 * @return long Millisecond time.
-	 */
-	public long timeElapsed() {
-		return totalTime;
-	}
-
-	/**
-	 * Draws a message on the screen.
-	 * 
-	 * @param message
-	 * @param x       value on the x axis.
-	 * @param y       value on the y axis.
-	 * @param color
-	 */
-	public void drawText(String message, int x, int y, Color color) {
-		graphics.setColor(color);
-		graphics.drawString(message, x, y);
-	}
-
-	/**
-	 * Draws a message on the screen.
-	 * 
-	 * @param message
-	 * @param x       value on the x axis.
-	 * @param y       value on the y axis.
-	 * @param color
-	 * @param font
-	 */
-	public void drawText(String message, int x, int y, Color color, Font font) {
-		Graphics2D g2 = (Graphics2D) graphics;
-		g2.setFont(font);
-		g2.setColor(color);
-		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		g2.drawString(message, x, y);
-	}
-
-	/** Closes the window and exit the program. */
-	public void exit() {
-		dispose();
-		System.exit(0);
-	}
-
-	/** Creates a mouse cursor using an image. */
-	public Cursor createCustomCursor(String namePath) {
-		Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().getImage(namePath),
-				new java.awt.Point(), "cursor");
-		return cursor;
-	}
-
-	/**
-	 * Cleans the window.
-	 * 
-	 * @param color
-	 */
-	public void clear(Color color) {
-		graphics.setColor(color);
-		graphics.fillRect(0, 0, getWidth(), getHeight());
-	}
-
-	/**
-	 * Returns an array with the display modes that the screen can work.
-	 * 
-	 * @return DisplayMode[]
-	 * @see DisplayMode
-	 */
-	public DisplayMode[] getCompatibleDisplayMode() {
-		return device.getDisplayModes();
-	}
-
-	/**
-	 * Set the display mode.
+	 * Defina um modo de exibição.
 	 * 
 	 * @param displayMode
 	 * @see DisplayMode
 	 */
-	public void setDisplayMode(DisplayMode displayMode) {
-		if (isDisplayModeCompatible(displayMode) == false) {
-			JOptionPane.showMessageDialog(null, "Resolution is not compatible with this display.");
-		} else {
+	public final void setDisplayMode(DisplayMode displayMode) {
+		if (isDisplayModeCompatible(displayMode)) {
 			this.displayMode = displayMode;
+			return;
 		}
+		JOptionPane.showMessageDialog(null, "A resolução não é compatível com este monitor.");
+
 	}
 
 	/**
-	 * Returns true if the display is capable of work with this display mode, false
-	 * otherwise.
+	 * Retorna verdadeiro se o display é capaz de funcionar com este modo de
+	 * exibição, falso caso contrário.
 	 * 
 	 * @param displayMode
 	 * @return boolean
+	 * @see DisplayMode
 	 */
-	public boolean isDisplayModeCompatible(DisplayMode displayMode) {
+	public final boolean isDisplayModeCompatible(DisplayMode displayMode) {
 		DisplayMode goodModes[] = device.getDisplayModes();
 		int i = 0;
 		boolean compatible = false;
@@ -243,61 +118,175 @@ public class Window extends JFrame {
 		return compatible;
 	}
 
-	/**
-	 * Put the screen in a full mode screen.
-	 */
+	/** Abilita o modo de tela cheia. */
 	public void setFullScreen() {
 		DisplayMode old = device.getDisplayMode();
-		super.setIgnoreRepaint(true);
-		super.setResizable(false);
-		this.device.setFullScreenWindow(instance);
+		jframe.setIgnoreRepaint(true);
+		jframe.setResizable(false);
+		device.setFullScreenWindow(instance.jframe);
 		try {
 			device.setDisplayMode(displayMode);
 		} catch (IllegalArgumentException ex) {
 			device.setDisplayMode(old);
 		}
-
 	}
 
-	/** Disable the full display mode. */
+	/** Desabilita o modo tela cheia. */
 	public void restoreScreen() {
 		device.setFullScreenWindow(null);
-		super.setLocationRelativeTo(null);
+		jframe.setLocationRelativeTo(null);
 	}
 
 	/**
-	 * Sets the size of the screen
+	 * Define o tamanho da tela.
 	 * 
-	 * @param width
-	 * @param height
+	 * @param width  Largura da tela.
+	 * @param height Altura da tela.
 	 */
-	@Override
-	public void setSize(int width, int height) {
-		setResizable(true);
-		super.setSize(width, height);
+	public final void setSize(int width, int height) {
+		jframe.setResizable(true);
+		jframe.setSize(width, height);
 		setDisplayMode(new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN));
-		super.setLocationRelativeTo(null);
-		setResizable(false);
+		jframe.setLocationRelativeTo(null);
+		jframe.setResizable(false);
 	}
 
 	/**
-	 * Sets the dimension of the screen.
+	 * Atrase a execução do programa.
 	 * 
-	 * @param d
+	 * @param time Tempo em milisegundos.
 	 */
-	@Override
-	public void setSize(Dimension d) {
-		this.setSize(d.width, d.height);
+	public void delay(long time) {
+		try {
+			Thread.sleep(time);
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 
 	/**
-	 * COnfigura uma nova imagem para a seta do mouse.
+	 * Retorna a instância de Graphics.
 	 * 
-	 * @param pathImage O caminho da imagem.
+	 * @return graphics A instância de Graphics.
 	 */
-	public void setCursorImage(String pathImage) {
-		setCursor(createCustomCursor(pathImage));
+	public Graphics getGameGraphics() {
+		return graphics;
+	}
 
+	/**
+	 * Retorna o tempo decorrido entre o quadro anterior e o atual.
+	 * 
+	 * @return long Tempo em milisegundos.
+	 */
+	public long latecy() {
+		return currTime - lastTime;
+	}
+
+	/**
+	 * Desenha uma mensagem na tela.
+	 * 
+	 * @param message a mensagem a ser desenhada na tela.
+	 * @param x       Ponto do eixo x.
+	 * @param y       Ponto do eixo y.
+	 * @param color   A cor da mensagem.
+	 */
+	public void drawText(String message, int x, int y, Color color) {
+		graphics.setColor(color);
+		graphics.drawString(message, x, y);
+	}
+
+	/**
+	 * Desenha uma mensagem na tela.
+	 * 
+	 * @param message a mensagem a ser desenhada na tela.
+	 * @param x       Ponto do eixo x.
+	 * @param y       Ponto do eixo y.
+	 * @param color   A cor da mensagem.
+	 * @param font    A fonte da mensagem.
+	 */
+	public void drawText(String message, int x, int y, Color color, Font font) {
+		Graphics2D g2 = (Graphics2D) graphics;
+		g2.setFont(font);
+		g2.setColor(color);
+		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g2.drawString(message, x, y);
+	}
+
+	/**
+	 * Limpa a tela.
+	 * 
+	 * @param color A cor que irá sobrepor tudo.
+	 */
+	public void clear(Color color) {
+		graphics.setColor(color);
+		graphics.fillRect(0, 0, jframe.getWidth(), jframe.getHeight());
+	}
+
+	/**
+	 * Retorna uma matriz com os modos de exibição validas.
+	 * 
+	 * @return DisplayMode[] Matriz com os modos de exibição validas.
+	 * @see DisplayMode
+	 */
+	public DisplayMode[] getCompatibleDisplayMode() {
+		return device.getDisplayModes();
+	}
+
+	/** Encerra o programa. */
+	public void exit() {
+		jframe.dispose();
+		System.exit(0);
+	}
+
+	/**
+	 * Retorna a instância da tela.
+	 * 
+	 * @return Window A instância da tela.
+	 */
+	public static Window getInstance() {
+		return instance;
+	}
+
+	/**
+	 * Configura uma nova imagem para o mouse.
+	 * 
+	 * @param filePath O caminho do arquivo.
+	 */
+	public void setCursorImage(String filePath) {
+		jframe.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().getImage(filePath),
+				new java.awt.Point(), "cursor"));
+	}
+
+	/** Retorna o frame da tela. */
+	public JFrame getJFrame() {
+		return jframe;
+	}
+
+	/**
+	 * Retorna a instância do teclado.
+	 * 
+	 * @return Keyboard A instancia do teclado.
+	 */
+	public Keyboard getKeyboard() {
+		return keyboard;
+	}
+
+	/**
+	 * Retorna a instância do teclado.
+	 * 
+	 * @return Mouse A instância do mouse.
+	 */
+	public Mouse getMouse() {
+		return mouse;
+	}
+
+	/**
+	 * Retorna o tempo total de execução do aplicativo em milisegundos.
+	 * 
+	 * @return O tempo total de execução do aplicativo em milisegundos.
+	 */
+	public long getTotalTime() {
+		return totalTime;
 	}
 
 }
