@@ -7,6 +7,8 @@ package projetos.megaMan;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.wellington.jplay2D.imageProcessing.GameImage;
 import br.com.wellington.jplay2D.oi.Keyboard;
@@ -19,6 +21,7 @@ public class Janela {
 	private GameImage background;
 	private boolean loop = true;
 	private Boneco boneco;
+	private List<Tiro> balas = new ArrayList<Tiro>();
 
 	public Janela(int x, int y) {
 		window = new Window(x, y);
@@ -40,6 +43,13 @@ public class Janela {
 	private void draw() {
 		background.draw();
 		boneco.draw();
+		for (int i = 0; i < balas.size(); i++) {
+			Tiro tiro = balas.get(i);
+			if (tiro.move()) {
+				balas.remove(i--);
+			}
+
+		}
 		window.drawText("Pular:  Barra de espaço.", 20, 20, Color.YELLOW);
 		window.drawText("Atirar: Control.", 20, 40, Color.YELLOW);
 		window.drawText("Setas movem o boneco.", 20, 60, Color.YELLOW);
@@ -55,7 +65,7 @@ public class Janela {
 		boneco.jump();
 
 		if (keyboard.keyDown(KeyEvent.VK_CONTROL)) {
-			boneco.atira();
+			balas.add(boneco.atira());
 		}
 
 		if (keyboard.keyDown(Keyboard.LEFT_KEY)) {

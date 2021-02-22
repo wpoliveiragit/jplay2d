@@ -27,6 +27,7 @@ public class Tiro {
 			spriteTiro.x = spriteBoneco.x + 20;
 			passo = 6;
 		}
+		new Sound(MegaManMain.SOM_MUZZLESHOT).play();
 	}
 
 	/**
