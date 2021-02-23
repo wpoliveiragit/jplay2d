@@ -10,10 +10,6 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.World;
 
-/**
- *
- * @author Leandro Emiliano Guimarães ---UFF--- Computer Science
- */
 public class Physics {
 
 	public static double PIXELS_PER_METER = 30;
@@ -22,7 +18,7 @@ public class Physics {
 	private static double WIN_HEIGHT_PIXELS = 0;
 
 	private static float timeStep = 1f / 60f;
-	protected static float gravity = -9.8f; // Negative value implies downward gravitational force.
+	protected static float gravity = -9.8f; // O valor negativo implica força gravitacional para baixo.
 	private static float wind = 0f;
 
 	World world;
@@ -30,14 +26,15 @@ public class Physics {
 	ArrayList<Sprite> sprs = new ArrayList<Sprite>();
 
 	/**
-	 * The method below takes care of creating the world in which all objects will
-	 * be simulated.
+	 * O método a seguir se encarrega de criar o mundo no qual todos os objetos
+	 * serão simulados.
 	 * 
 	 * @param winWidth   window width (Window Class)
-	 * @param winHeight window height (Window Class) lowerbound and upperbound are
-	 *                  respectively the lower and upper bounds related to the space
-	 *                  corresponding to the physical world. wind - adds a
-	 *                  horizontal gravity can be used as wind.
+	 * @param winHeight window height (Window Class) O limite inferior e o limite
+	 *                  superior são, respectivamente, os limites inferior e
+	 *                  superior relacionados ao espaço correspondente ao mundo
+	 *                  físico. vento - adiciona uma gravidade horizontal pode ser
+	 *                  usado como vento.
 	 */
 	public void createWorld(double winWidth, double winHeight, float lowerBoundX, float lowerBoundY, float upperBoundX,
 			float upperBoundY, float wind, float gravity) {
@@ -60,13 +57,13 @@ public class Physics {
 	}
 
 	/**
-	 * Overloading of the public void createWorld(double winWidth,double winHeight,
-	 * float lowerBoundX, float lowerBoundY, float upperBoundX,float upperBoundY,
-	 * float wind , float gravity){ The parameters 'float lowerBoundX, float
-	 * lowerBoundY , float upperBoundX and float upperBoundY ' have respectively
-	 * -900f,900f,900f,-900f. The parameter 'float wind' is equal to 0. The
-	 * parameter 'float gravity' is equal to -9.8f (the value is negative but the
-	 * gravity is down).
+	 * Sobrecarga do void createWorld (double winWidth, double winHeight, float
+	 * lowerBoundX, float lowerBoundY, float upperBoundX, float upperBoundY, float
+	 * wind, float gravity) {Os parâmetros 'float lowerBoundX, float lowerBoundY,
+	 * float upperBoundX e float upperBoundY' têm respectivamente - 900f, 900f,
+	 * 900f, -900f. O parâmetro 'vento flutuante' é igual a 0. O parâmetro
+	 * 'gravidade flutuante' é igual a -9,8f (o valor é negativo, mas a gravidade é
+	 * baixa).
 	 */
 	public void createWorld(double winWidth, double winHeight) {
 
@@ -76,10 +73,11 @@ public class Physics {
 	}
 
 	/**
-	 * This method is responsible for creating a body of the sprite.
+	 * Este método é responsável por criar um corpo do sprite.
 	 * 
-	 * @param spr      - Path of the file
-	 * @param isStatic - 'true' for static bodies and 'false' for dynamic objects
+	 * @param spr      Caminho do arquivo
+	 * @param isStatic 'true' para corpos estáticos e 'falso' para objetos
+	 *                 dinâmicos.
 	 */
 	public void createBodyFromSprite(Sprite spr, boolean isStatic) {
 
@@ -118,50 +116,9 @@ public class Physics {
 		sprs.add(spr); // adiciona na lista
 
 	}
-//    public void createSphereBodyFromSprite(Sprite spr, boolean isStatic){
-//
-//        CircleDef cd = new CircleDef();
-//
-//        cd.radius=(float) ((spr.width/ 2)/PIXELS_PER_METER);
-//        cd.localPosition.set((float) pixelsToMeterX(spr.x+(spr.width/2)),(float) pixelsToMeterY((spr.y+(spr.height/2))) );
-//
-//        BodyDef bd = new BodyDef();
-//
-//        Body body = new Body(bd,world);
-//
-//        cd.density= (float) spr.getMass();
-//        cd.friction=(float) spr.getFriction();
-//        cd.restitution=(float) spr.getRestitution();
-//        bd.angle=  (float) spr.getRotation();
-//
-//        body= world.createBody(bd);
-//        body.createShape(cd);
-//
-//        if(!isStatic)
-//            body.setMassFromShapes();
-//
-//        spr.setBody(body);
-//        sprs.add(spr);
-//
-//    }
-//    public void checkPositionBodyWithSprite(){
-//
-//        for (int i = 0; i < sprs.size(); i++) {
-//
-//            if(sprs.get(i).x +sprs.get(i).width/2 != meterToPixels_X_Axis(sprs.get(i).getBody().getPosition().x)){
-//
-//                sprs.get(i).getBody().getPosition().x= (float)pixelsToMeterX(sprs.get(i).x +sprs.get(i).width/2);
-//            }
-//
-//            if(sprs.get(i).y + sprs.get(i).height/2 != meterToPixels_Y_Axis(sprs.get(i).getBody().getPosition().y)){
-//
-//                sprs.get(i).getBody().getPosition().y=(float)pixelsToMeterY(sprs.get(i).y + sprs.get(i).height/2);
-//            }
-//        }
-//    }
 
 	/**
-	 * Method responsible for updating all physical laws applied to the bodies
+	 * Método responsável por atualizar todas as leis físicas aplicadas aos corpos.
 	 */
 	public void update() {
 
@@ -184,14 +141,14 @@ public class Physics {
 
 	/**
 	 *
-	 * @param g - set the gravity value
+	 * @param g defina o valor da gravidade.
 	 */
 	public void setGravity(float g) {
 		gravity = -g;
 	}
 
 	/**
-	 * Returns the gravity value
+	 * Retorna o valor da gravidade.
 	 * 
 	 * @return float
 	 */
@@ -201,14 +158,14 @@ public class Physics {
 
 	/**
 	 *
-	 * @param w - set the wind value
+	 * @param w definir o valor do vento.
 	 */
 	public void setWind(float w) {
 		wind = w;
 	}
 
 	/**
-	 * Returns the wind value
+	 * Retorna o valor do vento.
 	 * 
 	 * @return float
 	 */
@@ -221,7 +178,7 @@ public class Physics {
 	}
 
 	/**
-	 * Set the window width
+	 * Defina a largura da janela.
 	 * 
 	 * @param width - window width (Window Class).
 	 */
@@ -230,7 +187,7 @@ public class Physics {
 	}
 
 	/**
-	 * Set the window height
+	 * Defina a altura da janela.
 	 * 
 	 * @param height - window height (Window Class).
 	 */
@@ -239,9 +196,9 @@ public class Physics {
 	}
 
 	/**
-	 * Sets the rate.
+	 * Define a taxa.
 	 * 
-	 * @param ts - TimeStep. The default value = 1f/60f.
+	 * @param ts - TimeStep. O valor padrão = 1f / 60f.
 	 */
 	public void setTimeStep(float ts) {
 		timeStep = ts;

@@ -28,18 +28,18 @@ public class Animation extends GameImage {
 	private long lastTime;
 
 	/**
-	 * The constructor creates a class object animation. The sequence set up to
-	 * start in the frame one and goes until the lastFrame that is equal to
-	 * totalFrames. For example: setSequence(0, totalFrames). 0 = initial frame.
+	 * O construtor cria uma animação de objeto de classe. A sequência é configurada
+	 * para começar no quadro um e vai até o último quadro que é igual a
+	 * totalFrames. Por exemplo: setSequence (0, totalFrames). 0 = quadro inicial.
 	 * lastFrame = totalFrames.
 	 * 
-	 * @param fileName    Name and image path.
-	 * @param totalFrames Number of frames that form the image.
-	 * @param It          says if the animation is performed repeatedly. If the
-	 *                    value is true when the last frame is shown the next frame
-	 *                    will be the first. However, if the value is false when the
-	 *                    last frame is shown the animation will remain showing the
-	 *                    last frame indefinitely.
+	 * @param fileName    Caminho do nome e da imagem.
+	 * @param totalFrames Número de quadros que formam a imagem.
+	 * @param It          diz se a animação é executada repetidamente. Se o valor
+	 *                    for verdadeiro quando o último quadro for mostrado, o
+	 *                    próximo quadro será o primeiro. No entanto, se o valor for
+	 *                    falso quando o último quadro for mostrado, a animação
+	 *                    permanecerá mostrando o último quadro indefinidamente.
 	 */
 	public Animation(String fileName, int totalFrames, boolean loop) {
 		super(fileName);
@@ -54,45 +54,45 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Overloading of the constructor public Animation(String fileName, int
-	 * totalFrames, boolean loop). The parameter 'boolean loop' has the value true.
+	 * Sobrecarga do construtor public Animation (String fileName, int totalFrames,
+	 * boolean loop). O parâmetro 'loop booleano' tem o valor true.
 	 */
 	public Animation(String fileName, int totalFrames) {
 		this(fileName, totalFrames, true);
 	}
 
 	/**
-	 * Overloading of the constructor public Animation(String fileName, int
-	 * totalFrames, boolean loop). The parameter 'boolean loop' has the value true.
-	 * The parameter 'int totalFrames' is equal to 1.
+	 * Sobrecarga do construtor public Animation (String fileName, int totalFrames,
+	 * boolean loop). O parâmetro 'loop booleano' tem o valor true. O parâmetro 'int
+	 * totalFrames' é igual a 1.
 	 */
 	public Animation(String fileName) {
 		this(fileName, 1, true);
 	}
 
 	/**
-	 * Set up the time which the frame will be shown on screen.
+	 * Configure a hora em que o quadro será mostrado na tela.
 	 * 
-	 * @param frame Number of the frame
-	 * @param time  Milliseconds time which the frame will be shown on screen.
+	 * @param frame Número do quadro.
+	 * @param time  Tempo em milissegundos em que o quadro será mostrado na tela.
 	 */
 	public void setDuration(int frame, long time) {
 		frameDuration[frame] = time;
 	}
 
 	/**
-	 * Return the time in which the frame is shown on screen.
+	 * Retorne a hora em que o quadro é mostrado na tela.
 	 * 
-	 * @param frame number of frame
-	 * @return long - the time in milliseconds
+	 * @param frame número de quadros.
+	 * @return long o tempo em milissegundos.
 	 */
 	public long getDuration(int frame) {
 		return frameDuration[frame];
 	}
 
 	/**
-	 * Set the initial and final frame in the sequence of animation. The sequence
-	 * will run indefinitely.
+	 * Defina o quadro inicial e final na sequência de animação. A sequência será
+	 * executada indefinidamente.
 	 * 
 	 * @param initialFrame
 	 * @param finalFrame
@@ -102,8 +102,8 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Set the initial and final frame in the sequence of animation. And if the
-	 * animation will run indefinitely.
+	 * Defina o quadro inicial e final na sequência de animação. E se a animação vai
+	 * rodar indefinidamente.
 	 * 
 	 * @param initialFrame
 	 * @param finalFrame
@@ -117,7 +117,8 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Set the initial and final frame in the sequence of animation and the runtime.
+	 * Defina o quadro inicial e final na sequência de animação e o tempo de
+	 * execução.
 	 * 
 	 * @param initialFrame
 	 * @param finalFrame
@@ -128,13 +129,13 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Set the initial and final frame in the sequence of animation, the runtime and
-	 * if it will run indefinitely.
+	 * Defina o quadro inicial e final na sequência de animação, o tempo de execução
+	 * e se ela será executada indefinidamente.
 	 * 
 	 * @param initialFrame
 	 * @param finalFrame
 	 * @param time
-	 * @param loop         True for indefinitely, false otherwise.
+	 * @param loop         True para indefinidamente, falso caso contrário.
 	 */
 
 	public void setSequenceTime(int initialFrame, int finalFrame, boolean loop, long time) {
@@ -145,7 +146,7 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * This method tells whether the animation is looped.
+	 * Este método informa se a animação está em loop.
 	 * 
 	 * @return boolean
 	 */
@@ -153,17 +154,15 @@ public class Animation extends GameImage {
 		return loop;
 	}
 
-	/*
-	 * Sets the time for all frames. When the time is passed, the division between
-	 * totalDuration and totalFrames it would leave some rest: Example:
-	 * totalDuration = 100 totalFrames = 11 timeFrame = 100/11 = 9 rest = 100 - 11 *
-	 * 9 = 1
+	/**
+	 * Define a hora para todos os quadros. Quando o tempo passa, a divisão entre
+	 * totalDuration e totalFrames deixará algum resto: Exemplo: totalDuration = 100
+	 * totalFrames = 11 timeFrame = 100/11 = 9 rest = 100 - 11 * 9 = 1
 	 *
 	 * So, the real totalDuration is (time / numberFrames) * numberFrames
 	 * 
-	 * @param time milisecond time
+	 * @param time milissegundo.
 	 */
-
 	public void setTotalDuration(long time) {
 		long timeFrame = time / totalFrames;
 		totalDuration = timeFrame * totalFrames;
@@ -172,7 +171,7 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Returns the sum of all time frames.
+	 * Retorna a soma de todos os intervalos de tempo.
 	 * 
 	 * @return long
 	 */
@@ -182,7 +181,7 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Method responsible for performing the change of frames.
+	 * Método responsável por realizar a troca de frames.
 	 */
 	public void update() {
 		if (playing) {
@@ -202,7 +201,7 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Stops execution and puts the initial frame as the current frame.
+	 * Para a execução e coloca o quadro inicial como o quadro atual.
 	 */
 	public void stop() {
 		this.currFrame = initialFrame;
@@ -210,30 +209,30 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Method responsible for starting the execution of the animation.
+	 * Método responsável por iniciar a execução da animação.
 	 */
 	public void play() {
 		this.playing = true;
 	}
 
 	/**
-	 * Method responsible for pausing the animation.
+	 * Método responsável por pausar a animação.
 	 */
 	public void pause() {
 		this.playing = false;
 	}
 
 	/**
-	 * Sets the initial frame of the sequence of frames.
+	 * Define o quadro inicial da seqüência de quadros.
 	 * 
-	 * @param frame number of frame
+	 * @param frame número de quadros.
 	 */
 	public void setInitialFrame(int frame) {
 		this.initialFrame = frame;
 	}
 
 	/**
-	 * Returns the number of initial frame.
+	 * Retorna o número do quadro inicial.
 	 * 
 	 * @return int
 	 */
@@ -242,16 +241,16 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Sets the final frame of the sequence of frames.
+	 * Define o quadro final da sequência de quadros.
 	 * 
-	 * @param frame number of frame.
+	 * @param frame número de quadros.
 	 */
 	public void setFinalFrame(int frame) {
 		this.finalFrame = frame;
 	}
 
 	/**
-	 * Returns the number of final frame of the sequence of frames.
+	 * Retorna o número do quadro final da sequência de quadros.
 	 * 
 	 * @return int
 	 */
@@ -260,16 +259,16 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Sets the current frame that will be drawn.
+	 * Define o quadro atual que será desenhado.
 	 * 
-	 * @param frame number of frame.
+	 * @param frame número de quadros.
 	 */
 	public void setCurrFrame(int frame) {
 		currFrame = frame;
 	}
 
 	/**
-	 * Returns the number of current frame.
+	 * Retorna o número do quadro atual.
 	 * 
 	 * @return int
 	 */
@@ -278,7 +277,8 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Returns true if the animation is being executed, false otherwise.
+	 * Returns verdadeiro se a animação estiver sendo executada, falso caso
+	 * contrário.
 	 * 
 	 * @return boolean
 	 */
@@ -287,22 +287,23 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * This method is responsible for not allowing to drawn the animation on screen.
+	 * Este método é responsável por não permitir o desenho da animação na tela.
 	 */
 	public void hide() {
 		this.drawable = false;
 	}
 
 	/**
-	 * Method responsible for allowing the animation to draw on the screen.
+	 * Método responsável por permitir que a animação seja desenhada na tela.
 	 */
 	public void unhide() {
 		this.drawable = true;
 	}
 
 	/**
-	 * Method responsible for informing the class that the animation will not be run
-	 * indefinitely. True to run indefinitely, false otherwise.
+	 * Método responsável por informar a classe que a animação não será executada
+	 * indefinidamente. Verdadeiro para executar indefinidamente, falso caso
+	 * contrário.
 	 */
 
 	public void setLoop(boolean value) {
@@ -310,7 +311,7 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Draws the animtion on escreen.
+	 * Desenha a animação na tela.
 	 */
 	@Override
 	public void draw() {
@@ -334,12 +335,4 @@ public class Animation extends GameImage {
 		}
 	}
 
-//    @Override
-//    public void draw()
-//    {
-//            if (drawable)
-//                Window.getInstance().getGameGraphics().drawImage(image, (int) x,
-//                        (int) y, (int) x + width, (int) y + height, currFrame * width,
-//                        0, (currFrame + 1) * width, height, null);
-//    }
 }

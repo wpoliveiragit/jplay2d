@@ -8,20 +8,20 @@ import javax.swing.ImageIcon;
 
 import br.com.wellington.jplay2D.window.Window;
 
-/** Class responsible for modeling an image. */
+/** Classe responsável por modelar uma imagem. */
 public class GameImage extends GameObject {
 
 	/**
-	 * Reference for an Image.
+	 * Referência para uma imagem.
 	 * 
 	 * @see java.awt.Image
 	 */
 	Image image;
 
 	/**
-	 * Class constructor, it loads an image.
+	 * Construtor de classe, carrega uma imagem.
 	 * 
-	 * @param fileName path of the image and its name.
+	 * @param fileName caminho da imagem e seu nome.
 	 * @see #loadImage(java.lang.String)
 	 */
 	public GameImage(String fileName) {
@@ -29,9 +29,9 @@ public class GameImage extends GameObject {
 	}
 
 	/**
-	 * This method loads an image.
+	 * Este método carrega uma imagem.
 	 * 
-	 * @param fileName path of the image and its name.
+	 * @param fileName caminho da imagem e seu nome.
 	 */
 	public void loadImage(String fileName) {
 		ImageIcon icon = new ImageIcon(fileName);
@@ -40,7 +40,7 @@ public class GameImage extends GameObject {
 		this.height = image.getHeight(null);
 	}
 
-	/** Draw an image on the screen. */
+	/** Desenhe uma imagem na tela. */
 	public void draw() {
 		Graphics2D g2d = (Graphics2D) Window.getInstance().getGameGraphics();
 		AffineTransform tx = new AffineTransform();

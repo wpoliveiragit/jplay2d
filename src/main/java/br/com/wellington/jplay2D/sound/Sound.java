@@ -14,10 +14,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-/**
- *
- * Class responsible for controlling the execution of sounds.
- */
+/** controla a execução dos sons. */
 public class Sound {
 	private AudioFormat audioFormat;
 	private AudioInputStream audioInputStream;
@@ -31,8 +28,7 @@ public class Sound {
 	private String fileName;
 
 	/**
-	 * Class Constructor. Create an instance of this class. The sound will be
-	 * executed only once.
+	 * Crie uma instância desta classe. O som será executado apenas uma vez.
 	 * 
 	 * @param fileName
 	 */
@@ -43,7 +39,7 @@ public class Sound {
 	}
 
 	/**
-	 * Loads a sound.
+	 * Carrega um som.
 	 * 
 	 * @param fileName File path.
 	 */
@@ -67,9 +63,9 @@ public class Sound {
 	}
 
 	/**
-	 * Method responsible for increasing the volume.
+	 * Aumenta o volume.
 	 * 
-	 * @param value This value will be added to the current volume value.
+	 * @param value Este valor será adicionado ao valor do volume atual.
 	 */
 	public void increaseVolume(float value) {
 		volume += value;
@@ -77,9 +73,9 @@ public class Sound {
 	}
 
 	/**
-	 * Method responsible for decrease the volume.
+	 * diminui o volume.
 	 * 
-	 * @param value This value will be subtracted from the current volume value.
+	 * @param value Este valor será subtraído do valor de volume atual.
 	 */
 	public void decreaseVolume(float value) {
 		volume -= value;
@@ -87,7 +83,7 @@ public class Sound {
 	}
 
 	/**
-	 * Sets the current volume.
+	 * Define o volume atual.
 	 * 
 	 * @param value
 	 */
@@ -97,7 +93,7 @@ public class Sound {
 	}
 
 	/**
-	 * Starts the execution of the sound.
+	 * Inicia a execução do som.
 	 */
 	public void play() {
 		if (pause == false) {
@@ -109,7 +105,7 @@ public class Sound {
 	}
 
 	/**
-	 * Stops the execution of the sound.
+	 * Pára a execução do som.
 	 */
 	public void stop() {
 		stop = true;
@@ -118,7 +114,7 @@ public class Sound {
 	}
 
 	/**
-	 * Pauses the execution of the sound.
+	 * Pausa a execução do som.
 	 */
 	public void pause() {
 		pause = true;
@@ -133,7 +129,7 @@ public class Sound {
 				sourceDataLine.open(audioFormat);
 				sourceDataLine.start();
 
-				// while there are dates to execute and stop == false
+				// enquanto houver datas para executar e parar == false
 				int count = 0;
 				while (count != -1 && stop == false) {
 					if (pause == false)
@@ -141,7 +137,7 @@ public class Sound {
 					else
 						count = 0;
 
-					// If there are dates to execute
+					// Se houver datas para executar
 					if (count > 0) {
 						if (volumeChanged) {
 							FloatControl volControl = (FloatControl) sourceDataLine
@@ -172,7 +168,7 @@ public class Sound {
 	}
 
 	/**
-	 * This method is responsible for making the sound to run indefinitely.
+	 * Este método é responsável por fazer com que o som seja executado indefinidamente.
 	 * 
 	 * @param value
 	 */
@@ -181,7 +177,7 @@ public class Sound {
 	}
 
 	/**
-	 * Returns true if the sound is running, false otherwise.
+	 * Retorna verdadeiro se o som está rodando, falso caso contrário.
 	 * 
 	 * @return boolean
 	 */

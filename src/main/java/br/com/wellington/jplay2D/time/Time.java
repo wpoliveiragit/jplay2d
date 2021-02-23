@@ -8,9 +8,7 @@ import javax.swing.Timer;
 
 import br.com.wellington.jplay2D.window.Window;
 
-/**
- * Class used to manipulate time.
- */
+/** Classe usada para manipular o tempo. */
 public class Time {
 	private Timer timer;
 	private Font font;
@@ -24,34 +22,34 @@ public class Time {
 	private boolean crescentTime;
 
 	/**
-	 * Creates an instance of the class Time. The time will have house = 0, minute =
-	 * 0, seconds = 0. It will be drawn on the screen with the font = Arial, size=
-	 * 20 and the color = yellow.
+	 * Cria uma instância da classe Time. O tempo terá casa = 0, minuto = 0,
+	 * segundos = 0. Será desenhado na tela com a fonte = Arial, tamanho = 20 e a
+	 * cor = amarelo.
 	 * 
-	 * @param x            value of the coordinate X.
-	 * @param y            value of the coordinate Y.
-	 * @param crescentTime true if the is crescent, false otherwise.
+	 * @param x            valor da coordenada X.
+	 * @param y            valor da coordenada y.
+	 * @param crescentTime verdadeiro se o for crescente, falso caso contrário.
 	 */
 	public Time(int x, int y, boolean crescentTime) {
 		this(0, 0, 0, x, y, crescentTime);
 	}
 
 	/**
-	 * Creates an instance of the class Time.
+	 * Cria uma instância da classe Time.
 	 * 
 	 * @param hour
 	 * @param minute
 	 * @param second
 	 * @param x
 	 * @param y
-	 * @param crescentTime true if the is crescent, false otherwise.
+	 * @param crescentTime true se for crescente, falso caso contrário.
 	 */
 	public Time(int hour, int minute, int second, int x, int y, boolean crescentTime) {
 		this(hour, minute, second, x, y, new Font("Arial", Font.TRUETYPE_FONT, 20), Color.YELLOW, crescentTime);
 	}
 
 	/**
-	 * Creates an instance of the class Time.
+	 * Cria uma instância da classe Time.
 	 * 
 	 * @param hour
 	 * @param minute
@@ -60,7 +58,7 @@ public class Time {
 	 * @param y
 	 * @param font
 	 * @param color
-	 * @param crescentTime True if the time is crescent, false otherwise.
+	 * @param crescentTime True se o tempo for crescente, caso contrário, false.
 	 */
 	public Time(int hour, int minute, int second, int x, int y, Font font, Color color, boolean crescentTime) {
 		this.x = x;
@@ -95,7 +93,7 @@ public class Time {
 	}
 
 	/**
-	 * Returns a string with the time. The time format is hour/min/second
+	 * Retorna uma string com o tempo. O formato da hora é hora / min / segundo
 	 * (00/00/00).
 	 * 
 	 * @return String
@@ -123,7 +121,7 @@ public class Time {
 	}
 
 	/**
-	 * Draws a message before the time on the screen.
+	 * Desenha uma mensagem antes da hora na tela.
 	 * 
 	 * @param message
 	 */
@@ -132,14 +130,14 @@ public class Time {
 	}
 
 	/**
-	 * Draws the time on the screen.
+	 * Desenha a hora na tela.
 	 */
 	public void draw() {
 		Window.getInstance().drawText(toString(), x, y, color, font);
 	}
 
 	/**
-	 * Sets the color used to drawn the time on the screen.
+	 * Define a cor usada para desenhar o tempo na tela.
 	 * 
 	 * @param color
 	 */
@@ -148,7 +146,7 @@ public class Time {
 	}
 
 	/**
-	 * Sets the font used to drawn the time on the screen.
+	 * Define a fonte usada para desenhar a hora na tela.
 	 * 
 	 * @param color
 	 */
@@ -161,8 +159,8 @@ public class Time {
 	}
 
 	/**
-	 * Returns true when the time comes to zero, false otherwise. It's only work if
-	 * the time is crescent.
+	 * Retorna verdadeiro quando chega a hora zero, falso caso contrário. Só dá
+	 * certo se o tempo for crescente.
 	 * 
 	 * @param boolean
 	 */
@@ -171,7 +169,7 @@ public class Time {
 	}
 
 	/**
-	 * Sets the hours.
+	 * Define a hora.
 	 * 
 	 * @param hour
 	 */
@@ -180,7 +178,7 @@ public class Time {
 	}
 
 	/**
-	 * Sets the minutes.
+	 * Define o minudo.
 	 * 
 	 * @param minute
 	 */
@@ -189,7 +187,7 @@ public class Time {
 	}
 
 	/**
-	 * Sets the seconds.
+	 * Define o segundo
 	 * 
 	 * @param second
 	 */
@@ -198,7 +196,7 @@ public class Time {
 	}
 
 	/**
-	 * Returns the hours.
+	 * Retorna a hora.
 	 * 
 	 * @return int
 	 */
@@ -207,7 +205,7 @@ public class Time {
 	}
 
 	/**
-	 * Returns the minutes.
+	 * retorna o minuto.
 	 * 
 	 * @return int
 	 */
@@ -216,7 +214,7 @@ public class Time {
 	}
 
 	/**
-	 * Returns the seconds.
+	 * retorna o segundo.
 	 * 
 	 * @return int
 	 */
@@ -225,8 +223,8 @@ public class Time {
 	}
 
 	/**
-	 * Returns the time in seconds. Example: 1h 29 min e 45 seconds will be returned
-	 * as 1*60*60 + 29*60 + 45 = 217785 seconds.
+	 * Retorna o tempo em segundos. Exemplo: 1h 29 min e 45 segundos será retornado
+	 * como 1 * 60 * 60 + 29 * 60 + 45 = 217785 segundos.
 	 * 
 	 * @return long
 	 */
@@ -235,7 +233,7 @@ public class Time {
 	}
 
 	/**
-	 * Sets the current time.
+	 * Define o tempo atual.
 	 * 
 	 * @param hour
 	 * @param minute

@@ -26,7 +26,7 @@ import br.com.wellington.jplay2D.window.Window;
 public class Scene {
 	private GameImage backDrop;
 	private GameImage[] tiles;
-	private String nameImages[];// It is used when we want to save the state of the scene
+	private String nameImages[];// É usado quando queremos salvar o estado da cena
 	private ArrayList tileLayer;
 	private ArrayList overlays;
 	private int drawStartX = 0;
@@ -44,9 +44,9 @@ public class Scene {
 	}
 
 	/**
-	 * Loads a scene from a file.
+	 * Carrega uma cena de um arquivo.
 	 * 
-	 * @param sceneFile File path.
+	 * @param sceneFile Caminho de arquivo.
 	 */
 	public void loadFromFile(String sceneFile) {
 		tileLayer = new ArrayList();
@@ -55,21 +55,21 @@ public class Scene {
 		try {
 			BufferedReader input = new BufferedReader(new FileReader(new File(sceneFile)));
 
-			// first read the number of tile images
+			// primeiro leia o número de imagens de blocos
 			String line = input.readLine();
 			int numOfTileImages = Integer.parseInt(line, 10);
 			tiles = new GameImage[numOfTileImages];
 			nameImages = new String[numOfTileImages + 1];
 
 			for (int i = 0; i < numOfTileImages; i++) {
-				// read each tile image name
+				// leia o nome de cada imagem de bloco
 				line = input.readLine();
 				tiles[i] = new Sprite(line);
 				nameImages[i] = line;
 			}
 
-			// now read the tile set map until the final
-			// character is found "%"
+			// agora leia o mapa do conjunto de blocos até o final
+			// caractere encontrado "%"
 			String endTileSet = "%";
 
 			line = input.readLine();
@@ -89,7 +89,7 @@ public class Scene {
 				line = input.readLine();
 			}
 
-			// now read the backdrop file
+			//agora leia o arquivo do pano de fundo
 			line = input.readLine();
 			backDrop = new GameImage(line);
 			nameImages[numOfTileImages] = line;
@@ -100,16 +100,16 @@ public class Scene {
 	}
 
 	/**
-	 * Adds a overlay scene.
+	 * Adiciona uma cena de sobreposição.
 	 * 
-	 * @param overlay Any GameObject.
+	 * @param overlay Qualquer GameObject.
 	 */
 	public void addOverlay(GameObject overlay) {
 		overlays.add(overlay);
 	}
 
 	/**
-	 * Sets the initial X and Y position will be used to draw the scene.
+	 * Define a posição inicial X e Y que será usada para desenhar a cena.
 	 * 
 	 * @param drawStartX
 	 * @param drawStartY
@@ -123,17 +123,17 @@ public class Scene {
 	 * Draws the scene on the screen.
 	 */
 	public void draw() {
-		// first clear the scene
+		// primeiro limpe a cena
 		Graphics g = Window.getInstance().getGameGraphics();
 		Window.getInstance().clear(Color.BLACK);
 
-		// first draw the backdrop
+		// primeiro desenhe o pano de fundo
 		int startDrawX = drawStartX;
 		int startDrawY = drawStartY;
 
 		backDrop.draw();
 
-		// now draw the tile set
+		// agora desenhe o conjunto de peças
 		int tileWidth = tiles[0].width;
 		int tileHeight = tiles[0].height;
 
@@ -161,7 +161,7 @@ public class Scene {
 
 		} while (line < tileLayer.size());
 
-		// finally draw the overlays
+		// finalmente desenhe as sobreposições
 		for (int i = 0; i < overlays.size(); i++) {
 			GameImage element = (GameImage) overlays.get(i);
 			element.draw();
@@ -169,10 +169,10 @@ public class Scene {
 	}
 
 	/**
-	 * Returns the file info stored in the row and column position of matrix.
+	 * Retorna as informações do arquivo armazenadas na posição da linha e coluna da matriz.
 	 * 
-	 * @param row    Row in the matrix.
-	 * @param colunm Column in the matrix.
+	 * @param row    Linha na matriz.
+	 * @param colunm Coluna na matriz.
 	 * @return TileInfo
 	 */
 	public TileInfo getTile(int row, int colunm) {
@@ -181,10 +181,10 @@ public class Scene {
 	}
 
 	/**
-	 * Returns the Tiles below the area bounded by max and min points.
+	 * Retorna os blocos abaixo da área limitada pelos pontos máximo e mínimo.
 	 * 
-	 * @param min Upper left corner point of the area.
-	 * @param max Lower right point of the area.
+	 * @param min Ponto do canto superior esquerdo da área.
+	 * @param max Ponto inferior direito da área.
 	 * @return Vector
 	 */
 	@SuppressWarnings("UseOfObsoleteCollectionType")
@@ -282,7 +282,7 @@ public class Scene {
 	}
 
 	/**
-	 * Removes a tile from the matrix.
+	 * Remove um ladrilho da matriz.
 	 * 
 	 * @param row
 	 * @param colunm
@@ -294,12 +294,11 @@ public class Scene {
 	}
 
 	/**
-	 * Changes the id tile storage in the matrix.
+	 * Altera o armazenamento do bloco de id na matriz.
 	 * 
-	 * @param row    Row of the matrix.
-	 * @param colunm Colunm of the matrix.
-	 * @param newID  New code which will replace the old Id represented for the row
-	 *               and column.
+	 * @param row    Linha da matriz.
+	 * @param colunm Coluna da matriz.
+	 * @param newID  Novo código que irá substituir o antigo Id representado pela linha e coluna.
 	 */
 	public void changeTile(int row, int colunm, int newID) {
 		ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(row);
@@ -307,9 +306,9 @@ public class Scene {
 	}
 
 	/**
-	 * Save the current state of the scene in a new file.
+	 * Salve o estado atual da cena em um novo arquivo.
 	 * 
-	 * @param fileName Path of the file to save the scene.
+	 * @param fileName Caminho do arquivo para salvar a cena.
 	 */
 	public void saveToFile(String fileName) {
 		try {
@@ -340,7 +339,7 @@ public class Scene {
 	}
 
 	public void moveScene(GameObject object) {
-		// first clear the scene
+		// primeiro limpe a cena
 		Graphics g = Window.getInstance().getGameGraphics();
 		Window.getInstance().clear(Color.BLACK);
 		xOffset = 0;
@@ -348,7 +347,7 @@ public class Scene {
 
 		backDrop.draw();
 
-		// now draw the tile set
+		// agora desenhe o conjunto de peças
 		int tileWidth = tiles[0].width;
 		int tileHeight = tiles[0].height;
 
@@ -382,7 +381,7 @@ public class Scene {
 
 		} while (line < tileLayer.size());
 
-		// finally draw the overlays
+		// finalmente desenhe as sobreposições
 		for (int i = 0; i < overlays.size(); i++) {
 			GameImage element = (GameImage) overlays.get(i);
 			element.draw();

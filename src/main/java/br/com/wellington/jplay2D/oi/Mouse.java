@@ -8,7 +8,7 @@ import java.awt.event.MouseMotionListener;
 import br.com.wellington.jplay2D.imageProcessing.GameObject;
 
 /**
- * Class responsible for handling mouse actions.
+ * Classe responsável por controlar as ações do mouse.
  */
 public class Mouse extends InputBase implements MouseMotionListener, MouseListener {
 
@@ -23,21 +23,21 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	public static final int BUTTON_RIGHT = 3;
 
 	/**
-	 * Class constructor. Creates an instance of the mouse positioned at (x=0, y=0).
-	 * The behavior of the buttons (right, middle, left) is
+	 * Construtor de classe. Cria uma instância do mouse posicionada em (x = 0, y =
+	 * 0). O comportamento dos botões (direito, meio, esquerdo) é
 	 * DECTECT_INITIAL_PRESS_ONLY.
 	 */
 	public Mouse() {
 		mousePosition = new Point(0, 0);
 
-		// Add the default buttons
+		// Adicione os botões padrão
 		leftButton = new InputAction(InputBase.DETECT_INITIAL_PRESS_ONLY);
 		middleButton = new InputAction(InputBase.DETECT_INITIAL_PRESS_ONLY);
 		rightButton = new InputAction(InputBase.DETECT_INITIAL_PRESS_ONLY);
 	}
 
 	/**
-	 * Returns the position of the mouse on the screen.
+	 * Retorna a posição do mouse na tela.
 	 * 
 	 * @return Point
 	 */
@@ -46,7 +46,8 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Returns true if the left button is pressed, otherwise false.
+	 * Retorna verdadeiro se o botão esquerdo for pressionado, caso contrário,
+	 * falso.
 	 * 
 	 * @return boolean
 	 */
@@ -55,7 +56,7 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Returns true if the middle button is pressed, otherwise false.
+	 * Retorna verdadeiro se o botão do meio é pressionado; caso contrário, é falso.
 	 * 
 	 * @return boolean
 	 */
@@ -64,7 +65,7 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Returns true if the right button is pressed, otherwise false.
+	 * Retorna verdadeiro se o botão direito for pressionado, caso contrário, falso.
 	 * 
 	 * @return boolean
 	 */
@@ -73,12 +74,11 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Sets the behavior of the mouse.
+	 * Define o comportamento do mouse.
 	 * 
-	 * @param numberBotton it's represent the mouse button and can be BUTTON_LEFT,
-	 *                     BUTTON_MIDDLE or BUTTON RIGHT.
-	 * @param behabior     it's can be DETECT_EVERY_PRESS or
-	 *                     DETECT_INITIAL_PRESS_ONLY.
+	 * @param numberBotton ele representa o botão do mouse e pode ser BOTÃO
+	 *                     ESQUERDO, BOTÃO MEIO ou BOTÃO DIREITO.
+	 * @param behabior     pode ser DETECT_EVERY_PRESS ou DETECT_INITIAL_PRESS_ONLY.
 	 */
 	public void setBehavior(int numberBotton, int behavior) {
 		switch (numberBotton) {
@@ -140,9 +140,9 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Returns true if the mouse is over an object, otherwise, return false.
+	 * Retorna verdadeiro se o mouse estiver sobre um objeto; caso contrário, retorna falso.
 	 * 
-	 * @param obj any GameObject.
+	 * @param obj qualquer GameObject.
 	 * @return boolean
 	 */
 
@@ -153,10 +153,10 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Returns true if the mouse is over an object, otherwise, return false.
+	 * Retorna verdadeiro se o mouse estiver sobre um objeto; caso contrário, retorna falso.
 	 * 
-	 * @param start initial point of the area.
-	 * @param end   final point of the area.
+	 * @param start ponto inicial da área.
+	 * @param end   ponto final da área.
 	 * @return boolean
 	 */
 	public boolean isOverArea(Point start, Point end) {
@@ -164,12 +164,12 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Returns true if the mouse is over an area, otherwise, return false
+	 * Retorna verdadeiro se o mouse estiver sobre uma área, caso contrário retorna falso
 	 * 
-	 * @minX minus value of the axes X.
-	 * @minY minus value of the axes Y.
-	 * @maxX minus value of the axes X.
-	 * @maxX minus value of the axes Y.
+	 * @minX minus valor dos eixos X.
+	 * @minY minus valor dos eixos Y.
+	 * @maxX minus valor dos eixos X.
+	 * @maxX minus valor dos eixos Y.
 	 * @return boolean
 	 */
 	public boolean isOverArea(int minX, int minY, int maxX, int maxY) {

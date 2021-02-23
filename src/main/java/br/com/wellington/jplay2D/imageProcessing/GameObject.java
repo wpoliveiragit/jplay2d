@@ -1,33 +1,32 @@
 package br.com.wellington.jplay2D.imageProcessing;
 
 /**
- * The most basic class presents in the framework. Base class for almost all
- * classes of this framework.
+ * A classe mais básica apresentada no framework. Classe base para quase todas
+ * as classes deste framework.
  */
-
 public class GameObject {
 
 	/**
-	 * Image position on the screen. Axis x (horizontal). When its value is used for
-	 * drawing it's converted to an integer.
+	 * Posição da imagem na tela. Eixo x (horizontal). Quando seu valor é usado para
+	 * desenho, ele é convertido em um inteiro.
 	 */
 	public double x;
 
 	/**
-	 * Image position on the screen. Axis y (vertical). When its value is used for
-	 * drawing it's converted to an integer.
+	 * Posição da imagem na tela. Eixo y (vertical). Quando seu valor é usado para
+	 * desenho, ele é convertido em um inteiro.
 	 */
 	public double y;
 
-	/** The width in pixels of the image. */
+	/** A largura em pixels da imagem. */
 	public int width;
 
-	/** The height in pixels of the image. */
+	/** A altura em pixels da imagem. */
 	public int height;
 
 	/**
-	 * Create a GameObject positioned in the x =0, y=0, and its dimension is width =
-	 * 0 and height = 0.
+	 * Crie um GameObject posicionado em x = 0, y = 0 e sua dimensão é largura = 0 e
+	 * altura = 0.
 	 */
 
 	protected double rotation = 0;
@@ -40,10 +39,10 @@ public class GameObject {
 	}
 
 	/**
-	 * Method used for knowing if a GameObject collided with other GameObject.
+	 * Método usado para saber se um GameObject colidiu com outro GameObject.
 	 * 
-	 * @param GameObject Target GameObject to verify if there was a collision.
-	 * @return boolean - true if collided, false otherwise.
+	 * @param GameObject Almeje GameObject para verificar se houve uma colisão.
+	 * @return boolean - verdadeiro se colidiu, falso caso contrário.
 	 */
 	public boolean collided(GameObject obj) {
 		return Collision.collided(this, obj);

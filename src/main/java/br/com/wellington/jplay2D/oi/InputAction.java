@@ -1,8 +1,8 @@
 package br.com.wellington.jplay2D.oi;
 
 /**
- * Class used for handle actions: release, press or keep pressed a button or a
- * key. This class is not associated with a key or a button.
+ * Classe usada para manipular ações: soltar, pressionar ou manter pressionado
+ * um botão ou tecla. Esta classe não está associada a uma tecla ou botão.
  * 
  * @see Keyboard and a Mouse.
  */
@@ -17,10 +17,10 @@ class InputAction {
 	private int state;
 
 	/**
-	 * Create a new InputAction with specific behavior, with the state = released
-	 * and amount of clicks equal 0.
+	 * Crie uma nova Ação de entrada com comportamento específico, com o estado =
+	 * liberado e a quantidade de cliques igual a 0.
 	 * 
-	 * @param behavior - it's can be DETECT_EVERY_PRESS or DETECT_INITIAL_PRESS_ONLY
+	 * @param behavior - pode ser DETECT_EVERY_PRESS ou DETECT_INITIAL_PRESS_ONLY
 	 * @version 1.0
 	 */
 	public InputAction(int behavior) {
@@ -30,10 +30,9 @@ class InputAction {
 	}
 
 	/**
-	 * Set the behavior of the key or of the button.
+	 * Defina o comportamento da tecla ou do botão.
 	 * 
-	 * @param behavior - it's can be DETECT_EVERY_PRESS or
-	 *                 DETECT_INITIAL_PRESS_ONLY.
+	 * @param behavior - pode ser DETECT_EVERY_PRESS ou DETECT_INITIAL_PRESS_ONLY.
 	 * @see InputBase
 	 * @version 1.0
 	 */
@@ -42,8 +41,8 @@ class InputAction {
 	}
 
 	/**
-	 * It's an overloaded method of the method press(int amount). Its parameter is
-	 * amount = 1.
+	 * É um método sobrecarregado do método press (int amount). Seu parâmetro é
+	 * quantidade = 1.
 	 * 
 	 * @see InputBase
 	 * @version 1.0
@@ -53,10 +52,10 @@ class InputAction {
 	}
 
 	/**
-	 * Put the state of the button or of the key how pressed and associated with
-	 * them an amount of pressed.
+	 * Coloque o estado do botão ou da tecla como pressionada e associe a eles uma
+	 * quantidade de pressionada.
 	 * 
-	 * @param amout - How many times the key went pressed.
+	 * @param amout - Quantas vezes a tecla foi pressionada.
 	 * @version 1.0
 	 */
 	public synchronized void press(int amount) {
@@ -67,7 +66,7 @@ class InputAction {
 	}
 
 	/**
-	 * Put the state of the button or of the key how released.
+	 * Coloque o estado do botão ou da chave como solto.
 	 * 
 	 * @version 1.0
 	 */
@@ -76,9 +75,10 @@ class InputAction {
 	}
 
 	/**
-	 * Method used for knowing if a key is pressed.
+	 * Método usado para saber se uma tecla foi pressionada.
 	 * 
-	 * @return boolean - true when a key is pressed, false otherwise.
+	 * @return boolean - verdadeiro quando uma tecla é pressionada, falso caso
+	 *         contrário.
 	 * @version 1.0
 	 */
 	public synchronized boolean isPressed() {
@@ -86,14 +86,14 @@ class InputAction {
 	}
 
 	/**
-	 * Return a quantity of clicks for the mouse and for the keyboard the quantity
-	 * of times button have been pressed. If the behavior is
-	 * DETECT_INITAL_PRESS_ONLY, this method will return only the initial click. For
-	 * return that the mouse clicked again the user needs release If the behavior is
-	 * DETECT_EVERY_PRESS, this method will return the amount of the click or of the
-	 * how many times the key have been pressed.
+	 * Retorna uma quantidade de cliques para o mouse e para o teclado a quantidade
+	 * de vezes que o botão foi pressionado. Se o comportamento for
+	 * DETECT_INITAL_PRESS_ONLY, este método retornará apenas o clique inicial. Para
+	 * retornar que o mouse clicou novamente o usuário precisa liberar Se o
+	 * comportamento for DETECT_EVERY_PRESS, este método retornará a quantidade do
+	 * clique ou de quantas vezes a tecla foi pressionada.
 	 * 
-	 * @return int - amount of pressed.
+	 * @return int - quantidade de pressionado.
 	 * @see void press(int amount);
 	 * @version 1.0
 	 */

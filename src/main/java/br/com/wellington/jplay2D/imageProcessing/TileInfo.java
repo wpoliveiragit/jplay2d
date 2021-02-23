@@ -1,8 +1,8 @@
 package br.com.wellington.jplay2D.imageProcessing;
 
-/** Class used to handle TileInfo. */
+/** Classe usada para lidar com TileInfo. */
 public class TileInfo extends GameObject {
 
-	/** Number used to identify the Tile. */
+	/** Número usado para identificar o Tile. */
 	public int id;
 }

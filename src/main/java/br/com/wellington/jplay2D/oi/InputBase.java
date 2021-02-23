@@ -1,19 +1,19 @@
 package br.com.wellington.jplay2D.oi;
 
 /**
- * Class used to handle actions for buttons or for keys.
+ * Classe usada para manipular ações para botões ou teclas.
  */
 public class InputBase {
 	/**
-	 * This behavior is responsible for detected the pressing of the button or of
-	 * the key while it's pressing.
+	 * Este comportamento é responsável por detectar o pressionamento do botão ou da
+	 * tecla durante o pressionamento.
 	 */
 	public static final int DETECT_EVERY_PRESS = 0;
 
 	/**
-	 * Behavior responsible for only allowing the detection of the first press of
-	 * the button or of the click, after that, It's necessary release the button or
-	 * the key for the next detection.
+	 * Comportamento responsável por permitir apenas a detecção do primeiro toque do
+	 * botão ou do clique, após isso, é necessário soltar o botão ou a tecla para a
+	 * próxima detecção.
 	 */
 	public static final int DETECT_INITIAL_PRESS_ONLY = 1;
 

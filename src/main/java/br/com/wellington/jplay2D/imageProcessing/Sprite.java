@@ -7,7 +7,7 @@ import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.window.Window;
 
 /**
- * Class responsible for controlling all actions and behaviors of sprite.
+ * Classe responsável por controlar todas as ações e comportamentos do sprite.
  */
 public class Sprite extends Animation {
 	private double mass = 0.5;
@@ -16,28 +16,28 @@ public class Sprite extends Animation {
 	private float forceX = 0;
 	private float forceY = 0;
 
-	private Body body = null; // It's used in Physics
+	private Body body = null; // É usado em física
 
-	private double jumpVelocity = 5.3;// It's used for the jump,
+	private double jumpVelocity = 5.3;// É usado para o salto
 	private double velocityY = 0;
 	private double gravity = 0.098;
 	private boolean onFloor = false;
 	private int floor;
 
 	/**
-	 * Constructor of the class. Creates a class with one frame.
+	 * Construtor da classe. Cria uma classe com um quadro.
 	 * 
-	 * @param fileName Path of the file.
+	 * @param fileName Caminho do arquivo.
 	 */
 	public Sprite(String fileName) {
 		this(fileName, 1);
 	}
 
 	/**
-	 * Constructor of the class.
+	 * Construtor da classe.
 	 * 
-	 * @param fileName  Path of the file.
-	 * @param numFrames number of frames.
+	 * @param fileName  Caminho do arquivo.
+	 * @param numFrames número de quadros.
 	 */
 	public Sprite(String fileName, int numFrames) {
 		super(fileName, numFrames);
@@ -45,10 +45,10 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Method used to move the sprite by the x-axis. The keys used to move the
-	 * sprite are LEFT_KEY and RIGHT_KEY.
+	 * Método usado para mover o sprite pelo eixo x. As chaves usadas para mover o
+	 * sprite são LEFT_KEY e RIGHT_KEY.
 	 * 
-	 * @param velocity speed of locomotion in pixels.
+	 * @param velocity velocidade de locomoção em pixels.
 	 */
 
 	public void moveX(double velocity) {
@@ -56,11 +56,11 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Method used to move the sprite by the x-axis.
+	 * Método usado para mover o sprite pelo eixo x.
 	 * 
-	 * @param leftKey  Key used to move the sprite for the left.
-	 * @param rightKey Key used to move the sprite for the right.
-	 * @param velocity speed of locomotion in pixels.
+	 * @param leftKey  Chave usada para mover o sprite para a esquerda.
+	 * @param rightKey Chave usada para mover o sprite para a direita.
+	 * @param velocity velocidade de locomoção em pixels.
 	 */
 	public void moveX(int leftKey, int rightKey, double velocity) {
 		Keyboard keyboard = Window.getInstance().getKeyboard();
@@ -74,21 +74,21 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Method used to move the sprite by y-axis. The keys used to move the sprite
-	 * are UP_KEY and DOWN_KEY.
+	 * Método usado para mover o sprite pelo eixo y. As teclas usadas para mover o
+	 * sprite são UP_KEY e DOWN_KEY.
 	 * 
-	 * @param velocity speed of locomotion in pixels.
+	 * @param velocity velocidade de locomoção em pixels.
 	 */
 	public void moveY(double velocity) {
 		this.moveY(Keyboard.UP_KEY, Keyboard.DOWN_KEY, velocity);
 	}
 
 	/**
-	 * Method used to move the sprite by y-axis.
+	 * Método usado para mover o sprite pelo eixo y.
 	 * 
-	 * @param upKey    Key used to move the sprite for the left.
-	 * @param downKey  Key used to move the sprite for the right.
-	 * @param velocity speed of locomotion in pixels.
+	 * @param upKey    Chave usada para mover o sprite para a esquerda.
+	 * @param downKey  Chave usada para mover o sprite para a direita.
+	 * @param velocity velocidade de locomoção em pixels.
 	 */
 	public void moveY(int upKey, int downKey, double velocity) {
 		Keyboard keyboard = Window.getInstance().getKeyboard();
@@ -102,7 +102,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * applies a force to the left using the keyboard
+	 * aplica uma força à esquerda usando o teclado.
 	 * 
 	 * @param leftKey
 	 * @param velocity
@@ -121,7 +121,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * applies a force to the right using the keyboard
+	 * aplica uma força à direita usando o teclado.
 	 * 
 	 * @param rightKey
 	 * @param velocity
@@ -139,14 +139,14 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * applies a force to the left or to the right using the keyboard
+	 * aplica uma força à esquerda ou à direita usando o teclado.
 	 * 
 	 * @param leftKey
 	 * @param rightKey
 	 * @param velocity
 	 * @param behaviorKeyboard
-	 * @param boundsScreen     sets the limits in which the body can move.(the
-	 *                         bounds are between 0 and window width)
+	 * @param boundsScreen     define os limites nos quais o corpo pode se mover.
+	 *                         (os limites são entre 0 e a largura da janela)
 	 */
 	public void applyForceXFromKeyboard(int leftKey, int rightKey, double velocity, int behaviorKeyboard,
 			boolean boundsScreen) {
@@ -196,7 +196,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * applying an upward force by using the keyboard
+	 * aplicar uma força para cima usando o teclado.
 	 * 
 	 * @param upKey
 	 * @param downKey
@@ -215,7 +215,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * applying a down force by using the keyboard
+	 * aplicar uma força para baixo usando o teclado.
 	 * 
 	 * @param upKey
 	 * @param downKey
@@ -235,14 +235,14 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * applies a force up or down using the keyboard
+	 * aplica uma força para cima ou para baixo usando o teclado.
 	 * 
 	 * @param upKey
 	 * @param downKey
 	 * @param velocity
 	 * @param behaviorKeyboard
-	 * @param boundsScreen     sets the limits in which the body can move.(the
-	 *                         bounds are between 0 and window height)
+	 * @param boundsScreen     define os limites nos quais o corpo pode se mover.
+	 *                         (os limites estão entre 0 e a altura da janela)
 	 */
 	public void applyForceYFromKeyboard(int upKey, int downKey, double velocity, int behaviorKeyboard,
 			boolean boundsScreen) {
@@ -283,11 +283,11 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Moves the sprite from a point to another.
+	 * Move o sprite de um ponto a outro.
 	 * 
-	 * @param x        Target point on the x axis.
-	 * @param y        Target point on the y axis.
-	 * @param velocity speed of locomotion in pixels.
+	 * @param x        Ponto de destino no eixo x.
+	 * @param y        Ponto alvo no eixo y.
+	 * @param velocity velocidade de locomoção em pixels.
 	 */
 	public void moveTo(double x, double y, double velocity) {
 		if (this.x < x && (this.x + this.width < Window.getInstance().getJFrame().getWidth())) {
@@ -306,16 +306,16 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the floor that will be used for the methods jump or fall.
+	 * Define o piso que será utilizado para os métodos de salto ou queda.
 	 * 
-	 * @param floor Value of the coordinate x.
+	 * @param floor Valor da coordenada x.
 	 */
 	public void setFloor(int floor) {
 		this.floor = floor;
 	}
 
 	/**
-	 * Return the value the current floor.
+	 * Retorna o valor do andar atual.
 	 * 
 	 * @return int
 	 */
@@ -324,9 +324,9 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Makes the sprite jump.
+	 * Faz o sprite pular.
 	 * 
-	 * @param jumpKey key used to start the jump.
+	 * @param jumpKey tecla usada para iniciar o salto.
 	 */
 	public void jump(int jumpKey) {
 		Keyboard keyboard = Window.getInstance().getKeyboard();
@@ -346,23 +346,22 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Makes the sprite jump. The key used is SPACE_KEY (SPACE_BAR).
+	 * Faz o sprite pular. A chave usada é SPACE_KEY (SPACE_BAR).
 	 */
 	public void jump() {
 		jump(Keyboard.SPACE_KEY);
 	}
 
 	/**
-	 * Returns true if the sprite is executing the jump, false otherwise. return
-	 * boolean
+	 * Retorna verdadeiro se o sprite está executando o salto, falso caso contrário.
 	 */
 	public boolean isJumping() {
 		return !onFloor;
 	}
 
 	/**
-	 * This method simulates the gravity. It's necessary sets the floor before call
-	 * this method.
+	 * Este método simula a gravidade. É necessário definir o piso antes de chamar
+	 * este método.
 	 */
 	public void fall() {
 		if (floor - this.y - this.height < 1) {
@@ -375,7 +374,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns true if the sprite is on the floor, false otherwise.
+	 * Retorna verdadeiro se o sprite estiver no chão, falso caso contrário.
 	 * 
 	 * @return boolean
 	 */
@@ -384,17 +383,17 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the jump velocity for the sprite. This velocity is used to control the
-	 * height of jump.
+	 * Define a velocidade de salto para o sprite. Essa velocidade é usada para
+	 * controlar a altura do salto.
 	 * 
-	 * @param velocity speed of locomotion in pixels.
+	 * @param velocity velocidade de locomoção em pixels.
 	 */
 	public void setJumpVelocity(double velocity) {
 		this.jumpVelocity = velocity;
 	}
 
 	/**
-	 * Returns the velocity of jump.
+	 * Retorna a velocidade do salto.
 	 * 
 	 * @return double
 	 */
@@ -403,7 +402,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the moving speed in the Y axis.
+	 * Retorna a velocidade de movimento no eixo Y.
 	 * 
 	 * @return double
 	 */
@@ -412,7 +411,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the moving speed in the Y axis.
+	 * Retorna a velocidade de movimento no eixo Y.
 	 * 
 	 * @return double
 	 */
@@ -421,7 +420,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the value used for gravity.
+	 * Retorna o valor usado para gravidade.
 	 * 
 	 * @return double
 	 */
@@ -430,7 +429,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the value for gravity.
+	 * Define o valor da gravidade.
 	 * 
 	 * @param gravity
 	 */
@@ -439,7 +438,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the value for restitution.
+	 * Define o valor para restituição.
 	 * 
 	 * @param restitution
 	 */
@@ -448,7 +447,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the value used for restitution.
+	 * Retorna o valor usado para restituição.
 	 * 
 	 * @return double
 	 */
@@ -457,7 +456,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the value for rotation.
+	 * Define o valor da rotação.
 	 * 
 	 * @param rotation
 	 */
@@ -466,7 +465,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the value used for rotation
+	 * Retorna o valor usado para rotação.
 	 * 
 	 * @return double
 	 */
@@ -475,7 +474,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the value for friction.
+	 * Define o valor da fricção.
 	 * 
 	 * @param friction
 	 */
@@ -484,7 +483,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the value used for friction.
+	 * Retorna o valor usado para fricção.
 	 * 
 	 * @return double
 	 */
@@ -493,7 +492,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the value for mass.
+	 * Define o valor da massa.
 	 * 
 	 * @param mass
 	 */
@@ -502,7 +501,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the value used for mass.
+	 * Retorna o valor usado para massa.
 	 * 
 	 * @return double
 	 */
@@ -511,7 +510,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets body.
+	 * Define corpo.
 	 * 
 	 * @param b
 	 */
@@ -521,7 +520,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns body
+	 * Retorna o corpo.
 	 * 
 	 * @return Body
 	 */
@@ -531,37 +530,8 @@ public class Sprite extends Animation {
 
 	}
 
-//    private void setX(double x,float vel){
-//
-//         float newX = (float) Physics.pixelsToMeterX(x+this.width/2);
-//         float newY = (float) Physics.pixelsToMeterY(y+this.height/2);
-//
-//         Vec2 vec = new Vec2(newX+vel,newY);
-//         body.setXForm(vec, (float)this.rotation);
-//         this.x=x;
-//    }
-//    private void setY(double y,float vel){
-//
-//        float newX = (float) Physics.pixelsToMeterX(x+this.width/2);
-//        float newY = (float) Physics.pixelsToMeterY(y+this.height/2);
-//
-//        Vec2 vec = new Vec2(newX,newY+vel);
-//        body.setXForm(vec, (float)this.rotation);
-//        this.y=y;
-//    }
-//    private void setXY(double x, double y, float velX, float velY){
-//
-//        float newX = (float) Physics.pixelsToMeterX(x+this.width/2);
-//        float newY = (float) Physics.pixelsToMeterY(y+this.height/2);
-//
-//         Vec2 vec = new Vec2(newX+velX,newY+velY);
-//         body.setXForm(vec, (float)this.rotation);
-//         this.x=x;
-//         this.y=y;
-//
-//    }
 	/**
-	 * Sets the position in the x-axis
+	 * Define a posição no eixo x.
 	 * 
 	 * @param x
 	 */
@@ -583,7 +553,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Retuns the position in the x-axis
+	 * Retorna a posição no eixo x.
 	 * 
 	 * @return double
 	 */
@@ -592,7 +562,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the position in the y-axis
+	 * Define a posição no eixo y.
 	 * 
 	 * @param y
 	 */
@@ -614,7 +584,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the position in the y-axis.
+	 * Retorna a posição no eixo y.
 	 * 
 	 * @return double
 	 */
@@ -624,7 +594,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets all the attributes.
+	 * Define todos os atributos.
 	 * 
 	 * @param mass
 	 * @param friction
@@ -641,7 +611,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Applies a force on the body in the x-axis
+	 * Aplica uma força no corpo no eixo x.
 	 * 
 	 * @param fx
 	 */
@@ -653,7 +623,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * applies a force on the body in the y-axis
+	 * aplica uma força no corpo no eixo y.
 	 * 
 	 * @param fy
 	 */
@@ -666,7 +636,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the value of the force applied to the x-axis
+	 * Retorna o valor da força aplicada ao eixo x.
 	 * 
 	 * @return float
 	 */
@@ -675,7 +645,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns the value of the force applied to the y-axis
+	 * Retorna o valor da força aplicada ao eixo y.
 	 * 
 	 * @return float
 	 */
@@ -684,7 +654,7 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Cancels all forces applied to the body
+	 * Cancela todas as forças aplicadas ao corpo.
 	 */
 	public void cancelForces() {
 		body.setLinearVelocity(new Vec2(0, 0));
@@ -692,8 +662,8 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Cancels all forces applied to the body and sets limits on x-axis in which the
-	 * body can move
+	 * Cancela todas as forças aplicadas ao corpo e define limites no eixo x em que
+	 * o corpo pode se mover.
 	 * 
 	 * @param value
 	 * @param lowerBoundX
@@ -709,8 +679,8 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Cancels all forces applied to the body and sets limits on y-axis in which the
-	 * body can move
+	 * Cancela todas as forças aplicadas ao corpo e define limites no eixo y em que
+	 * o corpo pode se mover.
 	 * 
 	 * @param value
 	 * @param lowerBoundY
@@ -726,8 +696,8 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Sets the sprite like a bullet to prevent it being ignored collisions with
-	 * other sprites.
+	 * Define o sprite como um marcador para evitar que sejam ignoradas colisões com
+	 * outros sprites.
 	 * 
 	 * @param value
 	 */
@@ -738,8 +708,8 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Returns 'true' if the sprite has defined behavior as a bullet or 'false'
-	 * otherwise.
+	 * Retorna 'verdadeiro' se o sprite definiu o comportamento como um marcador ou
+	 * 'falso' caso contrário.
 	 * 
 	 * @return boolean
 	 */

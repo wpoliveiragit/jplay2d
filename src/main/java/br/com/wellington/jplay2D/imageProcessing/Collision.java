@@ -3,19 +3,19 @@ package br.com.wellington.jplay2D.imageProcessing;
 import java.awt.Point;
 
 /**
- * Class used to know whether two GameObjects collided.
+ * A classe costumava saber se dois GameObjects colidiam.
  */
 public class Collision {
 
 	/**
-	 * Method used to know whether two areas on the screen are touching each other.
+	 * Método usado para saber se duas áreas na tela estão se tocando.
 	 * 
-	 * @param min1 point of the top left of the first area.
-	 * @param max1 point from under of the right of the first image.
-	 * @param min2 point of the top left of the second area.
-	 * @param max3 point from under of the right of the second image.
-	 * @return boolean - return true if they are touching each other, false
-	 *         otherwise.
+	 * @param min1 ponto do canto superior esquerdo da primeira área.
+	 * @param max1 ponto de baixo da direita da primeira imagem.
+	 * @param min2 ponto do canto superior esquerdo da segunda área.
+	 * @param max3 ponto de baixo da direita da segunda imagem.
+	 * @return boolean retorna verdadeiro se eles estiverem se tocando, falso caso
+	 *         contrário.
 	 */
 	public static boolean collided(Point min1, Point max1, Point min2, Point max2) {
 		if (min1.x >= max2.x || max1.x <= min2.x) {
@@ -28,12 +28,12 @@ public class Collision {
 	}
 
 	/**
-	 * Static method used to know whether two GameObjects are touching each other.
+	 * Método estático usado para saber se dois GameObjects estão se tocando.
 	 * 
 	 * @param obj1 origin GameObject
 	 * @param obj2 target GameObject
-	 * @return boolean - return true when they are touching each other, false
-	 *         otherwise.
+	 * @return boolean - retorna verdadeiro quando eles estão se tocando, falso caso
+	 *         contrário.
 	 */
 	public static boolean collided(GameObject obj1, GameObject obj2) {
 		Point minObj1 = new Point((int) obj1.x, (int) obj1.y);

@@ -6,9 +6,9 @@ public class ParallaxLayers extends GameImage {
 	private double velY = 0;
 
 	/**
-	 * Constructor of the class. .
 	 * 
-	 * @param background - path of the file
+	 * 
+	 * @param background caminho do arquivo.
 	 */
 	public ParallaxLayers(String background) {
 		super(background);
@@ -16,10 +16,10 @@ public class ParallaxLayers extends GameImage {
 	}
 
 	/**
-	 * Sets velocity.
+	 * Define a velocidade.
 	 * 
-	 * @param vel_X - set the velocity of the layer in the x-axis.
-	 * @param vel_Y - set the velocity of the layer in the y-axis.
+	 * @param vel_X defina a velocidade da camada no eixo x.
+	 * @param vel_Y defina a velocidade da camada no eixo y.
 	 */
 	public void setVel(double vel_X, double vel_Y) {
 		this.velX = vel_X;
@@ -28,46 +28,46 @@ public class ParallaxLayers extends GameImage {
 	}
 
 	/**
-	 * Sets velocity in the x-axis.
+	 * Define a velocidade no eixo x.
 	 * 
-	 * @param vel_X - set the velocity of the layer in the x-axis.
+	 * @param velX defina a velocidade da camada no eixo x.
 	 */
-	public void setVelX(double vel_X) {
-		this.velX = vel_X;
+	public void setVelX(double velX) {
+		this.velX = velX;
 	}
 
 	/**
-	 * Sets velocity in the y-axis.
+	 * Define a velocidade no eixo y.
 	 * 
-	 * @param vel_Y - set the velocity of the layer in the y-axis.
+	 * @param vel_Y defina a velocidade da camada no eixo y.
 	 */
 	public void setVelY(double vel_Y) {
 		this.velY = vel_Y;
 	}
 
 	/**
-	 * Returns the velocity in the x-axis.
+	 * Retorna a velocidade no eixo x.
 	 * 
-	 * @return double
+	 * @return double a velocidade no eixo x.
 	 */
 	public double getVelX() {
 		return velX;
 	}
 
 	/**
-	 * Returns the velocity in the y-axis
+	 * Retorna a velocidade no eixo y
 	 * 
-	 * @return double
+	 * @return double a velocidade no eixo y
 	 */
 	public double getVelY() {
 		return velY;
 	}
 
 	/**
-	 * Move the layer in the x-axis
+	 * Mova a camada no eixo x.
 	 * 
-	 * @param left - 'true' to move the layer to the left, 'false' to move the layer
-	 *             to the right.
+	 * @param left 'true' para mover a camada para a esquerda, 'false' para mover a
+	 *             camada para a direita.
 	 */
 	public void moveLayerX(boolean left) {
 		if (left)
@@ -77,9 +77,10 @@ public class ParallaxLayers extends GameImage {
 	}
 
 	/**
-	 * Move the layer in the y-axis
+	 * Mova a camada no eixo y.
 	 * 
-	 * @param up - 'true' to move the layer up, 'false' to move the layer down.
+	 * @param up 'true' para mover a camada para cima, 'false' para mover a camada
+	 *           para baixo.
 	 */
 	public void moveLayerY(boolean up) {
 		if (up)

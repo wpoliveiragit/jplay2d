@@ -5,44 +5,44 @@ import java.awt.event.KeyListener;
 import java.util.Hashtable;
 
 /**
- * Class responsible for handling the keys of keyboard and its behavior.
+ * Classe responsável por manipular as teclas do teclado e seu comportamento.
  */
 public final class Keyboard extends InputBase implements KeyListener {
-	/** The direction key for above of the keyboard. */
+	/** A tecla de direção acima do teclado. */
 	public static final int UP_KEY = 38;
 
-	/** The direction key for left of the keyboard. */
+	/** A tecla de direção à esquerda do teclado. */
 	public static final int LEFT_KEY = 37;
 
-	/** The direction key for right of the keyboard. */
+	/** A tecla de direção à direita do teclado. */
 	public static final int RIGHT_KEY = 39;
 
-	/** The direction key for under of the keyboard. */
+	/** A tecla de direção para a parte inferior do teclado. */
 	public static final int DOWN_KEY = 40;
 
-	/** The ESC key of the keyboard. */
+	/** A tecla ESC do teclado. */
 	public static final int ESCAPE_KEY = 27;
 
-	/** The space bar of the keyboard. */
+	/** A barra de espaço do teclado. */
 	public static final int SPACE_KEY = 32;
 
-	/** The enter key of the keyboard. */
+	/** A tecla enter do teclado. */
 	public static final int ENTER_KEY = 10;
 
 	private Hashtable keysPressed;
 
 	/**
-	 * Create instance of class Keyboard with the following keys and its behavior:
-	 * UP_KEY, LEFT_KEY, RIGHT_KEY, DOWN_KEY have the behavior DETECT_EVERY_PRESS,
-	 * and the keys ESCAPE_KEY, SPACE_KEY, ENTER_KEY have the behavior
-	 * DETECT_INITIAL_PRESS_ONLY.
+	 * Crie uma instância da classe Keyboard com as seguintes teclas e seu
+	 * comportamento: UP_KEY, LEFT_KEY, RIGHT_KEY, DOWN_KEY têm o comportamento
+	 * DETECT_EVERY_PRESS, e as teclas ESCAPE_KEY, SPACE_KEY, ENTER_KEY têm o
+	 * comportamento DETECT_INITIAL_PRESS_ONLY.
 	 * 
 	 * @version 1.0
 	 */
 	public Keyboard() {
 		keysPressed = new Hashtable();
 
-		// Add the defaults keys
+		// Adicione as chaves padrão
 		addKey(UP_KEY, Keyboard.DETECT_EVERY_PRESS);
 		addKey(LEFT_KEY, Keyboard.DETECT_EVERY_PRESS);
 		addKey(RIGHT_KEY, Keyboard.DETECT_EVERY_PRESS);
@@ -53,10 +53,10 @@ public final class Keyboard extends InputBase implements KeyListener {
 	}
 
 	/**
-	 * Method used for knowing if a key is pressed.
+	 * Método usado para saber se uma tecla foi pressionada.
 	 * 
-	 * @param key The key code presents in 'Keyboard.' or in 'KeyEvent.'
-	 * @return boolean - True when it's pressed, otherwise false.
+	 * @param key O código-chave é apresentado em 'Teclado'. ou em 'KeyEvent.'
+	 * @return boolean - Verdadeiro quando pressionado, caso contrário, falso.
 	 * @see KeyEvent
 	 * @see Keyboard
 	 * @version 1.0
@@ -70,10 +70,11 @@ public final class Keyboard extends InputBase implements KeyListener {
 	}
 
 	/**
-	 * Overloading the method void addKey(int key, int behavior), the behavior will
-	 * be DETECT_INITAL_PRESS_ONLY.
+	 * Sobrecarregando o método void addKey (int key, int behavior), o comportamento
+	 * será DETECT_INITAL_PRESS_ONLY.
 	 * 
-	 * @param key The key code. The key code can be found in 'KeyEvent.'
+	 * @param key O código da chave. O código da chave pode ser encontrado em
+	 *            'KeyEvent.'
 	 * @see KeyEvent
 	 * @version 1.0
 	 */
@@ -82,11 +83,13 @@ public final class Keyboard extends InputBase implements KeyListener {
 	}
 
 	/**
-	 * Method used for adding a key to an instance of the keyboard and its behavior.
+	 * Método usado para adicionar uma tecla a uma instância do teclado e seu
+	 * comportamento.
 	 * 
-	 * @param key      The key code. The key code can be found in 'KeyEvent.'.
-	 * @param behavior The behavior of the key can be found in 'Keboard.' or in
-	 *                 'InputBase.'.
+	 * @param key      O código da chave. O código da chave pode ser encontrado em
+	 *                 'KeyEvent.'
+	 * @param behavior O comportamento da tecla pode ser encontrado em 'Teclado'. ou
+	 *                 em 'Base de entrada.'.
 	 * @see KeyEvent
 	 * @see InputBase
 	 * @version 1.0
@@ -97,10 +100,10 @@ public final class Keyboard extends InputBase implements KeyListener {
 	}
 
 	/**
-	 * Remove a key of the instance of the keyboard. If the key not exist in the
-	 * instance of the keyboard don't generate any error.
+	 * Remova uma chave da instância do teclado. Se a chave não existe na instância
+	 * do teclado não gere nenhum erro.
 	 * 
-	 * @pram key The key code. It can be found in 'KeyEvent.' or in 'Keyboard.'.
+	 * @pram key O código da chave. Ele pode ser encontrado em 'KeyEvent'. ou em 'Teclado'.
 	 * @see KeyEvent
 	 * @see Keyboard
 	 * @version 1.0
@@ -110,10 +113,9 @@ public final class Keyboard extends InputBase implements KeyListener {
 	}
 
 	/**
-	 * Set a new behavior for a key. If the key not exist in the instance of the
-	 * Keyboard it's not generate any error.
+	 * Defina um novo comportamento para uma chave. Se a chave não existe na instância do teclado não gera nenhum erro.
 	 * 
-	 * @param key The key code. It can be found in 'KeyEvent.' or in 'Keyboard.'
+	 * @param key O código da chave. Ele pode ser encontrado em 'KeyEvent'. ou em 'Teclado'.
 	 * @see KeyEvent
 	 * @see Keyboard
 	 * @version 1.0
