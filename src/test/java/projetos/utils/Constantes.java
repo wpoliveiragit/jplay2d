@@ -4,22 +4,22 @@ import java.awt.Font;
 
 public interface Constantes {
 
+	// FONTS
 	public static final Font FONTE_SANSSERIF = new Font("sansserif", Font.TRUETYPE_FONT, 12);
 	public static final Font FONTE_COMIC_SAMS_MS = new Font("Comic Sans MS", Font.TRUETYPE_FONT, 20);
 	public static Font FONTE_COMIC_SANS_MS_16 = new Font("Comic Sans MS", Font.TRUETYPE_FONT, 16);
 	public static Font FONTE_COMIC_SANS_MS_24 = new Font("Comic Sans MS", Font.BOLD, 24);
 
-	// caminho raiz
 	/** Caminhos raizes para os recursos. */
-	public static final String PATH = "src/test/resources/";
+	public static final String ROOT = "src/test/resources/";
 
-	public static final String PATH_MEGAMAN = PATH + "/megaMan/";
-	public static final String PATH_JOGO_DA_MEMORIA = PATH + "/jogoDaMemoria/";
-	public static final String PATH_LANCANDO = PATH + "/lancando/";
-	public static final String PATH_MOVIMENTANDO = PATH + "/movimentando/";
+	//AREA DE RECURSOS de IMAGENS E VIDEOS
+	public static final String PATH_JOGO_DA_MEMORIA = ROOT + "/jogoDaMemoria/";
+	public static final String PATH_LANCANDO = ROOT + "/lancando/";
+	public static final String PATH_MOVIMENTANDO = ROOT + "/movimentando/";
 
-	public static final String PATH_PONG = PATH + "/pong/";
-	public static final String PATH_ROTACIONANDO = PATH + "/rotacionando/";
+	public static final String PATH_PONG = ROOT + "/pong/";
+	public static final String PATH_ROTACIONANDO = ROOT + "/rotacionando/";
 
 	// JOGO DA MEMORIA
 	public static final String JOGO_DA_MEMORIA_IMG_MOUSE = PATH_JOGO_DA_MEMORIA + "mouse.png";
@@ -47,7 +47,7 @@ public interface Constantes {
 	public static final String LANCANDO_TILE_BLOCO_1 = PATH_LANCANDO + "/square.png";
 	public static final String LANCANDO_GROUND = PATH_LANCANDO + "/ground.png";
 	public static final String LANCANDO_SPRITE = PATH_LANCANDO + "/sprite.png";
-	public static final String LANCANDO_LIMITE = PATH_LANCANDO + "/limite.png";
+	public static final String LIMITE = PATH_LANCANDO + "/limite.png";
 
 	// MOVIMENTANDO
 	public static final String MOVIMENTANDO_FUNDO = PATH_MOVIMENTANDO + "fundo.png";
@@ -70,11 +70,11 @@ public interface Constantes {
 	public static final int PONG_LIMITE_DIREITA_X = 774;
 	public static final int PONG_LIMITE_ESQUERDA_X = 28;
 
-	public static final int PONG_STOP = 1;
-	public static final int PONG_LEFT = 2;
-	public static final int PONG_RIGHT = 3;
-	public static final int PONG_UP = 4;
-	public static final int PONG_DOWN = 5;
+	public static final int PONG_SENTIDO_PARADO = 1;
+	public static final int PONG_SENTIDO_ESQUERDA = 2;
+	public static final int PONG_SENTIDO_DIREITA = 3;
+	public static final int PONG_SENTIDO_CIMA = 4;
+	public static final int PONG_SENTIDO_BAIXO = 5;
 
 	// ROTACIONANDO
 	public static final String ROTACIONANDO_FUNDO = PATH_ROTACIONANDO + "fundot1.png";

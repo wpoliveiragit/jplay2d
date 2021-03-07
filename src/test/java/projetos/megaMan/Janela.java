@@ -27,7 +27,7 @@ public class Janela {
 		window = new Window(x, y);
 		keyboard = window.getKeyboard();
 		keyboard.addKey(KeyEvent.VK_CONTROL);
-		background = new GameImage(MegaManMain.BACKDROP);
+		background = new GameImage(MegaManApplication.IMG_BD);
 		boneco = new Boneco(window, 500);
 	}
 

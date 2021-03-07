@@ -35,10 +35,10 @@ public class Window {
 	/** Cria o controle do game. Não pode ser instanciado duas */
 	public Window(int width, int height) {
 		if (instance == null) {
-			
+
 			device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			displayMode = new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
-			
+
 			mouse = new Mouse();
 			keyboard = new Keyboard();
 
@@ -152,7 +152,7 @@ public class Window {
 	}
 
 	/**
-	 * Atrase a execução do programa.
+	 * Controla o tempode execução do programa.
 	 * 
 	 * @param time Tempo em milisegundos.
 	 */

@@ -22,10 +22,10 @@ public class Boneco {
 		this.quadro = quadro;
 		this.solo = solo;
 
-		sprite = new Sprite(MegaManMain.SPRITE_MEGAMAN, 28);
+		sprite = new Sprite(MegaManApplication.SPT_MEGAMAN, 28);
 		sprite.setTotalDuration(1960);
 		sprite.setFloor(solo);
-		move(MegaManMain.LADO_DIREITO, 16, 17, 2, 0);
+		move(MegaManApplication.LADO_DIREITO, 16, 17, 2, 0);
 	}
 
 	/**
@@ -61,29 +61,29 @@ public class Boneco {
 	/** Anda pra esquerda */
 	public void andaEsquerda() {
 		if (sprite.x > 1) {
-			move(MegaManMain.LADO_ESQUERDO, 0, 13, -2, 0);
+			move(MegaManApplication.LADO_ESQUERDO, 0, 13, -2, 0);
 		}
 	}
 
 	/** Anda pra direita */
 	public void andaDireita() {
 		if (sprite.x + sprite.width < quadro.getJFrame().getWidth()) {
-			move(MegaManMain.LADO_DIREITO, 14, 27, 2, 0);
+			move(MegaManApplication.LADO_DIREITO, 14, 27, 2, 0);
 		}
 	}
 
 	/** Mantem o personagem parado */
 	public void ficaParado() {
-		if (ladoMovimento == MegaManMain.LADO_PARADO) {
+		if (ladoMovimento == MegaManApplication.LADO_PARADO) {
 			return;
 		}
-		if (ladoMovimento == MegaManMain.LADO_DIREITO) {
+		if (ladoMovimento == MegaManApplication.LADO_DIREITO) {
 			sprite.setCurrFrame(17);
 		} else {
 			sprite.setCurrFrame(3);
 		}
 
-		ladoMovimento = MegaManMain.LADO_PARADO;
+		ladoMovimento = MegaManApplication.LADO_PARADO;
 		sprite.update();
 
 	}

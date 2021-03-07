@@ -7,9 +7,6 @@ package projetos.jogoDaMemoria;
 
 import br.com.wellington.jplay2D.imageProcessing.Animation;
 
-/**
- * @author Gefersom Cardoso Lima Federal Fluminense University Computer Science
- */
 public class Peca extends Animation {
 
 	public int id;

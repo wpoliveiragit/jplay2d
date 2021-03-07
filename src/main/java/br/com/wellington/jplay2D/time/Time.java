@@ -10,6 +10,8 @@ import br.com.wellington.jplay2D.window.Window;
 
 /** Classe usada para manipular o tempo. */
 public class Time {
+	private static final int DEZENA = 10;
+
 	private Timer timer;
 	private Font font;
 	private Color color;
@@ -69,7 +71,6 @@ public class Time {
 		this.color = color;
 		this.font = font;
 		this.crescentTime = crescentTime;
-		this.crescentTime = crescentTime;
 		calculateSeconds();
 		createAction();
 	}
@@ -94,30 +95,25 @@ public class Time {
 
 	/**
 	 * Retorna uma string com o tempo. O formato da hora é hora / min / segundo
-	 * (00/00/00).
+	 * (00:00:00).
 	 * 
 	 * @return String
 	 */
 	@Override
 	public String toString() {
-		String str = "";
-
-		if (hour < 10)
-			str = "0" + Integer.toString(hour) + ":";
-		else
-			str = Integer.toString(hour) + ":";
-
-		if (minute < 10)
-			str += "0" + Integer.toString(minute) + ":";
-		else
-			str += Integer.toString(minute) + ":";
-
-		if (second < 10)
-			str += "0" + Integer.toString(second);
-		else
-			str += Integer.toString(second);
-
-		return str;
+		StringBuilder bfr = new StringBuilder();
+		if (hour < DEZENA) {// hora
+			bfr.append("0");
+		}
+		bfr.append(hour).append(":");
+		if (minute < DEZENA) {// minuto
+			bfr.append("0");
+		}
+		bfr.append(minute).append(":");
+		if (second < DEZENA) {// segundos
+			bfr.append("0");
+		}
+		return bfr.append(second).toString();
 	}
 
 	/**

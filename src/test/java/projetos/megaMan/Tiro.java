@@ -16,18 +16,18 @@ public class Tiro {
 	/** Cria um objeto de tiro. */
 	public Tiro(JFrame quadro, Sprite spriteBoneco, int lado, int solo) {
 		this.quadro = quadro;
-		spriteTiro = new Sprite(MegaManMain.SPRITE_TIRO, 7);
+		spriteTiro = new Sprite(MegaManApplication.SPT_TIRO, 7);
 		spriteTiro.setTotalDuration(200);
 		spriteTiro.setGravity(0.0098);
 		spriteTiro.setFloor(solo);
 		spriteTiro.y = spriteBoneco.y + (spriteBoneco.height / 3);
 		spriteTiro.x = spriteBoneco.x;
 
-		if (lado == MegaManMain.LADO_DIREITO) {
+		if (lado == MegaManApplication.LADO_DIREITO) {
 			spriteTiro.x = spriteBoneco.x + 20;
 			passo = 6;
 		}
-		new Sound(MegaManMain.SOM_MUZZLESHOT).play();
+		new Sound(MegaManApplication.SOM_MUZZLESHOT).play();
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class Tiro {
 	public boolean move() {
 
 		if (spriteTiro.isOnFloor() || spriteTiro.x < 1 || spriteTiro.x + spriteTiro.width > quadro.getWidth()) {
-			new Sound(MegaManMain.SOM_EXPLOSAO).play();
+			new Sound(MegaManApplication.SOM_EXPLOSAO).play();
 			return true;
 		}
 		spriteTiro.fall();

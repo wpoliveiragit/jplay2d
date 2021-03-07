@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package projetos.jogoDaMemoria;
 
 import java.awt.Color;
@@ -14,10 +9,6 @@ import br.com.wellington.jplay2D.sound.Sound;
 import br.com.wellington.jplay2D.time.Time;
 import br.com.wellington.jplay2D.window.Window;
 import projetos.utils.Constantes;
-
-/**
- * @author Gefersom Cardoso Lima Federal Fluminense University Computer Science
- */
 
 public class JogoMemoria implements Constantes {
 

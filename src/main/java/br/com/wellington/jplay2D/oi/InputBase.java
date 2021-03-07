@@ -7,6 +7,10 @@ public class InputBase {
 	/**
 	 * Este comportamento é responsável por detectar o pressionamento do botão ou da
 	 * tecla durante o pressionamento.
+	 * 
+	 * 1ͦ : DETECT_EVERY_PRESS - o método keyDown presente no teclado retornará true
+	 * enquanto a tecla estiver pressionada.
+	 * 
 	 */
 	public static final int DETECT_EVERY_PRESS = 0;
 

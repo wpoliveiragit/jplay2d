@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package projetos.jogoDaMemoria;
 
 import java.awt.Point;
@@ -11,10 +6,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import projetos.utils.Constantes;
-
-/**
- * @author Gefersom Cardoso Lima Federal Fluminense University Computer Science
- */
 
 public class MatrizPecas implements Constantes {
 	Peca matriz[][];

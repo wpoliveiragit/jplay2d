@@ -4,7 +4,7 @@ import projetos.utils.Constantes;
 
 public class Main {
 
-	public static final String PATH_PARALAXE = Constantes.PATH + "/paralaxe/";
+	public static final String PATH_PARALAXE = Constantes.ROOT + "/paralaxe/";
 	public static final String FUNDO_0 = PATH_PARALAXE + "f0.png";
 	public static final String FUNDO_1 = PATH_PARALAXE + "f1.png";
 	public static final String FUNDO_2 = PATH_PARALAXE + "f2.png";
