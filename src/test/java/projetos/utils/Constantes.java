@@ -7,13 +7,11 @@ public interface Constantes {
 	// FONTS
 	public static final Font FONTE_SANSSERIF = new Font("sansserif", Font.TRUETYPE_FONT, 12);
 	public static final Font FONTE_COMIC_SAMS_MS = new Font("Comic Sans MS", Font.TRUETYPE_FONT, 20);
-	public static Font FONTE_COMIC_SANS_MS_16 = new Font("Comic Sans MS", Font.TRUETYPE_FONT, 16);
-	public static Font FONTE_COMIC_SANS_MS_24 = new Font("Comic Sans MS", Font.BOLD, 24);
 
 	/** Caminhos raizes para os recursos. */
 	public static final String ROOT = "src/test/resources/";
 
-	//AREA DE RECURSOS de IMAGENS E VIDEOS
+	// AREA DE RECURSOS de IMAGENS E VIDEOS
 	public static final String PATH_JOGO_DA_MEMORIA = ROOT + "/jogoDaMemoria/";
 	public static final String PATH_LANCANDO = ROOT + "/lancando/";
 	public static final String PATH_MOVIMENTANDO = ROOT + "/movimentando/";
@@ -53,28 +51,6 @@ public interface Constantes {
 	public static final String MOVIMENTANDO_FUNDO = PATH_MOVIMENTANDO + "fundo.png";
 	public static final String MOVIMENTANDO_SQUARE = PATH_MOVIMENTANDO + "square.png";
 	public static final String MOVIMENTANDO_GROUND = PATH_MOVIMENTANDO + "ground.png";
-
-	// PONG
-	public static String PONG_SOM_BATEU = PATH_PONG + "bateu.wav";
-	public static String PONG_SOM_MUSICA = PATH_PONG + "musica.wav";
-	public static String PONG_SOM_PONTO = PATH_PONG + "ponto.wav";
-
-	public static String PONG_IMG_FUNDO = PATH_PONG + "fundo.png";
-	public static String PONG_IMG_BARRA_VERDE = PATH_PONG + "barraVerde.png";
-	public static String PONG_IMG_BARRA_ROXA = PATH_PONG + "barraRoxa.png";
-	public static String PONG_IMG_BOLA = PATH_PONG + "bola.png";
-
-	// Valores relativos a área jogavel
-	public static final int PONG_LIMITE_SUPERIOR_Y = 118;
-	public static final int PONG_LIMITE_INFERIOR_Y = 565;
-	public static final int PONG_LIMITE_DIREITA_X = 774;
-	public static final int PONG_LIMITE_ESQUERDA_X = 28;
-
-	public static final int PONG_SENTIDO_PARADO = 1;
-	public static final int PONG_SENTIDO_ESQUERDA = 2;
-	public static final int PONG_SENTIDO_DIREITA = 3;
-	public static final int PONG_SENTIDO_CIMA = 4;
-	public static final int PONG_SENTIDO_BAIXO = 5;
 
 	// ROTACIONANDO
 	public static final String ROTACIONANDO_FUNDO = PATH_ROTACIONANDO + "fundot1.png";

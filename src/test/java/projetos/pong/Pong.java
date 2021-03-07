@@ -9,7 +9,6 @@ import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.sound.Sound;
 import br.com.wellington.jplay2D.time.Time;
 import br.com.wellington.jplay2D.window.Window;
-import projetos.utils.Constantes;
 
 public class Pong {
 
@@ -21,14 +20,14 @@ public class Pong {
 		keyboard.addKey(KeyEvent.VK_S, Keyboard.DETECT_EVERY_PRESS);
 		keyboard.addKey(KeyEvent.VK_W, Keyboard.DETECT_EVERY_PRESS);
 
-		GameImage fundo = new GameImage(Constantes.PONG_IMG_FUNDO);
+		GameImage fundo = new GameImage(PongApplication.PONG_IMG_FUNDO);
 
 		Bola bola = new Bola();
 		bola.x = 300;
 		bola.y = 300;
 
-		Barra barraVerde = new Barra(Constantes.PONG_IMG_BARRA_VERDE);
-		Barra barraRoxa = new Barra(Constantes.PONG_IMG_BARRA_ROXA);
+		Barra barraVerde = new Barra(PongApplication.PONG_IMG_BARRA_VERDE);
+		Barra barraRoxa = new Barra(PongApplication.PONG_IMG_BARRA_ROXA);
 
 		barraVerde.x = 40;
 		barraVerde.y = 300;
@@ -40,10 +39,10 @@ public class Pong {
 
 		Time tempo = new Time(0, 10, 35, 400, 588, false);
 		tempo.setColor(Color.WHITE);
-		tempo.setFont(Constantes.FONTE_COMIC_SANS_MS_16);
-		Font fonte = Constantes.FONTE_COMIC_SANS_MS_24;
+		tempo.setFont(PongApplication.FONTE_COMIC_SANS_MS_16);
+		Font fonte = PongApplication.FONTE_COMIC_SANS_MS_24;
 
-		Sound musica = new Sound(Constantes.PONG_SOM_MUSICA);
+		Sound musica = new Sound(PongApplication.PONG_SOM_MUSICA);
 		musica.setRepeat(true);// faz a música ser tocada continuamente.
 		musica.play();
 
@@ -68,24 +67,24 @@ public class Pong {
 
 			boolean colidiu = true;
 			if (bola.collided(barraVerde)) {
-				bola.setSentidoX(Constantes.PONG_SENTIDO_DIREITA);
+				bola.setSentidoX(PongApplication.PONG_SENTIDO_DIREITA);
 
 				bola.setSentidoY(barraVerde.getSentido());
 			} else if (bola.collided(barraRoxa)) {
-				bola.setSentidoX(Constantes.PONG_SENTIDO_ESQUERDA);
+				bola.setSentidoX(PongApplication.PONG_SENTIDO_ESQUERDA);
 
 				bola.setSentidoY(barraRoxa.getSentido());
 			} else
 				colidiu = false;
 
 			if (colidiu) {
-				new Sound(Constantes.PONG_SOM_BATEU).play();
+				new Sound(PongApplication.PONG_SOM_BATEU).play();
 			}
 
 			boolean marcouPonto = true;
-			if (bola.x < Constantes.PONG_LIMITE_ESQUERDA_X + 1)
+			if (bola.x < PongApplication.PONG_LIMITE_ESQUERDA_X + 1)
 				pontuacaoRoxo++;
-			else if (bola.x + bola.width > Constantes.PONG_LIMITE_DIREITA_X - 1)
+			else if (bola.x + bola.width > PongApplication.PONG_LIMITE_DIREITA_X - 1)
 				pontuacaoVerde++;
 			else
 				marcouPonto = false;
@@ -94,7 +93,7 @@ public class Pong {
 				bola.centralizarNaTela();
 				barraVerde.centralizarNaTela();
 				barraRoxa.centralizarNaTela();
-				new Sound(Constantes.PONG_SOM_PONTO).play();
+				new Sound(PongApplication.PONG_SOM_PONTO).play();
 			}
 
 			bola.moveX();
@@ -108,9 +107,6 @@ public class Pong {
 			if (keyboard.keyDown(Keyboard.ESCAPE_KEY) || tempo.timeEnded())
 				executando = false;
 		}
-
-		janela.delay(500);
-
 		janela.exit();
 	}
 }
