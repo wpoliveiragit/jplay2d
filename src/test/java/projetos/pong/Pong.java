@@ -12,101 +12,149 @@ import br.com.wellington.jplay2D.window.Window;
 
 public class Pong {
 
-	public Pong(int width, int height) {
-		Window janela = new Window(width, height);
-		janela.setCursorImage("");
-		Keyboard keyboard = janela.getKeyboard();
+	// RECURSOS APLICAÇÃO
+	private Window window;
+	private Keyboard keyboard;
+	private GameImage fundo;
 
+	// RECURSOS DO JOGO
+	private Bola bola;
+	private Barra barraVerde;
+	private Barra barraRoxa;
+
+	private Time tempo;
+	private Font fonte = PongMain.FONT_COMIC_SANS_MS_24;
+
+	private Sound musica;
+	private static boolean LOOP;
+
+	private int pontuacaoRoxo = 0;
+	private int pontuacaoVerde = 0;
+	private TextGame txtGameOvertime;
+	private TextGame txtGamePointRoxo;
+	private TextGame txtGamePointVerde;
+
+	public Pong(int width, int height) {
+		window = new Window(width, height);
+		window.setCursorImage("");
+
+		keyboard = window.getKeyboard();
 		keyboard.addKey(KeyEvent.VK_S, Keyboard.DETECT_EVERY_PRESS);
 		keyboard.addKey(KeyEvent.VK_W, Keyboard.DETECT_EVERY_PRESS);
 
-		GameImage fundo = new GameImage(PongApplication.PONG_IMG_FUNDO);
+		fundo = new GameImage(PongMain.IMG_BG);
 
-		Bola bola = new Bola();
-		bola.x = 300;
-		bola.y = 300;
+		bola = new Bola(300, 300);
 
-		Barra barraVerde = new Barra(PongApplication.PONG_IMG_BARRA_VERDE);
-		Barra barraRoxa = new Barra(PongApplication.PONG_IMG_BARRA_ROXA);
+		barraVerde = new Barra(PongMain.IMG_BAR_VERDE, 40, 300);
+		barraRoxa = new Barra(PongMain.IMG_BAR_ROXA, 745, 300);
 
-		barraVerde.x = 40;
-		barraVerde.y = 300;
-		barraRoxa.x = 745;
-		barraRoxa.y = 300;
+		barraVerde.centraliza();
+		barraRoxa.centraliza();
 
-		barraVerde.centralizarNaTela();
-		barraRoxa.centralizarNaTela();
-
-		Time tempo = new Time(0, 10, 35, 400, 588, false);
+		tempo = new Time(0, 0, 10, 400, 588, false);
 		tempo.setColor(Color.WHITE);
-		tempo.setFont(PongApplication.FONTE_COMIC_SANS_MS_16);
-		Font fonte = PongApplication.FONTE_COMIC_SANS_MS_24;
+		tempo.setFont(PongMain.FONT_COMIC_SANS_MS_16);
 
-		Sound musica = new Sound(PongApplication.PONG_SOM_MUSICA);
+		musica = new Sound(PongMain.SOM_MUSICA);
 		musica.setRepeat(true);// faz a música ser tocada continuamente.
-		musica.play();
 
-		int pontuacaoRoxo = 0;
-		int pontuacaoVerde = 0;
+		txtGameOvertime = new TextGame(window, 247, 105, Color.cyan, fonte);
+		txtGameOvertime.setTxt("O tempo está terminando!");
 
-		boolean executando = true;
-		while (executando) {
-			fundo.draw();
-			bola.draw();
-			barraVerde.draw();
-			barraRoxa.draw();
-			tempo.draw();
+		txtGamePointRoxo = new TextGame(window, 475, 70, Color.black, fonte);
+		txtGamePointRoxo.setTxt("" + pontuacaoRoxo);
 
-			if (tempo.getTotalSecond() < 30)
-				janela.drawText("O tempo está terminando!", 310, 105, Color.CYAN);
+		txtGamePointVerde = new TextGame(window, 295, 70, Color.black, fonte);
+		txtGamePointVerde.setTxt("" + pontuacaoVerde);
 
-			janela.drawText(Integer.toString(pontuacaoVerde), 295, 70, Color.BLACK, fonte);
-			janela.drawText(Integer.toString(pontuacaoRoxo), 475, 70, Color.BLACK, fonte);
+		LOOP = false;
+	}
 
-			janela.update();
-
-			boolean colidiu = true;
+	public void start() {
+		if (LOOP) {
+			return;
+		}
+		// musica.play();
+		LOOP = true;
+		while (LOOP) {
+			draw();
+			window.update();
 			if (bola.collided(barraVerde)) {
-				bola.setSentidoX(PongApplication.PONG_SENTIDO_DIREITA);
-
+				bola.setSentidoX(PongMain.STD_DIREITA);
 				bola.setSentidoY(barraVerde.getSentido());
+				bola.somColisao();
 			} else if (bola.collided(barraRoxa)) {
-				bola.setSentidoX(PongApplication.PONG_SENTIDO_ESQUERDA);
-
+				bola.setSentidoX(PongMain.STD_ESQUERDA);
 				bola.setSentidoY(barraRoxa.getSentido());
-			} else
-				colidiu = false;
-
-			if (colidiu) {
-				new Sound(PongApplication.PONG_SOM_BATEU).play();
+				bola.somColisao();
 			}
-
-			boolean marcouPonto = true;
-			if (bola.x < PongApplication.PONG_LIMITE_ESQUERDA_X + 1)
-				pontuacaoRoxo++;
-			else if (bola.x + bola.width > PongApplication.PONG_LIMITE_DIREITA_X - 1)
-				pontuacaoVerde++;
-			else
-				marcouPonto = false;
-
-			if (marcouPonto) {
-				bola.centralizarNaTela();
-				barraVerde.centralizarNaTela();
-				barraRoxa.centralizarNaTela();
-				new Sound(PongApplication.PONG_SOM_PONTO).play();
+			if (bola.x < PongMain.LIM_X_ESQ + 1) {
+				txtGamePointRoxo.setTxt("" + ++pontuacaoRoxo);
+				iniciaJogo();
+			} else if (bola.x + bola.width > PongMain.LIM_X_DIR - 1) {
+				txtGamePointVerde.setTxt("" + ++pontuacaoVerde);
+				iniciaJogo();
 			}
-
 			bola.moveX();
 			bola.moveY();
-
-			barraVerde.moveY(keyboard, KeyEvent.VK_W, KeyEvent.VK_S);
-			barraRoxa.moveY(keyboard, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
-
-			janela.delay(10);
-
-			if (keyboard.keyDown(Keyboard.ESCAPE_KEY) || tempo.timeEnded())
-				executando = false;
+			controle();
+			window.delay(10);
 		}
-		janela.exit();
+
+		TextGame txtG = new TextGame(window, 0, window.getJFrame().getHeight() / 2, Color.yellow,
+				PongMain.FONT_COMIC_SANS_MS_60);
+		txtG.setTxt("FIM DE JOGO");
+		txtG.setX((window.getJFrame().getWidth() - txtG.getTamanhoTexto()) / 2);
+		txtG.drawn();
+		window.update();
+
+		window.delay(3000);
+		window.exit();
 	}
+
+	private void controle() {
+		barraVerde.moveY(keyboard, KeyEvent.VK_W, KeyEvent.VK_S);
+		barraRoxa.moveY(keyboard, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
+		if (keyboard.keyDown(Keyboard.ESCAPE_KEY) || tempo.timeEnded()) {
+			LOOP = false;
+		}
+	}
+
+	private void draw() {
+		fundo.draw();
+		bola.draw();
+		barraVerde.draw();
+		barraRoxa.draw();
+		tempo.draw();
+		if (tempo.getTotalSecond() < 30) {
+			txtGameOvertime.drawn();
+		}
+		txtGamePointRoxo.drawn();
+		txtGamePointVerde.drawn();
+	}
+
+	private void iniciaJogo() {
+		// Centraliza bola
+		int largura = PongMain.LIM_X_DIR - PongMain.LIM_X_ESQ;
+		int altura = PongMain.LIM_Y_INF - PongMain.LIM_Y_SUP;
+		bola.x = (largura - bola.width) / 2;
+		bola.y = (altura + 7 * bola.height) / 2;
+		bola.sentidoY = PongMain.STD_PARADO;
+
+		// Centraliza barra Verde
+		int centroY = (PongMain.LIM_Y_INF - barraVerde.height / 2) / 2;
+
+		barraVerde.y = centroY;
+		barraVerde.sentido = PongMain.STD_PARADO;
+
+		// Centraliza Barra Roxa
+		barraRoxa.y = centroY;
+		barraRoxa.sentido = PongMain.STD_PARADO;
+
+		// som de ponto
+		new Sound(PongMain.SOM_PONTO).play();
+
+	}
+
 }

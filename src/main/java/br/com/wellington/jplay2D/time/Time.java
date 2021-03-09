@@ -19,9 +19,10 @@ public class Time {
 	private int hour;
 	private int minute;
 	private int second;
+	private boolean crescentTime;
+
 	private int x;
 	private int y;
-	private boolean crescentTime;
 
 	/**
 	 * Cria uma instância da classe Time. O tempo terá casa = 0, minuto = 0,
@@ -37,13 +38,13 @@ public class Time {
 	}
 
 	/**
-	 * Cria uma instância da classe Time.
+	 * Cria um relogio do jogo.
 	 * 
-	 * @param hour
-	 * @param minute
-	 * @param second
-	 * @param x
-	 * @param y
+	 * @param hour         hora;
+	 * @param minute       minuto
+	 * @param second       segundo
+	 * @param x            eixo x onde ficará o relogio
+	 * @param y            eixo y onde ficará o relógio.
 	 * @param crescentTime true se for crescente, falso caso contrário.
 	 */
 	public Time(int hour, int minute, int second, int x, int y, boolean crescentTime) {
@@ -91,6 +92,20 @@ public class Time {
 		};
 		this.timer = new javax.swing.Timer(1000, action);
 		this.timer.start();
+	}
+
+	/**
+	 * Define o tempo atual.
+	 * 
+	 * @param hour
+	 * @param minute
+	 * @param seconds
+	 */
+	public void setTime(int hour, int minute, int seconds) {
+		this.hour = hour;
+		this.minute = minute;
+		this.second = seconds;
+		calculateSeconds();
 	}
 
 	/**
@@ -228,17 +243,4 @@ public class Time {
 		return this.currentSecond;
 	}
 
-	/**
-	 * Define o tempo atual.
-	 * 
-	 * @param hour
-	 * @param minute
-	 * @param seconds
-	 */
-	public void setTime(int hour, int minute, int seconds) {
-		this.hour = hour;
-		this.minute = minute;
-		this.second = seconds;
-		calculateSeconds();
-	}
 }

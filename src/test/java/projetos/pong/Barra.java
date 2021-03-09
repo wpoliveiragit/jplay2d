@@ -4,23 +4,25 @@ import br.com.wellington.jplay2D.imageProcessing.Sprite;
 import br.com.wellington.jplay2D.oi.Keyboard;
 
 public class Barra extends Sprite {
-	int sentido = PongApplication.PONG_SENTIDO_PARADO;
+	int sentido = PongMain.STD_PARADO;
 
-	public Barra(String nomeImagem) {
+	public Barra(String nomeImagem,int x, int y) {
 		super(nomeImagem);
+		this.x = x;
+		this.y = y;
 	}
 
 	public void moveY(Keyboard teclado, int upKey, int downKey) {
 
-		if (teclado.keyDown(upKey) && this.y > PongApplication.PONG_LIMITE_SUPERIOR_Y + 5) {
+		if (teclado.keyDown(upKey) && this.y > PongMain.LIM_Y_SUP + 5) {
 			this.y -= 2;
-			sentido = PongApplication.PONG_SENTIDO_CIMA;
+			sentido = PongMain.STD_CIMA;
 		} else {
-			if (teclado.keyDown(downKey) && this.y + this.height < PongApplication.PONG_LIMITE_INFERIOR_Y - 5) {
+			if (teclado.keyDown(downKey) && this.y + this.height < PongMain.LIM_Y_INF - 5) {
 				this.y += 2;
-				sentido = PongApplication.PONG_SENTIDO_BAIXO;
+				sentido = PongMain.STD_BAIXO;
 			} else {
-				sentido = PongApplication.PONG_SENTIDO_PARADO;
+				sentido = PongMain.STD_PARADO;
 			}
 		}
 	}
@@ -29,8 +31,8 @@ public class Barra extends Sprite {
 		return this.sentido;
 	}
 
-	public void centralizarNaTela() {
-		this.y = (PongApplication.PONG_LIMITE_INFERIOR_Y - this.height / 2) / 2;
-		sentido = PongApplication.PONG_SENTIDO_PARADO;
+	public void centraliza() {
+		this.y = (PongMain.LIM_Y_INF - this.height / 2) / 2;
+		sentido = PongMain.STD_PARADO;
 	}
 }

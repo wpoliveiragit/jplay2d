@@ -22,15 +22,16 @@ public class Window {
 
 	private JFrame jframe = new JFrame();
 	private static Window instance = null;
+	private Graphics graphics;
 	private Mouse mouse;
 	private Keyboard keyboard;
-	private BufferStrategy buffer;
-	private Graphics graphics;
+	private BufferStrategy buffer;	
+	private DisplayMode displayMode;
+	private GraphicsDevice device;
+	
 	private long currTime;
 	private long lastTime;
 	private long totalTime;
-	private DisplayMode displayMode;
-	private GraphicsDevice device;
 
 	/** Cria o controle do game. Não pode ser instanciado duas */
 	public Window(int width, int height) {
