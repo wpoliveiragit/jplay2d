@@ -10,7 +10,7 @@ package projetos.investigador;
 public class Main {
 
 	public static void main(String[] args) {
-		new MainMenu();
+		new MainMenu().start();
 	}
 
 }

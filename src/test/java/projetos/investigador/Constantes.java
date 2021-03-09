@@ -2,16 +2,27 @@ package projetos.investigador;
 
 interface Constantes {
 
-	static String PATH = "recursos\\investigador\\";
+	// ROOT
+	static String PATH = projetos.utils.Constantes.ROOT + "/investigador";
 
-	static String SCN_CENARIO = PATH + "cenario1.scn";
+	// IMAGENS
+	static String FILE_IMAGE = PATH + "/img";
+	static String IMG_BACKGROUND = FILE_IMAGE + "/menu.png";
 
-	static String SPRITE_ZUMBI = PATH + "zumbi.png";
+	// CENARIOS
+	static String FILE_SCENE = PATH + "/scn";
+	static String SCN_CENARIO = FILE_SCENE + "/investigador.scn";
 
-	static String SPRITE_PLAYER = PATH + "jogador.png";
+	// SPRITES
+	static String FILE_SPRITE = PATH + "/sprite";
+	static String SPRITE_ZUMBI = FILE_SPRITE + "/zumbi.png";
+	static String SPRITE_PLAYER = FILE_SPRITE + "/jogador.png";
+	static String SPRITE_TIRO = FILE_SPRITE + "/bolafogo.png";
 
-	static String SPRITE_TIRO = PATH + "bolafogo.png";
+	// TILES
+	static String FILE_TILE = PATH + "/tile";
 
-	static String IMG_BACKGROUND = PATH + "menu.png";
+	// SONS
+	static String FILE_SONG = PATH + "/song";
 
 }

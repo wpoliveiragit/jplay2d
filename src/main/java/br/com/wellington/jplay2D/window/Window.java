@@ -66,7 +66,7 @@ public class Window {
 		throw new RuntimeException("[ERRO] ");
 	}
 
-	/** Atualiza o buffer da janela. */
+	/** Atualiza a tela do jogo. */
 	public void update() {
 		graphics.dispose();
 		buffer.show();
@@ -245,6 +245,9 @@ public class Window {
 	 * @return Window A instância da tela.
 	 */
 	public static Window getInstance() {
+		if(instance == null) {
+			throw new RuntimeException("[ERRO] ");
+		}
 		return instance;
 	}
 

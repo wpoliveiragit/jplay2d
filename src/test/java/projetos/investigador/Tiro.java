@@ -10,12 +10,11 @@ import br.com.wellington.jplay2D.oi.Keyboard;
  * @date 09/05/2019
  * @path Jogo01.Jogo.Tiro
  */
-public class Tiro extends Sprite implements Constantes {
+public class Tiro extends Sprite {
 
-	/**
-	 * A velocidade em que a bala irá percorrer o mapa.
-	 */
-	private static final float VELOCIDADE = 1f;
+	/** Velocidade da bala */
+	private static final float VELOCIDADE_MOVIMENTO = 7f;
+
 	/**
 	 * A progreção da direção da bala pelo eixo x.
 	 */
@@ -33,26 +32,27 @@ public class Tiro extends Sprite implements Constantes {
 	 * @param direcao A direção de onde o tiro ira seguir.
 	 */
 	public Tiro(double x, double y, int direcao) {
-		super(SPRITE_TIRO, 12);
+		super(Constantes.SPRITE_TIRO, 12);
 		super.setTotalDuration(500);
 		this.x = x;
 		this.y = y;
-		switch (direcao) {
+		
+		switch (direcao) {//escolha da direção da bala
 		case Keyboard.LEFT_KEY:
 			setSequence(9, 12);
-			addX = -VELOCIDADE;
+			addX = -VELOCIDADE_MOVIMENTO;
 			break;
 		case Keyboard.RIGHT_KEY:// correto
 			setSequence(0, 3);
-			addX = +VELOCIDADE;
+			addX = +VELOCIDADE_MOVIMENTO;
 			break;
 		case Keyboard.UP_KEY:// correto
 			setSequence(3, 6);
-			addY = -VELOCIDADE;
+			addY = -VELOCIDADE_MOVIMENTO;
 			break;
 		case Keyboard.DOWN_KEY:
 			setSequence(6, 9);
-			addY = +VELOCIDADE;
+			addY = +VELOCIDADE_MOVIMENTO;
 			break;
 		}
 

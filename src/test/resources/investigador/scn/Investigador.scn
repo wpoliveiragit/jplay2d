@@ -1,24 +1,24 @@
 20
-recursos/investigador/asfalto.png
-recursos/investigador/calcada.png
-recursos/investigador/calcada2.png
-recursos/investigador/grama.png
-recursos/investigador/porta2.png
-recursos/investigador/porta4.png
+asfalto.png
+calcada.png
+calcada2.png
+grama.png
+porta2.png
+porta4.png
 
 
 
 
 
 
-recursos/investigador/janela.png
-recursos/investigador/teto.png
-recursos/investigador/parede.png
-recursos/investigador/porta1.png
-recursos/investigador/porta3.png
-recursos/investigador/muro_alto.png
-recursos/investigador/muro_baixo.png
-recursos/investigador/hidrante.png
+janela.png
+teto.png
+parede.png
+porta1.png
+porta3.png
+muro_alto.png
+muro_baixo.png
+hidrante.png
 01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01
 01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01
 01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01
@@ -46,4 +46,4 @@ recursos/investigador/hidrante.png
 01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01
 01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01
 %
-recursos/investigador/tileErro.png
+tileErro.png

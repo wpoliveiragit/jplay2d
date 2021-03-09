@@ -11,15 +11,15 @@ import br.com.wellington.jplay2D.window.Window;
  * @date 05/05/2019
  * @path Jogo01.Jogo.Jogador
  */
-public class Jogador extends Personagem implements Constantes {
+public class Jogador extends Personagem {
 
 	private ControleTiro tiros = new ControleTiro();
 	private Window janela;
 	private Scene cena;
 
 	// private Keyboard teclado;
-	public Jogador(int x, int y, Window janela, Scene cena) {
-		super(SPRITE_PLAYER, 20);
+	public Jogador(Window janela, Scene cena, int x, int y) {
+		super(Constantes.SPRITE_PLAYER, 20);
 		this.janela = janela;
 		this.cena = cena;
 		this.x = x;
@@ -28,52 +28,51 @@ public class Jogador extends Personagem implements Constantes {
 	}
 
 	public void atirar() {
-		if (janela.getKeyboard().keyDown(Keyboard.SPACE_KEY)) {
-			tiros.adicionaTiro(x + 5, y + 11, posicao, cena);
-		}
+
+		tiros.adicionaTiro(x + 5, y + 11, super.posicao, cena);
+
 		tiros.run();
 	}
 
-	public void controle() {
-
-		if (janela.getKeyboard().keyDown((Keyboard.LEFT_KEY))) {
-			if (x > 0) {
-				x -= velocidade;
-				if (posicao != Keyboard.LEFT_KEY) {
-					setSequence(4, 8);
-					posicao = Keyboard.LEFT_KEY;
-				}
-				update();
-			}
-		} else if (janela.getKeyboard().keyDown((Keyboard.RIGHT_KEY))) {
-			if (x < janela.getJFrame().getWidth() - 45) {
-				x += velocidade;
-				if (posicao != Keyboard.RIGHT_KEY) {
-					setSequence(8, 12);
-					posicao = Keyboard.RIGHT_KEY;
-				}
-				update();
-			}
-		} else if (janela.getKeyboard().keyDown((Keyboard.UP_KEY))) {
-			if (y > 0) {
-				y -= velocidade;
-				if (posicao != Keyboard.UP_KEY) {
-					setSequence(12, 16);
-					posicao = Keyboard.UP_KEY;
-				}
-				update();
-			}
-		} else if (janela.getKeyboard().keyDown((Keyboard.DOWN_KEY))) {
-			if (y < janela.getJFrame().getHeight() - 60) {
-				y += velocidade;
-				if (posicao != Keyboard.DOWN_KEY) {
-					setSequence(0, 4);
-					posicao = Keyboard.DOWN_KEY;
-				}
-				update();
+	public void andaEsquerda() {
+		if (x > 0) {
+			x -= super.velocidade;
+			if (super.posicao != Keyboard.LEFT_KEY) {
+				setSequence(4, 8);
+				super.posicao = Keyboard.LEFT_KEY;
 			}
 		}
+	}
 
+	public void andaDireita() {
+		if (x < janela.getJFrame().getWidth() - 45) {
+			x += super.velocidade;
+			if (super.posicao != Keyboard.RIGHT_KEY) {
+				setSequence(8, 12);
+				super.posicao = Keyboard.RIGHT_KEY;
+			}
+		}
+	}
+
+	public void andaCima() {
+		if (y > 0) {
+			y -= super.velocidade;
+			if (super.posicao != Keyboard.UP_KEY) {
+				setSequence(12, 16);
+				super.posicao = Keyboard.UP_KEY;
+			}
+		}
+	}
+
+	public void andaBaixo() {
+		if (y < janela.getJFrame().getHeight() - 60) {
+			y += super.velocidade;
+			if (super.posicao != Keyboard.DOWN_KEY) {
+				setSequence(0, 4);
+				super.posicao = Keyboard.DOWN_KEY;
+			}
+
+		}
 	}
 
 }

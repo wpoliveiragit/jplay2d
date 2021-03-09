@@ -24,6 +24,7 @@ import br.com.wellington.jplay2D.window.Window;
  * Class responsible for handling a Scenario.
  */
 public class Scene {
+
 	private GameImage backDrop;
 	private GameImage[] tiles;
 	private String nameImages[];// É usado quando queremos salvar o estado da cena
@@ -48,7 +49,7 @@ public class Scene {
 	 * 
 	 * @param sceneFile Caminho de arquivo.
 	 */
-	public void loadFromFile(String sceneFile) {
+	public void loadFromFile(String sceneFile, String rootTiles) {
 		tileLayer = new ArrayList();
 		overlays = new ArrayList();
 
@@ -64,7 +65,7 @@ public class Scene {
 			for (int i = 0; i < numOfTileImages; i++) {
 				// leia o nome de cada imagem de bloco
 				line = input.readLine();
-				tiles[i] = new Sprite(line);
+				tiles[i] = new Sprite(rootTiles + "/" + line);
 				nameImages[i] = line;
 			}
 
@@ -89,7 +90,7 @@ public class Scene {
 				line = input.readLine();
 			}
 
-			//agora leia o arquivo do pano de fundo
+			// agora leia o arquivo do pano de fundo
 			line = input.readLine();
 			backDrop = new GameImage(line);
 			nameImages[numOfTileImages] = line;
@@ -169,7 +170,8 @@ public class Scene {
 	}
 
 	/**
-	 * Retorna as informações do arquivo armazenadas na posição da linha e coluna da matriz.
+	 * Retorna as informações do arquivo armazenadas na posição da linha e coluna da
+	 * matriz.
 	 * 
 	 * @param row    Linha na matriz.
 	 * @param colunm Coluna na matriz.
@@ -298,7 +300,8 @@ public class Scene {
 	 * 
 	 * @param row    Linha da matriz.
 	 * @param colunm Coluna da matriz.
-	 * @param newID  Novo código que irá substituir o antigo Id representado pela linha e coluna.
+	 * @param newID  Novo código que irá substituir o antigo Id representado pela
+	 *               linha e coluna.
 	 */
 	public void changeTile(int row, int colunm, int newID) {
 		ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(row);
@@ -338,9 +341,14 @@ public class Scene {
 
 	}
 
-	public void moveScene(GameObject object) {
+	/**
+	 * Desenha o cenário com o GameObject centralizado caso o mapa se mova.
+	 * 
+	 * @param object O objeto a ser centralizado.
+	 */
+	public void drawnMoveScene(GameObject object) {
 		// primeiro limpe a cena
-		Graphics g = Window.getInstance().getGameGraphics();
+
 		Window.getInstance().clear(Color.BLACK);
 		xOffset = 0;
 		yOffset = 0;

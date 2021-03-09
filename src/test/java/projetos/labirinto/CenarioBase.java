@@ -28,7 +28,7 @@ public class CenarioBase implements Constantes {
 	public CenarioBase(Jogo jogo, String pathScn) {
 		this.jogo = jogo;
 		cena = new Scene();
-		cena.loadFromFile(pathScn);
+		cena.loadFromFile(pathScn,"Colocar aqui o raiz onde estão os tiles deste projeto");
 		cena.setDrawStartPos(DESLOQUE_CENARIO_X, DESLOQUE_CENARIO_Y);
 	}
 

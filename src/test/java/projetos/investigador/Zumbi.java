@@ -5,7 +5,6 @@ package projetos.investigador;
  *
  * @author Wellington Pires de Oliveira.
  * @date 09/05/2019
- * @path Jogo01.Jogo.Esqueleto
  */
 public class Zumbi extends Personagem implements Constantes {
 

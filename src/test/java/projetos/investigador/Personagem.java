@@ -22,6 +22,7 @@ public class Personagem extends Sprite {
 	private static final byte DIREITA = Keyboard.RIGHT_KEY;
 	private static final byte CIMA = Keyboard.UP_KEY;
 	private static final byte BAIXO = Keyboard.DOWN_KEY;
+	
 	protected int posicao;
 	protected Controle controle;
 	protected double velocidade;
@@ -32,7 +33,7 @@ public class Personagem extends Sprite {
 		super(fileName, frames);
 		setConfig();
 		controle = new Controle();
-		velocidade = 1;
+		velocidade = 3;
 		movendo = false;
 		local = new Local();
 	}
