@@ -10,10 +10,9 @@ public class TestWindow {
 
 	@Test
 	void testErroCriar2Instancias() {
-
-		new Window(800, 600);
+		Window.create(800, 600);
 		try {
-			new Window(800, 600);
+			Window.create(800, 600);
 			fail();
 		} catch (Exception ex) {
 

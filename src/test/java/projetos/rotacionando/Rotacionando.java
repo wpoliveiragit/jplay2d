@@ -11,7 +11,7 @@ public class Rotacionando implements Constantes {
 
 	public static void main(String[] args) {
 
-		Window win = new Window(800, 600);
+		Window win = Window.create(800, 600);
 		GameImage fundo = new GameImage(ROTACIONANDO_FUNDO);
 
 		Physics fisica = new Physics();

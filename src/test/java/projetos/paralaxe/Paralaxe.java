@@ -8,14 +8,14 @@ import br.com.wellington.jplay2D.window.Window;
  *
  * @author Leandro Emiliano Guimarães ---UFF--- Computer Science
  */
-public class Paralaxe extends Window {
-	private static final long serialVersionUID = 1L;
+public class Paralaxe {
 
 	Parallax parallax = new Parallax(); // O primeiro adicionado será o último a ser pintado.
 	private boolean loop = true;
+	private Window win;
 
 	public Paralaxe() {
-		super(800, 600);
+		win = Window.create(800, 600);
 	}
 
 	public void start() {
@@ -30,14 +30,14 @@ public class Paralaxe extends Window {
 			// mantem a repetição das camadas.
 			parallax.repeatLayers(800, 600, true);
 			parallax.moveLayersStandardX(true);
-			update();
+			win.update();
 			controle();
 		}
-		exit();
+		win.exit();
 	}
 
 	private void controle() {
-		if (getKeyboard().keyDown(Keyboard.ESCAPE_KEY)) {
+		if (win.getKeyboard().keyDown(Keyboard.ESCAPE_KEY)) {
 			loop = false;
 		}
 	}

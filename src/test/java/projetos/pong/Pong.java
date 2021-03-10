@@ -35,7 +35,7 @@ public class Pong {
 	private TextGame txtGamePointVerde;
 
 	public Pong(int width, int height) {
-		window = new Window(width, height);
+		window = Window.create(width, height);
 		window.setCursorImage("");
 
 		keyboard = window.getKeyboard();
@@ -75,7 +75,7 @@ public class Pong {
 		if (LOOP) {
 			return;
 		}
-		// musica.play();
+		musica.play();
 		LOOP = true;
 		while (LOOP) {
 			draw();

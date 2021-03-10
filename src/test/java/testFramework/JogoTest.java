@@ -12,7 +12,7 @@ public class JogoTest {
 	private Keyboard keyboard;
 
 	public JogoTest() {
-		new Window(800, 600);
+		Window.create(800, 600);
 		initConfig();
 
 		win = Window.getInstance();

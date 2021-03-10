@@ -31,7 +31,7 @@ public class JogoBase implements Controle {
 	 * Contrutor base do jogo.
 	 */
 	public JogoBase() {
-		janela = new Window(800, 600);
+		janela = Window.create(800, 600);
 		teclado = janela.getKeyboard();
 		controle = this;
 	}

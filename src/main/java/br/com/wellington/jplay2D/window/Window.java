@@ -32,38 +32,35 @@ public class Window {
 	private WindowGameTime gameTime;
 
 	/** Cria o controle do game. Não pode ser instanciado duas */
-	public Window(int width, int height) {
+	private Window(int width, int height) {
 		// Criar um construtor privado default
 		// Adaptar este construtor para o método getInstance()
 
-		if (instance == null) {
-			jframe = new JFrame();
-			device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-			displayMode = new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
+		jframe = new JFrame();
+		device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		displayMode = new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
 
-			jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setSize(width, height);
-			jframe.setLocationRelativeTo(null);
-			jframe.setUndecorated(true);
-			jframe.setVisible(true);
+		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(width, height);
+		jframe.setLocationRelativeTo(null);
+		jframe.setUndecorated(true);
+		jframe.setVisible(true);
 
-			jframe.createBufferStrategy(2);
-			buffer = jframe.getBufferStrategy();
+		jframe.createBufferStrategy(2);
+		buffer = jframe.getBufferStrategy();
 
-			graphics = buffer.getDrawGraphics();
+		graphics = buffer.getDrawGraphics();
 
-			mouse = new Mouse();
-			keyboard = new Keyboard();
+		mouse = new Mouse();
+		keyboard = new Keyboard();
 
-			jframe.addMouseListener(mouse);
-			jframe.addMouseMotionListener(mouse);
-			jframe.addKeyListener(keyboard);
+		jframe.addMouseListener(mouse);
+		jframe.addMouseMotionListener(mouse);
+		jframe.addKeyListener(keyboard);
 
-			gameTime = new WindowGameTime();
-			instance = this;
-			return;
-		}
-		throw new RuntimeException("[ERRO] ");
+		gameTime = new WindowGameTime();
+		instance = this;
+		return;
 	}
 
 	/** Atualiza a tela do jogo. */
@@ -228,9 +225,16 @@ public class Window {
 	 */
 	public static Window getInstance() {
 		if (instance == null) {
-			throw new RuntimeException("[ERRO] ");
+			throw new RuntimeException("[ERRO] a classe window não foi criada");
 		}
 		return instance;
+	}
+
+	public static Window create(int x, int y) {
+		if (instance == null) {
+			return instance = new Window(x, y);
+		}
+		throw new RuntimeException("[ERRO] A instância da window já foi criada");
 	}
 
 	/**

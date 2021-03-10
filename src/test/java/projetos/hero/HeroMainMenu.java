@@ -22,32 +22,23 @@ public class HeroMainMenu {
 
 	public HeroMainMenu() {
 		plano = new GameImage(HeroMain.IMG_MAIN_MENU);
-		window = new Window(plano.width, plano.height);
+		window = Window.create(plano.width, plano.height);
 		keyboard = window.getKeyboard();
 		init();
 	}
 
 	private void init() {
-		nome = TextGame.builder()
-				.setCor(Color.red)
-				.setFont(HeroMain.FONT_COMIC_SANS_MS_40)
-				.setText("WELLINGTON PIRES DE OLIVEIRA")
-				.build();
+		nome = TextGame.builder().setCor(Color.red).setFont(HeroMain.FONT_COMIC_SANS_MS_40)
+				.setText("WELLINGTON PIRES DE OLIVEIRA").build();
 		nome.setX((window.getJFrame().getWidth() - nome.getWidth()) / 2);
 		nome.setY((int) (1.3 * nome.getHeight()));
-		
-		enter = TextGame.builder()
-				.setCor(Color.yellow)
-				.setFont(HeroMain.FONT_COMIC_SANS_MS_40)
-				.setText("[ENTER] INICIAR")
-				.build();
+
+		enter = TextGame.builder().setCor(Color.yellow).setFont(HeroMain.FONT_COMIC_SANS_MS_40)
+				.setText("[ENTER] INICIAR").build();
 		enter.setX((window.getJFrame().getWidth() - enter.getWidth()) / 2);
 		enter.setY(window.getJFrame().getHeight() - 2 * enter.getHeight());
 
-		esc = TextGame.builder()
-				.setCor(Color.yellow)
-				.setFont(HeroMain.FONT_COMIC_SANS_MS_40)
-				.setText("[ESC] SAIR")
+		esc = TextGame.builder().setCor(Color.yellow).setFont(HeroMain.FONT_COMIC_SANS_MS_40).setText("[ESC] SAIR")
 				.build();
 		esc.setX((window.getJFrame().getWidth() - esc.getWidth()) / 2);
 		esc.setY(window.getJFrame().getHeight() - esc.getHeight());

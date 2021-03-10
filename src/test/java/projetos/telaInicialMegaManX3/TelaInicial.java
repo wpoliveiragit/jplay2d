@@ -10,8 +10,7 @@ import br.com.wellington.jplay2D.window.Window;
  * @author Gefersom Cardoso Lima Federal Fluminense University - UFF - Brazil
  *         Computer Science
  */
-public class TelaInicial extends Window {
-	private static final long serialVersionUID = 1L;
+public class TelaInicial {
 
 	private Keyboard keyboard;
 	private Animation backGround;
@@ -19,14 +18,15 @@ public class TelaInicial extends Window {
 	private Sound musica;
 	private boolean loop = true;
 	private int escolha = 0;
+	private Window win;
 
 	public TelaInicial() {
-		super(800, 600);
-		setCursorImage(Main.PATH_MOUSE);
+		win = Window.create(800, 600);
+		win.setCursorImage(Main.PATH_MOUSE);
 
 		backGround = new Sprite(Main.PATH_TELA_INICIAL, 3);
 
-		keyboard = getKeyboard();
+		keyboard = win.getKeyboard();
 		keyboard.setBehavior(Keyboard.UP_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
 		keyboard.setBehavior(Keyboard.DOWN_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
 
@@ -34,10 +34,9 @@ public class TelaInicial extends Window {
 		musica.setRepeat(true);
 	}
 
-	@Override
 	public void update() {
 		backGround.draw();
-		super.update();
+		win.update();
 	}
 
 	private void controle() {
@@ -71,6 +70,6 @@ public class TelaInicial extends Window {
 			update();
 			controle();
 		}
-		exit();
+		win.exit();
 	}
 }

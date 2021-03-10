@@ -24,7 +24,7 @@ public class Janela {
 	private List<Tiro> balas = new ArrayList<Tiro>();
 
 	public Janela(int x, int y) {
-		window = new Window(x, y);
+		window =  Window.create(x, y);
 		keyboard = window.getKeyboard();
 		keyboard.addKey(KeyEvent.VK_CONTROL);
 		background = new GameImage(MegaManApplication.IMG_BD);

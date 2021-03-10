@@ -34,7 +34,7 @@ public class Lancando {
 		
 		fisica.createBodyFromSprite(quadrado, false);
 
-		windows = new Window(width, height);
+		windows = Window.create(width, height);
 		keyboard = windows.getKeyboard();
 		keyboard.addKey(Keyboard.RIGHT_KEY);
 		keyboard.addKey(Keyboard.LEFT_KEY);

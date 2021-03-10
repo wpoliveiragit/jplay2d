@@ -22,7 +22,7 @@ public class MainMenu implements Constantes {
 
 	public MainMenu() {
 		plano = new GameImage(IMG_BACKGROUND);
-		win = new Window(plano.width, plano.height);
+		win = Window.create(plano.width, plano.height);
 		keyboard = win.getKeyboard();
 	}
 

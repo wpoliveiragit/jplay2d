@@ -32,7 +32,7 @@ public class JogoMemoria implements Constantes {
 
 	private void carregarObjetos() {
 		// A windows SEMPRE deve ser a primeira a ser CARREGADA
-		window = new Window(800, 600);
+		window = Window.create(800, 600);
 		window.setCursorImage(JOGO_DA_MEMORIA_IMG_MOUSE);
 
 		mouse = window.getMouse();
