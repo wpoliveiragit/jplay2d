@@ -129,7 +129,7 @@ public class JogoMemoria implements Constantes {
 					new Sound(SOM_SOM2).play();
 					tempoPassado = 0;
 				} else {
-					tempoPassado += window.latecy();
+					tempoPassado += window.getGameTime().latecy();
 					anularPecasEscolhidas = false;
 				}
 			}

@@ -12,7 +12,7 @@ public class HeroMainMenu {
 
 	private static boolean LOOP = false;
 
-	private Window win;
+	private Window window;
 	private GameImage plano;
 	private Keyboard keyboard;
 
@@ -22,8 +22,8 @@ public class HeroMainMenu {
 
 	public HeroMainMenu() {
 		plano = new GameImage(HeroMain.IMG_MAIN_MENU);
-		win = new Window(plano.width, plano.height);
-		keyboard = win.getKeyboard();
+		window = new Window(plano.width, plano.height);
+		keyboard = window.getKeyboard();
 		init();
 	}
 
@@ -33,7 +33,7 @@ public class HeroMainMenu {
 				.setFont(HeroMain.FONT_COMIC_SANS_MS_40)
 				.setText("WELLINGTON PIRES DE OLIVEIRA")
 				.build();
-		nome.setX((win.getJFrame().getWidth() - nome.getWidth()) / 2);
+		nome.setX((window.getJFrame().getWidth() - nome.getWidth()) / 2);
 		nome.setY((int) (1.3 * nome.getHeight()));
 		
 		enter = TextGame.builder()
@@ -41,16 +41,16 @@ public class HeroMainMenu {
 				.setFont(HeroMain.FONT_COMIC_SANS_MS_40)
 				.setText("[ENTER] INICIAR")
 				.build();
-		enter.setX((win.getJFrame().getWidth() - enter.getWidth()) / 2);
-		enter.setY(win.getJFrame().getHeight() - 2 * enter.getHeight());
+		enter.setX((window.getJFrame().getWidth() - enter.getWidth()) / 2);
+		enter.setY(window.getJFrame().getHeight() - 2 * enter.getHeight());
 
 		esc = TextGame.builder()
 				.setCor(Color.yellow)
 				.setFont(HeroMain.FONT_COMIC_SANS_MS_40)
 				.setText("[ESC] SAIR")
 				.build();
-		esc.setX((win.getJFrame().getWidth() - esc.getWidth()) / 2);
-		esc.setY(win.getJFrame().getHeight() - esc.getHeight());
+		esc.setX((window.getJFrame().getWidth() - esc.getWidth()) / 2);
+		esc.setY(window.getJFrame().getHeight() - esc.getHeight());
 	}
 
 	/** Inicia o aplicativo. */
@@ -61,11 +61,11 @@ public class HeroMainMenu {
 		LOOP = true;
 		while (LOOP) {
 			draw();
-			win.update();
+			window.update();
 			control();
-			win.delay(30);
+			window.delay(30);
 		}
-		win.exit();
+		window.exit();
 	}
 
 	private void control() {

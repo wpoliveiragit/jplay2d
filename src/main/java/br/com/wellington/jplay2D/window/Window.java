@@ -20,32 +20,26 @@ import br.com.wellington.jplay2D.oi.Mouse;
 /** Classe inicial do framework. Responsavel pelo desenho de imagens na tela. */
 public class Window {
 
-	private JFrame jframe = new JFrame();
 	private static Window instance = null;
+
+	private JFrame jframe;
 	private Graphics graphics;
 	private Mouse mouse;
 	private Keyboard keyboard;
-	private BufferStrategy buffer;	
+	private BufferStrategy buffer;
 	private DisplayMode displayMode;
 	private GraphicsDevice device;
-	
-	private long currTime;
-	private long lastTime;
-	private long totalTime;
+	private WindowGameTime gameTime;
 
 	/** Cria o controle do game. Não pode ser instanciado duas */
 	public Window(int width, int height) {
-		if (instance == null) {
+		// Criar um construtor privado default
+		// Adaptar este construtor para o método getInstance()
 
+		if (instance == null) {
+			jframe = new JFrame();
 			device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			displayMode = new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
-
-			mouse = new Mouse();
-			keyboard = new Keyboard();
-
-			jframe.addMouseListener(mouse);
-			jframe.addMouseMotionListener(mouse);
-			jframe.addKeyListener(keyboard);
 
 			jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setSize(width, height);
@@ -57,9 +51,15 @@ public class Window {
 			buffer = jframe.getBufferStrategy();
 
 			graphics = buffer.getDrawGraphics();
-			currTime = System.currentTimeMillis();
-			lastTime = 0;
-			totalTime = 0;
+
+			mouse = new Mouse();
+			keyboard = new Keyboard();
+
+			jframe.addMouseListener(mouse);
+			jframe.addMouseMotionListener(mouse);
+			jframe.addKeyListener(keyboard);
+
+			gameTime = new WindowGameTime();
 			instance = this;
 			return;
 		}
@@ -72,15 +72,7 @@ public class Window {
 		buffer.show();
 		Toolkit.getDefaultToolkit().sync();
 		graphics = buffer.getDrawGraphics();
-
-		updateTotalTime();
-	}
-
-	/** Atualiza o tempo total de execução do aplicativo. */
-	private void updateTotalTime() {
-		lastTime = currTime;
-		currTime = System.currentTimeMillis();
-		totalTime += currTime - lastTime;
+		gameTime.updateTotalTime();
 	}
 
 	/**
@@ -94,8 +86,7 @@ public class Window {
 			this.displayMode = displayMode;
 			return;
 		}
-		JOptionPane.showMessageDialog(null, "A resolução não é compatível com este monitor.");
-
+		throw new RuntimeException("A resolução não é compatível com este monitor.");
 	}
 
 	/**
@@ -175,15 +166,6 @@ public class Window {
 	}
 
 	/**
-	 * Retorna o tempo decorrido entre o quadro anterior e o atual.
-	 * 
-	 * @return long Tempo em milisegundos.
-	 */
-	public long latecy() {
-		return currTime - lastTime;
-	}
-
-	/**
 	 * Desenha uma mensagem na tela.
 	 * 
 	 * @param message a mensagem a ser desenhada na tela.
@@ -245,7 +227,7 @@ public class Window {
 	 * @return Window A instância da tela.
 	 */
 	public static Window getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			throw new RuntimeException("[ERRO] ");
 		}
 		return instance;
@@ -285,12 +267,12 @@ public class Window {
 	}
 
 	/**
-	 * Retorna o tempo total de execução do aplicativo em milisegundos.
+	 * Retorna a base do tempo do jogo.
 	 * 
-	 * @return O tempo total de execução do aplicativo em milisegundos.
+	 * @return A base do tempo do jogo.
 	 */
-	public long getTotalTime() {
-		return totalTime;
+	public WindowGameTime getGameTime() {
+		return gameTime;
 	}
 
 }

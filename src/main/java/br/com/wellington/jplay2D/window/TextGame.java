@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import lombok.Builder;
-
-@Builder
-public class TextGame {
+public class TextGame {//Excluir essa classe, baixa performance
 
 	public static class TextGameBuilder {
 

@@ -42,7 +42,7 @@ public final class Keyboard extends InputBase implements KeyListener {
 	public Keyboard() {
 		keysPressed = new Hashtable();
 
-		// Adicione as chaves padrão
+		// Adicione as chaves padrão (retirar todos os addKey)
 		addKey(UP_KEY, Keyboard.DETECT_EVERY_PRESS);
 		addKey(LEFT_KEY, Keyboard.DETECT_EVERY_PRESS);
 		addKey(RIGHT_KEY, Keyboard.DETECT_EVERY_PRESS);
@@ -103,7 +103,8 @@ public final class Keyboard extends InputBase implements KeyListener {
 	 * Remova uma chave da instância do teclado. Se a chave não existe na instância
 	 * do teclado não gere nenhum erro.
 	 * 
-	 * @pram key O código da chave. Ele pode ser encontrado em 'KeyEvent'. ou em 'Teclado'.
+	 * @pram key O código da chave. Ele pode ser encontrado em 'KeyEvent'. ou em
+	 *       'Teclado'.
 	 * @see KeyEvent
 	 * @see Keyboard
 	 * @version 1.0
@@ -113,9 +114,11 @@ public final class Keyboard extends InputBase implements KeyListener {
 	}
 
 	/**
-	 * Defina um novo comportamento para uma chave. Se a chave não existe na instância do teclado não gera nenhum erro.
+	 * Defina um novo comportamento para uma chave. Se a chave não existe na
+	 * instância do teclado não gera nenhum erro.
 	 * 
-	 * @param key O código da chave. Ele pode ser encontrado em 'KeyEvent'. ou em 'Teclado'.
+	 * @param key O código da chave. Ele pode ser encontrado em 'KeyEvent'. ou em
+	 *            'Teclado'.
 	 * @see KeyEvent
 	 * @see Keyboard
 	 * @version 1.0

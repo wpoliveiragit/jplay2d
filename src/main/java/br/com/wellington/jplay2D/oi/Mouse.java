@@ -94,6 +94,7 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 		}
 	}
 
+	@Deprecated
 	public void mouseClicked(MouseEvent e) {
 	}
 
@@ -125,12 +126,13 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 		}
 	}
 
+	@Deprecated
 	public void mouseEntered(MouseEvent e) {
 	}
-
+	@Deprecated
 	public void mouseExited(MouseEvent e) {
 	}
-
+	
 	public void mouseDragged(MouseEvent e) {
 		mousePosition = e.getPoint();
 	}
