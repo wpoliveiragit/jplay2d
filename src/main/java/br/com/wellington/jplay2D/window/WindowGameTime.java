@@ -12,7 +12,7 @@ public class WindowGameTime {
 	}
 
 	/** Atualiza o tempo total de execução do aplicativo. */
-	public void updateTotalTime() {
+	void update() {
 		lastTime = currTime;
 		currTime = System.currentTimeMillis();
 		totalTime += currTime - lastTime;

@@ -22,7 +22,7 @@ public class TelaInicial {
 
 	public TelaInicial() {
 		win = Window.create(800, 600);
-		win.setCursorImage(Main.PATH_MOUSE);
+		win.getMouse().setCursorImage(Main.PATH_MOUSE);
 
 		backGround = new Sprite(Main.PATH_TELA_INICIAL, 3);
 

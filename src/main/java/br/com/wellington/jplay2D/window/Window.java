@@ -12,7 +12,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.oi.Mouse;
@@ -22,28 +21,45 @@ public class Window {
 
 	private static Window instance = null;
 
-	private JFrame jframe;
+	private JFrame jframe = new JFrame();;
 	private Graphics graphics;
-	private Mouse mouse;
-	private Keyboard keyboard;
+	private Mouse mouse = new Mouse();
+	private Keyboard keyboard = new Keyboard();
 	private BufferStrategy buffer;
 	private DisplayMode displayMode;
-	private GraphicsDevice device;
-	private WindowGameTime gameTime;
+	private GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	private WindowGameTime gameTime = new WindowGameTime();
 
 	/** Cria o controle do game. Não pode ser instanciado duas */
 	private Window(int width, int height) {
-		// Criar um construtor privado default
-		// Adaptar este construtor para o método getInstance()
+		instance = this;
+		setDisplayMode(new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN));
+	}
 
-		jframe = new JFrame();
-		device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		displayMode = new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
-
+	/**
+	 * Configura um novo display ao jogo. Caso tenha guardado a instancia 'graphics'
+	 * utilize o método 'getGameGraphics()' para atualizar a insrtância.
+	 */
+	public void setDisplayMode(DisplayMode dm) {
+		JFrame jframe = new JFrame();
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(width, height);
+
+		jframe.setResizable(true);
+		jframe.setSize(dm.getWidth(), dm.getHeight());
+
+		DisplayMode displayMode = new DisplayMode(dm.getWidth(), dm.getHeight(), 16, DisplayMode.REFRESH_RATE_UNKNOWN);
+		if (isDisplayModeCompatible(displayMode)) {
+			this.displayMode = displayMode;
+		} else {
+			throw new RuntimeException("A resolução não é compatível com este monitor.");
+		}
+
+		jframe.setLocationRelativeTo(null);
+		jframe.setResizable(false);
+
 		jframe.setLocationRelativeTo(null);
 		jframe.setUndecorated(true);
+		this.jframe.dispose();
 		jframe.setVisible(true);
 
 		jframe.createBufferStrategy(2);
@@ -51,16 +67,11 @@ public class Window {
 
 		graphics = buffer.getDrawGraphics();
 
-		mouse = new Mouse();
-		keyboard = new Keyboard();
-
 		jframe.addMouseListener(mouse);
 		jframe.addMouseMotionListener(mouse);
 		jframe.addKeyListener(keyboard);
 
-		gameTime = new WindowGameTime();
-		instance = this;
-		return;
+		this.jframe = jframe;
 	}
 
 	/** Atualiza a tela do jogo. */
@@ -69,42 +80,25 @@ public class Window {
 		buffer.show();
 		Toolkit.getDefaultToolkit().sync();
 		graphics = buffer.getDrawGraphics();
-		gameTime.updateTotalTime();
-	}
-
-	/**
-	 * Defina um modo de exibição.
-	 * 
-	 * @param displayMode
-	 * @see DisplayMode
-	 */
-	public final void setDisplayMode(DisplayMode displayMode) {
-		if (isDisplayModeCompatible(displayMode)) {
-			this.displayMode = displayMode;
-			return;
-		}
-		throw new RuntimeException("A resolução não é compatível com este monitor.");
+		gameTime.update();
 	}
 
 	/**
 	 * Retorna verdadeiro se o display é capaz de funcionar com este modo de
 	 * exibição, falso caso contrário.
 	 * 
-	 * @param displayMode
+	 * @param dm
 	 * @return boolean
 	 * @see DisplayMode
 	 */
-	public final boolean isDisplayModeCompatible(DisplayMode displayMode) {
-		DisplayMode goodModes[] = device.getDisplayModes();
-		int i = 0;
-		boolean compatible = false;
-		while (!compatible && i < goodModes.length) {
-			if (goodModes[i].getWidth() == displayMode.getWidth()
-					&& goodModes[i].getHeight() == displayMode.getHeight())
-				compatible = true;
-			i++;
+	public final boolean isDisplayModeCompatible(DisplayMode dm) {
+		for (DisplayMode gmd : device.getDisplayModes()) {
+			if (gmd.getWidth() == dm.getWidth() && gmd.getHeight() == dm.getHeight()) {
+				return true;
+			}
 		}
-		return compatible;
+		return false;
+
 	}
 
 	/** Abilita o modo de tela cheia. */
@@ -112,7 +106,7 @@ public class Window {
 		DisplayMode old = device.getDisplayMode();
 		jframe.setIgnoreRepaint(true);
 		jframe.setResizable(false);
-		device.setFullScreenWindow(instance.jframe);
+		device.setFullScreenWindow(jframe);
 		try {
 			device.setDisplayMode(displayMode);
 		} catch (IllegalArgumentException ex) {
@@ -124,20 +118,6 @@ public class Window {
 	public void restoreScreen() {
 		device.setFullScreenWindow(null);
 		jframe.setLocationRelativeTo(null);
-	}
-
-	/**
-	 * Define o tamanho da tela.
-	 * 
-	 * @param width  Largura da tela.
-	 * @param height Altura da tela.
-	 */
-	public final void setSize(int width, int height) {
-		jframe.setResizable(true);
-		jframe.setSize(width, height);
-		setDisplayMode(new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN));
-		jframe.setLocationRelativeTo(null);
-		jframe.setResizable(false);
 	}
 
 	/**
@@ -225,7 +205,7 @@ public class Window {
 	 */
 	public static Window getInstance() {
 		if (instance == null) {
-			throw new RuntimeException("[ERRO] a classe window não foi criada");
+			throw new RuntimeException("[ERRO] a classe window não foi criada, use o método 'create'");
 		}
 		return instance;
 	}
@@ -235,16 +215,6 @@ public class Window {
 			return instance = new Window(x, y);
 		}
 		throw new RuntimeException("[ERRO] A instância da window já foi criada");
-	}
-
-	/**
-	 * Configura uma nova imagem para o mouse.
-	 * 
-	 * @param filePath O caminho do arquivo.
-	 */
-	public void setCursorImage(String filePath) {
-		jframe.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().getImage(filePath),
-				new java.awt.Point(), "cursor"));
 	}
 
 	/** Retorna o frame da tela. */

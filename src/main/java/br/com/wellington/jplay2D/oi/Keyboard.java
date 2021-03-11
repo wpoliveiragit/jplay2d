@@ -40,7 +40,7 @@ public final class Keyboard extends InputBase implements KeyListener {
 	 * @version 1.0
 	 */
 	public Keyboard() {
-		keysPressed = new Hashtable();
+		keysPressed = new Hashtable<Integer, InputAction>();
 
 		// Adicione as chaves padrão (retirar todos os addKey)
 		addKey(UP_KEY, Keyboard.DETECT_EVERY_PRESS);
@@ -128,10 +128,17 @@ public final class Keyboard extends InputBase implements KeyListener {
 			addKey(key, behavior);
 	}
 
+	/** Remove todas as keys registradas */
+	public void cleanKeys() {
+		keysPressed.clear();
+	}
+
+	@Deprecated
 	public void keyTyped(KeyEvent e) {
 		// e.consume();
 	}
 
+	@Deprecated
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (keysPressed.containsKey(key)) {
@@ -141,6 +148,7 @@ public final class Keyboard extends InputBase implements KeyListener {
 		// e.consume();
 	}
 
+	@Deprecated
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (keysPressed.containsKey(key)) {

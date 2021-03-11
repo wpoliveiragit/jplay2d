@@ -4,13 +4,8 @@ import java.awt.Font;
 
 public interface Constantes {
 
-	// FONTS
-	public static final Font FONTE_SANSSERIF = new Font("sansserif", Font.TRUETYPE_FONT, 12);
-	public static final Font FONTE_COMIC_SAMS_MS = new Font("Comic Sans MS", Font.TRUETYPE_FONT, 20);
-
 	/** Caminhos raizes para os recursos. */
-	public static final String ROOT = "src/test/resources/";
-
+	public static final String ROOT = "src/test/resources";
 	// AREA DE RECURSOS de IMAGENS E VIDEOS
 	public static final String PATH_JOGO_DA_MEMORIA = ROOT + "/jogoDaMemoria/";
 	public static final String PATH_LANCANDO = ROOT + "/lancando/";
@@ -58,5 +53,9 @@ public interface Constantes {
 	public static final String ROTACIONANDO_GROUND = PATH_ROTACIONANDO + "ground.png";
 	public static final String ROTACIONANDO_SPRITE = PATH_ROTACIONANDO + "sprite.png";
 	public static final String ROTACIONANDO_LIMITE = PATH_ROTACIONANDO + "limite.png";
+
+	// FONTS
+	public static final Font FONTE_SANSSERIF = new Font("sansserif", Font.TRUETYPE_FONT, 12);
+	public static final Font FONTE_COMIC_SAMS_MS = new Font("Comic Sans MS", Font.TRUETYPE_FONT, 20);
 
 }

@@ -36,7 +36,7 @@ public class Pong {
 
 	public Pong(int width, int height) {
 		window = Window.create(width, height);
-		window.setCursorImage("");
+		window.getMouse().setCursorImage("");
 
 		keyboard = window.getKeyboard();
 		keyboard.addKey(KeyEvent.VK_S, Keyboard.DETECT_EVERY_PRESS);

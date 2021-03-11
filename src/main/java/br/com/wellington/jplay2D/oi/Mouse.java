@@ -1,11 +1,13 @@
 package br.com.wellington.jplay2D.oi;
 
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import br.com.wellington.jplay2D.imageProcessing.GameObject;
+import br.com.wellington.jplay2D.window.Window;
 
 /**
  * Classe responsável por controlar as ações do mouse.
@@ -34,6 +36,16 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 		leftButton = new InputAction(InputBase.DETECT_INITIAL_PRESS_ONLY);
 		middleButton = new InputAction(InputBase.DETECT_INITIAL_PRESS_ONLY);
 		rightButton = new InputAction(InputBase.DETECT_INITIAL_PRESS_ONLY);
+	}
+
+	/**
+	 * Configura uma nova imagem para o mouse.
+	 * 
+	 * @param filePath O caminho do arquivo.
+	 */
+	public void setCursorImage(String filePath) {
+		Window.getInstance().getJFrame().setCursor(Toolkit.getDefaultToolkit()
+				.createCustomCursor(Toolkit.getDefaultToolkit().getImage(filePath), new java.awt.Point(), "cursor"));
 	}
 
 	/**
@@ -98,6 +110,7 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	public void mouseClicked(MouseEvent e) {
 	}
 
+	@Deprecated
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case MouseEvent.BUTTON1:
@@ -112,6 +125,7 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 		}
 	}
 
+	@Deprecated
 	public void mouseReleased(MouseEvent e) {
 		switch (e.getButton()) {
 		case MouseEvent.BUTTON1:
@@ -129,20 +143,24 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	@Deprecated
 	public void mouseEntered(MouseEvent e) {
 	}
+
 	@Deprecated
 	public void mouseExited(MouseEvent e) {
 	}
-	
+
+	@Deprecated
 	public void mouseDragged(MouseEvent e) {
 		mousePosition = e.getPoint();
 	}
 
+	@Deprecated
 	public void mouseMoved(MouseEvent e) {
 		mousePosition = e.getPoint();
 	}
 
 	/**
-	 * Retorna verdadeiro se o mouse estiver sobre um objeto; caso contrário, retorna falso.
+	 * Retorna verdadeiro se o mouse estiver sobre um objeto; caso contrário,
+	 * retorna falso.
 	 * 
 	 * @param obj qualquer GameObject.
 	 * @return boolean
@@ -155,7 +173,7 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Retorna verdadeiro se o mouse estiver sobre um objeto; caso contrário, retorna falso.
+	 * Retorna true se o mouse estiver sobre a área informada.
 	 * 
 	 * @param start ponto inicial da área.
 	 * @param end   ponto final da área.
@@ -166,7 +184,7 @@ public class Mouse extends InputBase implements MouseMotionListener, MouseListen
 	}
 
 	/**
-	 * Retorna verdadeiro se o mouse estiver sobre uma área, caso contrário retorna falso
+	 * Retorna true se o mouse estiver sobre a área informada.
 	 * 
 	 * @minX minus valor dos eixos X.
 	 * @minY minus valor dos eixos Y.
