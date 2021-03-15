@@ -8,26 +8,6 @@ import java.util.Hashtable;
  * Classe responsável por manipular as teclas do teclado e seu comportamento.
  */
 public final class Keyboard extends InputBase implements KeyListener {
-	/** A tecla de direção acima do teclado. */
-	public static final int UP_KEY = 38;
-
-	/** A tecla de direção à esquerda do teclado. */
-	public static final int LEFT_KEY = 37;
-
-	/** A tecla de direção à direita do teclado. */
-	public static final int RIGHT_KEY = 39;
-
-	/** A tecla de direção para a parte inferior do teclado. */
-	public static final int DOWN_KEY = 40;
-
-	/** A tecla ESC do teclado. */
-	public static final int ESCAPE_KEY = 27;
-
-	/** A barra de espaço do teclado. */
-	public static final int SPACE_KEY = 32;
-
-	/** A tecla enter do teclado. */
-	public static final int ENTER_KEY = 10;
 
 	private Hashtable keysPressed;
 
@@ -41,15 +21,6 @@ public final class Keyboard extends InputBase implements KeyListener {
 	 */
 	public Keyboard() {
 		keysPressed = new Hashtable<Integer, InputAction>();
-
-		// Adicione as chaves padrão (retirar todos os addKey)
-		addKey(UP_KEY, Keyboard.DETECT_EVERY_PRESS);
-		addKey(LEFT_KEY, Keyboard.DETECT_EVERY_PRESS);
-		addKey(RIGHT_KEY, Keyboard.DETECT_EVERY_PRESS);
-		addKey(DOWN_KEY, Keyboard.DETECT_EVERY_PRESS);
-		addKey(ESCAPE_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
-		addKey(SPACE_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
-		addKey(ENTER_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
 	}
 
 	/**

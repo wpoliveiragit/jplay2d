@@ -24,10 +24,10 @@ public class HeroMainMenu {
 		plano = new GameImage(HeroMain.IMG_MAIN_MENU);
 		window = Window.create(plano.width, plano.height);
 		keyboard = window.getKeyboard();
-		init();
+		configuration();
 	}
 
-	private void init() {
+	private void configuration() {
 		nome = TextGame.builder().setCor(Color.red).setFont(HeroMain.FONT_COMIC_SANS_MS_40)
 				.setText("WELLINGTON PIRES DE OLIVEIRA").build();
 		nome.setX((window.getJFrame().getWidth() - nome.getWidth()) / 2);
@@ -42,6 +42,10 @@ public class HeroMainMenu {
 				.build();
 		esc.setX((window.getJFrame().getWidth() - esc.getWidth()) / 2);
 		esc.setY(window.getJFrame().getHeight() - esc.getHeight());
+
+		// [TECLADO]
+		keyboard.addKey(KeyEvent.VK_ENTER);
+		keyboard.addKey(KeyEvent.VK_ESCAPE);
 	}
 
 	/** Inicia o aplicativo. */
@@ -64,7 +68,7 @@ public class HeroMainMenu {
 			// new Cenario01(win).start();//entra no jogoOS
 		}
 
-		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			LOOP = false;
 		}
 	}

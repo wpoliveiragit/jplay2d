@@ -1,6 +1,7 @@
 package projetos.jogoDaMemoria;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 import br.com.wellington.jplay2D.imageProcessing.GameImage;
 import br.com.wellington.jplay2D.oi.Keyboard;
@@ -8,9 +9,8 @@ import br.com.wellington.jplay2D.oi.Mouse;
 import br.com.wellington.jplay2D.sound.Sound;
 import br.com.wellington.jplay2D.time.Time;
 import br.com.wellington.jplay2D.window.Window;
-import projetos.utils.Constantes;
 
-public class JogoMemoria implements Constantes {
+public class JogoMemoria {
 
 	private Window window;
 	private Mouse mouse;
@@ -25,17 +25,15 @@ public class JogoMemoria implements Constantes {
 	private int NUMERO_TOTAL_COMBINACOES;// É o número de peças diferentes
 
 	public JogoMemoria() {
-		carregarObjetos();
-		loop();
-		descarregarObjetos();
+		configuration();
 	}
 
-	private void carregarObjetos() {
+	private void configuration() {
 		// A windows SEMPRE deve ser a primeira a ser CARREGADA
 		window = Window.create(800, 600);
 
 		mouse = window.getMouse();
-		mouse.setCursorImage(JOGO_DA_MEMORIA_IMG_MOUSE);
+		mouse.setCursorImage(JogoDaMemoriaMain.JOGO_DA_MEMORIA_IMG_MOUSE);
 		keyboard = window.getKeyboard();
 
 		pecas = new MatrizPecas();
@@ -43,16 +41,18 @@ public class JogoMemoria implements Constantes {
 		pecas.gerarPosicoesAleatorias();
 
 		numPecasCombinadas = 0;
-		fundo = new GameImage(JOGO_DA_MEMORIA_IMG_FUNDO);
+		fundo = new GameImage(JogoDaMemoriaMain.JOGO_DA_MEMORIA_IMG_FUNDO);
 
 		tempo = new Time(660, 140, true);
 		tempo.setColor(Color.GRAY);
-		tempo.setFont(FONTE_SANSSERIF);
+		tempo.setFont(JogoDaMemoriaMain.FONTE_SANSSERIF);
 
 		NUMERO_TOTAL_COMBINACOES = 10;
+
+		keyboard.addKey(KeyEvent.VK_ESCAPE);//
 	}
 
-	private void loop() {
+	public void start() {
 		boolean executanto = true;
 		long tempoPassado = 0;
 
@@ -76,9 +76,11 @@ public class JogoMemoria implements Constantes {
 				pontuacao = 0;
 			}
 
-			if (keyboard.keyDown(Keyboard.ESCAPE_KEY))
+			if (keyboard.keyDown(KeyEvent.VK_ESCAPE))
 				executanto = false;
 		}
+		// Fecha a janela de jogo
+		window.exit();
 	}
 
 	// Verifica quais peças o jogador escolheu
@@ -94,7 +96,7 @@ public class JogoMemoria implements Constantes {
 			if (pecaUmEscolhida == null) {
 				pecaUmEscolhida = peca;
 				pecaUmEscolhida.mostrar();
-				new Sound(SOM_SOM1).play();
+				new Sound(JogoDaMemoriaMain.SOM_SOM1).play();
 			} else { // A segunda condição do if previne que a
 						// primeiraPecaEscolhida e a SegundaPecaEscolhida
 						// sejam a mesma peça
@@ -120,13 +122,13 @@ public class JogoMemoria implements Constantes {
 			if (pecaUmEscolhida.getID() == pecaDoisEscolhida.getID()) {
 				numPecasCombinadas++;
 				pontuacao += 5;
-				new Sound(SOM_SOM3).play();
+				new Sound(JogoDaMemoriaMain.SOM_SOM3).play();
 			} else {
 				if (tempoPassado > 500) {
 					pontuacao -= 5;
 					pecaUmEscolhida.esconder();
 					pecaDoisEscolhida.esconder();
-					new Sound(SOM_SOM2).play();
+					new Sound(JogoDaMemoriaMain.SOM_SOM2).play();
 					tempoPassado = 0;
 				} else {
 					tempoPassado += window.getGameTime().latecy();
@@ -154,14 +156,4 @@ public class JogoMemoria implements Constantes {
 		window.update();
 	}
 
-	private void descarregarObjetos() {
-		pecas = null;
-		mouse = null;
-		keyboard = null;
-		pecaUmEscolhida = null;
-		pecaDoisEscolhida = null;
-
-		// Fecha a janela de jogo
-		window.exit();
-	}
 }

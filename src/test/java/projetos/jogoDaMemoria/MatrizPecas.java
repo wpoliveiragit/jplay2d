@@ -5,57 +5,56 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
-import projetos.utils.Constantes;
+public class MatrizPecas {
 
-public class MatrizPecas implements Constantes {
-	Peca matriz[][];
-	int deslocaX;// descolamento em relação a borda no eixo X
-	int deslocaY;// descolamento em relação a borda no eixo Y
-	int numeroLinhas = 5;
-	int numeroColunas = 4;
+	private Peca matriz[][];
+	private int deslocaX;// descolamento em relação a borda no eixo X
+	private int deslocaY;// descolamento em relação a borda no eixo Y
+	private int numeroLinhas = 5;
+	private int numeroColunas = 4;
 
 	public MatrizPecas() {
 		matriz = new Peca[numeroLinhas][numeroColunas];
 
 		// peca 01
-		matriz[0][0] = new Peca(IMG_PECA_01, 1);
-		matriz[4][2] = new Peca(IMG_PECA_01, 1);
+		matriz[0][0] = new Peca(JogoDaMemoriaMain.IMG_PECA_01, 1);
+		matriz[4][2] = new Peca(JogoDaMemoriaMain.IMG_PECA_01, 1);
 
 		// peca 02
-		matriz[3][1] = new Peca(IMG_PECA_02, 2);
-		matriz[1][3] = new Peca(IMG_PECA_02, 2);
+		matriz[3][1] = new Peca(JogoDaMemoriaMain.IMG_PECA_02, 2);
+		matriz[1][3] = new Peca(JogoDaMemoriaMain.IMG_PECA_02, 2);
 
 		// peca 03
-		matriz[0][2] = new Peca(IMG_PECA_03, 3);
-		matriz[2][1] = new Peca(IMG_PECA_03, 3);
+		matriz[0][2] = new Peca(JogoDaMemoriaMain.IMG_PECA_03, 3);
+		matriz[2][1] = new Peca(JogoDaMemoriaMain.IMG_PECA_03, 3);
 
 		// peca 04
-		matriz[1][2] = new Peca(IMG_PECA_04, 4);
-		matriz[2][2] = new Peca(IMG_PECA_04, 4);
+		matriz[1][2] = new Peca(JogoDaMemoriaMain.IMG_PECA_04, 4);
+		matriz[2][2] = new Peca(JogoDaMemoriaMain.IMG_PECA_04, 4);
 
 		// peca 05
-		matriz[1][0] = new Peca(IMG_PECA_05, 5);
-		matriz[2][3] = new Peca(IMG_PECA_05, 5);
+		matriz[1][0] = new Peca(JogoDaMemoriaMain.IMG_PECA_05, 5);
+		matriz[2][3] = new Peca(JogoDaMemoriaMain.IMG_PECA_05, 5);
 
 		// peca 06
-		matriz[0][3] = new Peca(IMG_PECA_06, 6);
-		matriz[3][3] = new Peca(IMG_PECA_06, 6);
+		matriz[0][3] = new Peca(JogoDaMemoriaMain.IMG_PECA_06, 6);
+		matriz[3][3] = new Peca(JogoDaMemoriaMain.IMG_PECA_06, 6);
 
 		// peca 07
-		matriz[2][0] = new Peca(IMG_PECA_07, 7);
-		matriz[1][1] = new Peca(IMG_PECA_07, 7);
+		matriz[2][0] = new Peca(JogoDaMemoriaMain.IMG_PECA_07, 7);
+		matriz[1][1] = new Peca(JogoDaMemoriaMain.IMG_PECA_07, 7);
 
 		// peca 08
-		matriz[3][0] = new Peca(IMG_PECA_08, 8);
-		matriz[0][1] = new Peca(IMG_PECA_08, 8);
+		matriz[3][0] = new Peca(JogoDaMemoriaMain.IMG_PECA_08, 8);
+		matriz[0][1] = new Peca(JogoDaMemoriaMain.IMG_PECA_08, 8);
 
 		// peca 09
-		matriz[4][0] = new Peca(IMG_PECA_09, 9);
-		matriz[4][3] = new Peca(IMG_PECA_09, 9);
+		matriz[4][0] = new Peca(JogoDaMemoriaMain.IMG_PECA_09, 9);
+		matriz[4][3] = new Peca(JogoDaMemoriaMain.IMG_PECA_09, 9);
 
 		// peca 10
-		matriz[3][2] = new Peca(IMG_PECA_10, 10);
-		matriz[4][1] = new Peca(IMG_PECA_10, 10);
+		matriz[3][2] = new Peca(JogoDaMemoriaMain.IMG_PECA_10, 10);
+		matriz[4][1] = new Peca(JogoDaMemoriaMain.IMG_PECA_10, 10);
 	}
 
 	public void desenharPecas() {

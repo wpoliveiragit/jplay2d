@@ -13,7 +13,7 @@ import br.com.wellington.jplay2D.window.Window;
  * @date 10/05/2019
  * @path Jogo01.Cenarios.MainMenu
  */
-public class MainMenu implements Constantes {
+public class MainMenu {
 
 	private final Window win;
 	private GameImage plano;
@@ -21,9 +21,20 @@ public class MainMenu implements Constantes {
 	private static boolean LOOP = false;
 
 	public MainMenu() {
-		plano = new GameImage(IMG_BACKGROUND);
+		plano = new GameImage(InvestigadorMain.IMG_BACKGROUND);
 		win = Window.create(plano.width, plano.height);
 		keyboard = win.getKeyboard();
+		configuration();
+	}
+
+	private void configuration() {
+		keyboard.addKey(KeyEvent.VK_ESCAPE);
+		keyboard.addKey(KeyEvent.VK_ENTER);
+		keyboard.addKey(KeyEvent.VK_SPACE);
+		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
 	}
 
 	/**
@@ -33,7 +44,7 @@ public class MainMenu implements Constantes {
 		if (LOOP) {
 			return;
 		}
-		
+
 		LOOP = true;
 		while (LOOP) {
 			plano.draw();
@@ -49,7 +60,7 @@ public class MainMenu implements Constantes {
 			new Cenario01(win).start();
 		}
 
-		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			LOOP = false;
 		}
 	}

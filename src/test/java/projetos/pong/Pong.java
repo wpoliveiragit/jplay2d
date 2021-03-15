@@ -69,6 +69,17 @@ public class Pong {
 		txtGamePointVerde.setTxt("" + pontuacaoVerde);
 
 		LOOP = false;
+		configuration();
+	}
+
+	private void configuration() {
+		keyboard.addKey(KeyEvent.VK_ESCAPE);
+		keyboard.addKey(KeyEvent.VK_ENTER);
+		keyboard.addKey(KeyEvent.VK_SPACE);
+		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
 	}
 
 	public void start() {
@@ -116,7 +127,7 @@ public class Pong {
 	private void controle() {
 		barraVerde.moveY(keyboard, KeyEvent.VK_W, KeyEvent.VK_S);
 		barraRoxa.moveY(keyboard, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
-		if (keyboard.keyDown(Keyboard.ESCAPE_KEY) || tempo.timeEnded()) {
+		if (keyboard.keyDown(KeyEvent.VK_ESCAPE) || tempo.timeEnded()) {
 			LOOP = false;
 		}
 	}

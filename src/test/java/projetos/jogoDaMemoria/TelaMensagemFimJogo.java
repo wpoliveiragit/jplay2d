@@ -2,6 +2,7 @@ package projetos.jogoDaMemoria;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 import br.com.wellington.jplay2D.imageProcessing.Animation;
 import br.com.wellington.jplay2D.imageProcessing.GameImage;
@@ -9,9 +10,8 @@ import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.oi.Mouse;
 import br.com.wellington.jplay2D.time.Time;
 import br.com.wellington.jplay2D.window.Window;
-import projetos.utils.Constantes;
 
-public class TelaMensagemFimJogo implements Constantes {
+public class TelaMensagemFimJogo {
 
 	private Window window;
 	private String tempo;
@@ -26,9 +26,9 @@ public class TelaMensagemFimJogo implements Constantes {
 		this.tempo = tempo.toString();
 		this.keyboard = window.getKeyboard();
 		this.mouse = window.getMouse();
-		this.botao = new Animation(JOGO_DA_MEMORIA_IMG_BOTAO, 5);
-		this.backGround = new GameImage(JOGO_DA_MEMORIA_IMG_BOTAO_FUNDO);
-		this.fonteDaMensagemFinal = FONTE_COMIC_SAMS_MS;
+		this.botao = new Animation(JogoDaMemoriaMain.JOGO_DA_MEMORIA_IMG_BOTAO, 5);
+		this.backGround = new GameImage(JogoDaMemoriaMain.JOGO_DA_MEMORIA_IMG_BOTAO_FUNDO);
+		this.fonteDaMensagemFinal = JogoDaMemoriaMain.FONTE_COMIC_SAMS_MS;
 		setarConfiguracoes();
 		loop();
 		descarregarObjetos();
@@ -49,7 +49,7 @@ public class TelaMensagemFimJogo implements Constantes {
 				botao.play();
 			}
 			botao.update();
-			if (keyboard.keyDown(Keyboard.ESCAPE_KEY) || botao.getCurrFrame() + 1 == botao.getFinalFrame()) {
+			if (keyboard.keyDown(KeyEvent.VK_ESCAPE) || botao.getCurrFrame() + 1 == botao.getFinalFrame()) {
 				executando = false;
 			}
 			desenhar();

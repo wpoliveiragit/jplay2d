@@ -5,4 +5,12 @@ public class TileInfo extends GameObject {
 
 	/** Número usado para identificar o Tile. */
 	public int id;
+
+	public TileInfo() {
+
+	}
+
+	public TileInfo(int id) {
+		this.id = id;
+	}
 }

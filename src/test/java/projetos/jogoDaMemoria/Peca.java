@@ -10,7 +10,7 @@ import br.com.wellington.jplay2D.imageProcessing.Animation;
 public class Peca extends Animation {
 
 	public int id;
-	boolean pecaEscolhida;
+	private boolean pecaEscolhida;
 
 	public Peca(String fileName, int id) {
 		super(fileName, 2); // 2 = número de frames de cada peça

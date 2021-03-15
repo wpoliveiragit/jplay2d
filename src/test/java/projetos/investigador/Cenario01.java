@@ -1,5 +1,7 @@
 package projetos.investigador;
 
+import java.awt.event.KeyEvent;
+
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.scene.Scene;
 import br.com.wellington.jplay2D.window.Window;
@@ -30,7 +32,7 @@ public class Cenario01 {
 	}
 
 	private void init() {
-		cena.loadFromFile(Constantes.SCN_CENARIO, Constantes.FILE_TILE);
+		cena.loadFromFile(InvestigadorMain.SCN_CENARIO, InvestigadorMain.FILE_TILE);
 		player = new Jogador(win, cena, 640, 350);
 		zumbi = new Zumbi(50, 400);
 		cena.addOverlay(zumbi);
@@ -68,29 +70,29 @@ public class Cenario01 {
 
 	private void control() {
 		// esc
-		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			LOOP = false;
 		}
 
 		// atira
-		if (keyboard.keyDown(Keyboard.SPACE_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_SPACE)) {
 			player.atirar();
 		}
 
 		// movimento player
-		if (keyboard.keyDown((Keyboard.LEFT_KEY))) {// esquerda
+		if (keyboard.keyDown((KeyEvent.VK_LEFT))) {// esquerda
 			player.andaEsquerda();
 			player.update();
-		} else if (keyboard.keyDown((Keyboard.RIGHT_KEY))) {// direita
+		} else if (keyboard.keyDown((KeyEvent.VK_RIGHT))) {// direita
 			player.andaDireita();
 			player.update();
 
 		}
 
-		if (keyboard.keyDown((Keyboard.UP_KEY))) {// cima
+		if (keyboard.keyDown((KeyEvent.VK_UP))) {// cima
 			player.andaCima();
 			player.update();
-		} else if (keyboard.keyDown((Keyboard.DOWN_KEY))) {// baixo
+		} else if (keyboard.keyDown((KeyEvent.VK_DOWN))) {// baixo
 			player.andaBaixo();
 			player.update();
 		}

@@ -24,11 +24,22 @@ public class Janela {
 	private List<Tiro> balas = new ArrayList<Tiro>();
 
 	public Janela(int x, int y) {
-		window =  Window.create(x, y);
+		window = Window.create(x, y);
 		keyboard = window.getKeyboard();
 		keyboard.addKey(KeyEvent.VK_CONTROL);
-		background = new GameImage(MegaManApplication.IMG_BD);
+		background = new GameImage(MegaManMain.IMG_BD);
 		boneco = new Boneco(window, 500);
+		configuration();
+	}
+
+	private void configuration() {
+		keyboard.addKey(KeyEvent.VK_ESCAPE);
+		keyboard.addKey(KeyEvent.VK_ENTER);
+		keyboard.addKey(KeyEvent.VK_SPACE);
+		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
 	}
 
 	public void start() {
@@ -58,7 +69,7 @@ public class Janela {
 	}
 
 	private void controle() {
-		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			loop = false;
 		}
 
@@ -68,11 +79,11 @@ public class Janela {
 			balas.add(boneco.atira());
 		}
 
-		if (keyboard.keyDown(Keyboard.LEFT_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_LEFT)) {
 			boneco.andaEsquerda();
 			return;
 		}
-		if (keyboard.keyDown(Keyboard.RIGHT_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_RIGHT)) {
 			boneco.andaDireita();
 			return;
 		}

@@ -1,9 +1,10 @@
 package projetos.megaMan;
 
-import br.com.wellington.jplay2D.oi.Keyboard;
+import java.awt.event.KeyEvent;
+
 import projetos.utils.Constantes;
 
-public class MegaManApplication {
+public class MegaManMain {
 
 	// MEGAMAN
 	public static final String ROOT = Constantes.ROOT + "/megaMan/";;
@@ -14,11 +15,11 @@ public class MegaManApplication {
 	public static final String SOM_EXPLOSAO = ROOT + "explosao.wav";
 	public static final String SOM_MUZZLESHOT = ROOT + "muzzleshot.wav";
 
-	//keyboard
-	public static final int LADO_ESQUERDO = Keyboard.LEFT_KEY;
-	public static final int LADO_DIREITO = Keyboard.RIGHT_KEY;
+	// keyboard
+	public static final int LADO_ESQUERDO = KeyEvent.VK_LEFT;
+	public static final int LADO_DIREITO = KeyEvent.VK_RIGHT;
 
-	//Escolha de lado parado
+	// Escolha de lado parado
 	public static final int LADO_PARADO = 0;
 
 	public static void main(String[] args) {

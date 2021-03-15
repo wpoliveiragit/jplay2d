@@ -32,10 +32,10 @@ public class TestJogo {
 		keyboard = win.getKeyboard();
 		mouse = win.getMouse();
 		timeBase = win.getGameTime();
-		initConfig();
+		configuration();
 	}
 
-	private void initConfig() {
+	private void configuration() {
 		// [geral]
 		atualizaAreaMouse();
 

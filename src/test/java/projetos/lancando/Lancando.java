@@ -1,5 +1,7 @@
 package projetos.lancando;
 
+import java.awt.event.KeyEvent;
+
 import br.com.wellington.jplay2D.imageProcessing.GameImage;
 import br.com.wellington.jplay2D.imageProcessing.Physics;
 import br.com.wellington.jplay2D.imageProcessing.Sprite;
@@ -24,22 +26,22 @@ public class Lancando {
 
 	public Lancando(int width, int height) {
 		backdrop = new GameImage(Main.BACKDROP);
-		
+
 		fisica = new Physics();
 		fisica.createWorld(width, height);
-				
+
 		quadrado = new Sprite(Main.TILE_BLOCO);
 		quadrado.setX(200);
 		quadrado.setY(0);
-		
+
 		fisica.createBodyFromSprite(quadrado, false);
 
 		windows = Window.create(width, height);
 		keyboard = windows.getKeyboard();
-		keyboard.addKey(Keyboard.RIGHT_KEY);
-		keyboard.addKey(Keyboard.LEFT_KEY);
+		keyboard.addKey(KeyEvent.VK_RIGHT);
+		keyboard.addKey(KeyEvent.VK_LEFT);
 
-		quadrado.setBullet(true); // Evita que o sprite ignore a colisão com outro objeto.	
+		quadrado.setBullet(true); // Evita que o sprite ignore a colisão com outro objeto.
 
 		ground = new Sprite(Main.GROUND);
 		fisica.createBodyFromSprite(ground, true);
@@ -70,6 +72,17 @@ public class Lancando {
 		boundY2.setX(375);
 		boundY2.setY(300);
 		LOOP = false;
+		configuration();
+	}
+
+	private void configuration() {
+		keyboard.addKey(KeyEvent.VK_ESCAPE);
+		keyboard.addKey(KeyEvent.VK_ENTER);
+		keyboard.addKey(KeyEvent.VK_SPACE);
+		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
 	}
 
 	public void start() {
@@ -88,17 +101,17 @@ public class Lancando {
 	}
 
 	private void controle() {
-		if (keyboard.keyDown(Keyboard.RIGHT_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_RIGHT)) {
 			quadrado.applyForceX(5000);
 		}
-		if (keyboard.keyDown(Keyboard.LEFT_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_LEFT)) {
 			quadrado.applyForceX(-5000);
 		}
-		if (keyboard.keyDown(Keyboard.SPACE_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_SPACE)) {
 			quadrado.cancelForces();
 		}
 		// Se apertar a tecla ESC, sai da tela inicial.
-		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {
+		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			LOOP = false;
 		}
 	}

@@ -1,12 +1,12 @@
 package projetos.investigador;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.wellington.jplay2D.imageProcessing.Sprite;
 import br.com.wellington.jplay2D.imageProcessing.TileInfo;
-import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.scene.Scene;
 
 /**
@@ -18,11 +18,11 @@ import br.com.wellington.jplay2D.scene.Scene;
  */
 public class Personagem extends Sprite {
 
-	private static final byte ESQUERDA = Keyboard.LEFT_KEY;
-	private static final byte DIREITA = Keyboard.RIGHT_KEY;
-	private static final byte CIMA = Keyboard.UP_KEY;
-	private static final byte BAIXO = Keyboard.DOWN_KEY;
-	
+	private static final byte ESQUERDA = KeyEvent.VK_LEFT;
+	private static final byte DIREITA = KeyEvent.VK_RIGHT;
+	private static final byte CIMA = KeyEvent.VK_UP;
+	private static final byte BAIXO = KeyEvent.VK_DOWN;
+
 	protected int posicao;
 	protected Controle controle;
 	protected double velocidade;
@@ -43,7 +43,7 @@ public class Personagem extends Sprite {
 	 */
 	private void setConfig() {
 		setTotalDuration(3000);// tempo da troca de sprite do personagem em movimento
-		posicao = Keyboard.DOWN_KEY;
+		posicao = KeyEvent.VK_DOWN;
 
 	}
 

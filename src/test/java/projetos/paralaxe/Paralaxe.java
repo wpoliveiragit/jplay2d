@@ -1,7 +1,8 @@
 package projetos.paralaxe;
 
+import java.awt.event.KeyEvent;
+
 import br.com.wellington.jplay2D.imageProcessing.Parallax;
-import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.window.Window;
 
 /**
@@ -16,6 +17,11 @@ public class Paralaxe {
 
 	public Paralaxe() {
 		win = Window.create(800, 600);
+		configuration();
+	}
+
+	private void configuration() {
+		win.getKeyboard().addKey(KeyEvent.VK_ESCAPE);
 	}
 
 	public void start() {
@@ -37,7 +43,7 @@ public class Paralaxe {
 	}
 
 	private void controle() {
-		if (win.getKeyboard().keyDown(Keyboard.ESCAPE_KEY)) {
+		if (win.getKeyboard().keyDown(KeyEvent.VK_ESCAPE)) {
 			loop = false;
 		}
 	}

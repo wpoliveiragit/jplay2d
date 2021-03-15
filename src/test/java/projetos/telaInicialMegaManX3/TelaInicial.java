@@ -1,5 +1,7 @@
 package projetos.telaInicialMegaManX3;
 
+import java.awt.event.KeyEvent;
+
 import br.com.wellington.jplay2D.imageProcessing.Animation;
 import br.com.wellington.jplay2D.imageProcessing.Sprite;
 import br.com.wellington.jplay2D.oi.Keyboard;
@@ -27,11 +29,22 @@ public class TelaInicial {
 		backGround = new Sprite(Main.PATH_TELA_INICIAL, 3);
 
 		keyboard = win.getKeyboard();
-		keyboard.setBehavior(Keyboard.UP_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
-		keyboard.setBehavior(Keyboard.DOWN_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
+		keyboard.setBehavior(KeyEvent.VK_UP, Keyboard.DETECT_INITIAL_PRESS_ONLY);
+		keyboard.setBehavior(KeyEvent.VK_DOWN, Keyboard.DETECT_INITIAL_PRESS_ONLY);
 
 		musica = new Sound(Main.PATH_MUSICA);
 		musica.setRepeat(true);
+		configuration();
+	}
+
+	private void configuration() {
+		keyboard.addKey(KeyEvent.VK_ESCAPE);
+		keyboard.addKey(KeyEvent.VK_ENTER);
+		keyboard.addKey(KeyEvent.VK_SPACE);
+		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
 	}
 
 	public void update() {
@@ -40,10 +53,10 @@ public class TelaInicial {
 	}
 
 	private void controle() {
-		if (keyboard.keyDown(Keyboard.ESCAPE_KEY)) {// SAIR
+		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {// SAIR
 			loop = false;
 		}
-		if (keyboard.keyDown(Keyboard.UP_KEY)) {// CIMA
+		if (keyboard.keyDown(KeyEvent.VK_UP)) {// CIMA
 			escolha--;
 			if (escolha < 0) {
 				escolha = 0;
@@ -53,7 +66,7 @@ public class TelaInicial {
 			new Sound(Main.PATH_SOM_TROCA_SELECAO).play();
 			return;
 		}
-		if (keyboard.keyDown(Keyboard.DOWN_KEY)) {// BAICO
+		if (keyboard.keyDown(KeyEvent.VK_DOWN)) {// BAICO
 			escolha++;
 			if (escolha > 2) {
 				escolha = 2;

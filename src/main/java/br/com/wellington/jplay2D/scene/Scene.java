@@ -20,14 +20,14 @@ import br.com.wellington.jplay2D.imageProcessing.Sprite;
 import br.com.wellington.jplay2D.imageProcessing.TileInfo;
 import br.com.wellington.jplay2D.window.Window;
 
-/**
- * Class responsible for handling a Scenario.
- */
+/** Class responsible for handling a Scenario. */
 public class Scene {
+	private static final String END_TILE_SET = "%";
 
 	private GameImage backDrop;
 	private GameImage[] tiles;
-	private String nameImages[];// É usado quando queremos salvar o estado da cena
+	/***/
+	private String nomeTiles[];// É usado quando queremos salvar o estado da cena
 	private ArrayList tileLayer;
 	private ArrayList overlays;
 	private int drawStartX = 0;
@@ -49,55 +49,108 @@ public class Scene {
 	 * 
 	 * @param sceneFile Caminho de arquivo.
 	 */
-	public void loadFromFile(String sceneFile, String rootTiles) {
-		tileLayer = new ArrayList();
+	public void loadFromFile(String sceneFilePath, String tilesPath) {
+
+		tileLayer = new ArrayList<>();
 		overlays = new ArrayList();
 
+		StringBuilder linha = new StringBuilder();// controle de linha
 		try {
-			BufferedReader input = new BufferedReader(new FileReader(new File(sceneFile)));
+			// [acesso ao arquivo]
+			BufferedReader input = new BufferedReader(new FileReader(new File(sceneFilePath)));
 
-			// primeiro leia o número de imagens de blocos
-			String line = input.readLine();
-			int numOfTileImages = Integer.parseInt(line, 10);
-			tiles = new GameImage[numOfTileImages];
-			nameImages = new String[numOfTileImages + 1];
+			// [leitura da 1a linha]
+			linha.append(input.readLine());// resgate da primeira linha
 
-			for (int i = 0; i < numOfTileImages; i++) {
-				// leia o nome de cada imagem de bloco
-				line = input.readLine();
-				tiles[i] = new Sprite(rootTiles + "/" + line);
-				nameImages[i] = line;
+			int qtdTiles = Integer.parseInt(linha.toString(), 10);// converte para número
+
+			// preparação do resgate dos arquivos das tiles
+			tiles = new GameImage[qtdTiles];
+			nomeTiles = new String[qtdTiles + 1];
+
+			// [Leitura do bloco de imagens]
+			for (int i = 0; i < qtdTiles; i++) {
+				linha.setLength(0);// limpa a instancia
+				linha.append(tilesPath).append("/").append(input.readLine());// prepara a próxima linha
+				tiles[i] = new Sprite(linha.toString());// guarda a imagem da tile
+				nomeTiles[i] = linha.toString(); // guarda o caminho da tile
 			}
 
-			// agora leia o mapa do conjunto de blocos até o final
-			// caractere encontrado "%"
-			String endTileSet = "%";
-
-			line = input.readLine();
-
-			while (line.equals(endTileSet) != true) {
-				ArrayList tileLine = new ArrayList();
-
-				String[] tileIndices = line.split(",");
-
-				for (int i = 0; i < tileIndices.length; i++) {
-					TileInfo tileInfo = new TileInfo();
-					tileInfo.id = Integer.parseInt(tileIndices[i]);
-					tileLine.add(tileInfo);
+			linha.setLength(0);// limpa a instancia
+			// [leitura do mapa]
+			while (!END_TILE_SET.equals(linha.append(input.readLine()).toString().trim())) {// Lê todo do mapa
+				ArrayList<TileInfo> tileLine = new ArrayList<>();
+				for (String sTile : linha.toString().trim().split(",")) {// instancia o mapa linha a linha
+					tileLine.add(new TileInfo(Integer.parseInt(sTile)));
 				}
 				tileLayer.add(tileLine);
-
-				line = input.readLine();
+				linha.setLength(0);// limpa a instancia
 			}
 
 			// agora leia o arquivo do pano de fundo
-			line = input.readLine();
-			backDrop = new GameImage(line);
-			nameImages[numOfTileImages] = line;
+			linha.setLength(0);// limpa a instancia
+			linha.append(input.readLine());
+			backDrop = new GameImage(linha.toString());
+			nomeTiles[qtdTiles] = linha.toString();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			linha.setLength(0);// limpa a instancia
+			linha.append("\n [ERRO] Problema ao carregar um arquivo '.scn', lista de possíveis problemas:");
+			linha.append("\n [1] Parâmetro 'sceneFilePath' incocrreto {").append(sceneFilePath).append("}.");
+			linha.append("\n [2] Parâmetro 'tilesPath' incorreto {").append(tilesPath).append("}.");
+			linha.append("\n [3] Nome de tile incorreto.");
+			linha.append("\n [4] Estrutura do arquivo incorreta.");
+			throw new RuntimeException("[ERRO] arquivo");
 		}
+
+//		tileLayer = new ArrayList();
+//		overlays = new ArrayList();
+//
+//		try {
+//			BufferedReader input = new BufferedReader(new FileReader(new File(sceneFile)));
+//
+//			// primeiro leia o número de imagens de blocos
+//			String line = input.readLine();
+//			int numOfTileImages = Integer.parseInt(line, 10);
+//			tiles = new GameImage[numOfTileImages];
+//			nameImages = new String[numOfTileImages + 1];
+//
+//			for (int i = 0; i < numOfTileImages; i++) {
+//				// leia o nome de cada imagem de bloco
+//				line = input.readLine();
+//				tiles[i] = new Sprite(rootTiles + "/" + line);
+//				nameImages[i] = line;
+//			}
+//
+//			// agora leia o mapa do conjunto de blocos até o final
+//			// caractere encontrado "%"
+//			String endTileSet = "%";
+//
+//			line = input.readLine();
+//
+//			while (line.equals(endTileSet) != true) {
+//				ArrayList tileLine = new ArrayList();
+//
+//				String[] tileIndices = line.split(",");
+//
+//				for (int i = 0; i < tileIndices.length; i++) {
+//					TileInfo tileInfo = new TileInfo();
+//					tileInfo.id = Integer.parseInt(tileIndices[i]);
+//					tileLine.add(tileInfo);
+//				}
+//				tileLayer.add(tileLine);
+//
+//				line = input.readLine();
+//			}
+//
+//			// agora leia o arquivo do pano de fundo
+//			line = input.readLine();
+//			backDrop = new GameImage(line);
+//			nameImages[numOfTileImages] = line;
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	/**
@@ -120,9 +173,7 @@ public class Scene {
 		this.drawStartY = drawStartY;
 	}
 
-	/**
-	 * Draws the scene on the screen.
-	 */
+	/** Draws the scene on the screen. */
 	public void draw() {
 		// primeiro limpe a cena
 		Graphics g = Window.getInstance().getGameGraphics();
@@ -319,7 +370,7 @@ public class Scene {
 
 			out.write(this.tiles.length + "\n");
 			for (int i = 0; i < tiles.length; i++)
-				out.write(nameImages[i] + "\n");
+				out.write(nomeTiles[i] + "\n");
 
 			for (int i = 0; i < tileLayer.size(); i++) {
 				ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(i);
@@ -331,7 +382,7 @@ public class Scene {
 			}
 
 			out.write("%\n");
-			out.write(this.nameImages[tiles.length]);
+			out.write(this.nomeTiles[tiles.length]);
 
 			out.close();
 
@@ -401,6 +452,11 @@ public class Scene {
 
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	private void UpdateCenterPosition(double x, double y) {
 		centerPositionX += x;
 		centerPositionY += y;

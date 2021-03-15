@@ -1,8 +1,8 @@
 package projetos.labirinto;
 
-public class _Main {
+public class LabirintoMain {
 
 	public static void main(String[] args) {
-		new Jogo().inicia();
+		new Jogo().start();
 	}
 }

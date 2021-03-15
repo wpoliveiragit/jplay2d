@@ -1,6 +1,7 @@
 package projetos.investigador;
 
-import br.com.wellington.jplay2D.oi.Keyboard;
+import java.awt.event.KeyEvent;
+
 import br.com.wellington.jplay2D.scene.Scene;
 import br.com.wellington.jplay2D.window.Window;
 
@@ -19,7 +20,7 @@ public class Jogador extends Personagem {
 
 	// private Keyboard teclado;
 	public Jogador(Window janela, Scene cena, int x, int y) {
-		super(Constantes.SPRITE_PLAYER, 20);
+		super(InvestigadorMain.SPRITE_PLAYER, 20);
 		this.janela = janela;
 		this.cena = cena;
 		this.x = x;
@@ -37,9 +38,9 @@ public class Jogador extends Personagem {
 	public void andaEsquerda() {
 		if (x > 0) {
 			x -= super.velocidade;
-			if (super.posicao != Keyboard.LEFT_KEY) {
+			if (super.posicao != KeyEvent.VK_LEFT) {
 				setSequence(4, 8);
-				super.posicao = Keyboard.LEFT_KEY;
+				super.posicao = KeyEvent.VK_LEFT;
 			}
 		}
 	}
@@ -47,9 +48,9 @@ public class Jogador extends Personagem {
 	public void andaDireita() {
 		if (x < janela.getJFrame().getWidth() - 45) {
 			x += super.velocidade;
-			if (super.posicao != Keyboard.RIGHT_KEY) {
+			if (super.posicao != KeyEvent.VK_RIGHT) {
 				setSequence(8, 12);
-				super.posicao = Keyboard.RIGHT_KEY;
+				super.posicao = KeyEvent.VK_RIGHT;
 			}
 		}
 	}
@@ -57,9 +58,9 @@ public class Jogador extends Personagem {
 	public void andaCima() {
 		if (y > 0) {
 			y -= super.velocidade;
-			if (super.posicao != Keyboard.UP_KEY) {
+			if (super.posicao != KeyEvent.VK_UP) {
 				setSequence(12, 16);
-				super.posicao = Keyboard.UP_KEY;
+				super.posicao = KeyEvent.VK_UP;
 			}
 		}
 	}
@@ -67,9 +68,9 @@ public class Jogador extends Personagem {
 	public void andaBaixo() {
 		if (y < janela.getJFrame().getHeight() - 60) {
 			y += super.velocidade;
-			if (super.posicao != Keyboard.DOWN_KEY) {
+			if (super.posicao != KeyEvent.VK_DOWN) {
 				setSequence(0, 4);
-				super.posicao = Keyboard.DOWN_KEY;
+				super.posicao = KeyEvent.VK_DOWN;
 			}
 
 		}

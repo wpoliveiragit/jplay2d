@@ -1,7 +1,8 @@
 package projetos.investigador;
 
+import java.awt.event.KeyEvent;
+
 import br.com.wellington.jplay2D.imageProcessing.Sprite;
-import br.com.wellington.jplay2D.oi.Keyboard;
 
 /**
  * Definição do que a classe representa ou administra
@@ -32,25 +33,25 @@ public class Tiro extends Sprite {
 	 * @param direcao A direção de onde o tiro ira seguir.
 	 */
 	public Tiro(double x, double y, int direcao) {
-		super(Constantes.SPRITE_TIRO, 12);
+		super(InvestigadorMain.SPRITE_TIRO, 12);
 		super.setTotalDuration(500);
 		this.x = x;
 		this.y = y;
-		
-		switch (direcao) {//escolha da direção da bala
-		case Keyboard.LEFT_KEY:
+
+		switch (direcao) {// escolha da direção da bala
+		case KeyEvent.VK_LEFT:
 			setSequence(9, 12);
 			addX = -VELOCIDADE_MOVIMENTO;
 			break;
-		case Keyboard.RIGHT_KEY:// correto
+		case KeyEvent.VK_RIGHT:// correto
 			setSequence(0, 3);
 			addX = +VELOCIDADE_MOVIMENTO;
 			break;
-		case Keyboard.UP_KEY:// correto
+		case KeyEvent.VK_UP:// correto
 			setSequence(3, 6);
 			addY = -VELOCIDADE_MOVIMENTO;
 			break;
-		case Keyboard.DOWN_KEY:
+		case KeyEvent.VK_DOWN:
 			setSequence(6, 9);
 			addY = +VELOCIDADE_MOVIMENTO;
 			break;

@@ -6,10 +6,10 @@ package projetos.investigador;
  * @author Wellington Pires de Oliveira.
  * @date 09/05/2019
  */
-public class Zumbi extends Personagem implements Constantes {
+public class Zumbi extends Personagem {
 
 	public Zumbi(int x, int y) {
-		super(SPRITE_ZUMBI, 16);
+		super(InvestigadorMain.SPRITE_ZUMBI, 16);
 		this.x = x;
 		this.y = y;
 		this.velocidade = 0.3;

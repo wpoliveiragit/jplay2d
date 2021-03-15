@@ -1,45 +1,45 @@
 package projetos.labirinto;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.window.Window;
 
 public class JogoBase implements Controle {
 
-	/**
-	 * O Frame do jogo.
-	 */
+	/** O Frame do jogo. */
 	protected Window janela;
 
-	/**
-	 * Objeto de captura do teclado.
-	 */
-	protected Keyboard teclado;
+	/** Objeto de captura do teclado. */
+	protected Keyboard keyboard;
 
-	/**
-	 * Manipulador do controle do teclado.
-	 */
+	/** Manipulador do controle do teclado. */
 	protected Controle controle;
 
-	/**
-	 * Controle do laco de atualizacao do jogo.
-	 */
+	/** Controle do laco de atualizacao do jogo. */
 	protected boolean loop;
 
-	/**
-	 * Contrutor base do jogo.
-	 */
+	/** Contrutor base do jogo. */
 	public JogoBase() {
 		janela = Window.create(800, 600);
-		teclado = janela.getKeyboard();
+		keyboard = janela.getKeyboard();
 		controle = this;
+		configuration();
 	}
 
-	/**
-	 * Inicia o jogo.
-	 */
-	public void inicia() {
+	private void configuration() {
+		keyboard.addKey(KeyEvent.VK_ESCAPE);
+		keyboard.addKey(KeyEvent.VK_ENTER);
+		keyboard.addKey(KeyEvent.VK_SPACE);
+		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
+	}
+
+	/** Inicia o jogo. */
+	public void start() {
 		loop = true;
 		while (loop) {
 			atualiza();// atualiza todo o cenario
@@ -69,30 +69,30 @@ public class JogoBase implements Controle {
 	 * @return O teclado do jogo.
 	 */
 	public Keyboard getTeclado() {
-		return teclado;
+		return keyboard;
 	}
 
 	/**
 	 * Controle da captura de digitos.
 	 */
 	public void controleDigito() {
-		if (teclado.keyDown(Keyboard.ESCAPE_KEY)) { // botao esc
+		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) { // botao esc
 			controle.controleEsc();
 			return;
 		}
-		if (teclado.keyDown(Keyboard.DOWN_KEY)) { // vira ou anda pra baixo
+		if (keyboard.keyDown(KeyEvent.VK_DOWN)) { // vira ou anda pra baixo
 			controle.controleCetaBaixo();
 			return;
 		}
-		if (teclado.keyDown(Keyboard.LEFT_KEY)) {// vira ou anda pra esquerda
+		if (keyboard.keyDown(KeyEvent.VK_LEFT)) {// vira ou anda pra esquerda
 			controle.controleCetaEsquerda();
 			return;
 		}
-		if (teclado.keyDown(Keyboard.RIGHT_KEY)) {// vira ou anda pra direita
+		if (keyboard.keyDown(KeyEvent.VK_RIGHT)) {// vira ou anda pra direita
 			controle.controleCetaDireita();
 			return;
 		}
-		if (teclado.keyDown(Keyboard.UP_KEY)) { // vira ou anda pra cima
+		if (keyboard.keyDown(KeyEvent.VK_UP)) { // vira ou anda pra cima
 			controle.controleCetaCima();
 		}
 	}

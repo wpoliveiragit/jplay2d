@@ -6,10 +6,6 @@ import projetos.utils.Constantes;
 
 public class TestMain {
 
-	public static void main(String[] args) {
-		new TestJogo().startGame();
-	}
-
 	// [PATHS]
 	public static final String ROOT = Constantes.ROOT + "/geral/";
 
@@ -21,5 +17,9 @@ public class TestMain {
 	public static final Font FONT_COMIC_SANS_MS_20 = new Font("Comic Sans MS", Font.BOLD, 20);
 	public static final Font FONT_COMIC_SANS_MS_15 = new Font("Comic Sans MS", Font.BOLD, 15);
 	public static final Font FONT_COMIC_SANS_MS_9 = new Font("Comic Sans MS", Font.BOLD, 9);
+
+	public static void main(String[] args) {
+		new TestJogo().startGame();
+	}
 
 }

@@ -19,7 +19,6 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		Lancando main = new Lancando(800,600);
-		main.start();
+		new Lancando(800, 600).start();
 	}
 }

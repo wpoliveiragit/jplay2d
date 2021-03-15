@@ -1,5 +1,7 @@
 package br.com.wellington.jplay2D.imageProcessing;
 
+import java.awt.event.KeyEvent;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
@@ -52,7 +54,7 @@ public class Sprite extends Animation {
 	 */
 
 	public void moveX(double velocity) {
-		moveX(Keyboard.LEFT_KEY, Keyboard.RIGHT_KEY, velocity);
+		moveX(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, velocity);
 	}
 
 	/**
@@ -80,7 +82,7 @@ public class Sprite extends Animation {
 	 * @param velocity velocidade de locomoção em pixels.
 	 */
 	public void moveY(double velocity) {
-		this.moveY(Keyboard.UP_KEY, Keyboard.DOWN_KEY, velocity);
+		this.moveY(KeyEvent.VK_UP, KeyEvent.VK_DOWN, velocity);
 	}
 
 	/**
@@ -349,7 +351,7 @@ public class Sprite extends Animation {
 	 * Faz o sprite pular. A chave usada é SPACE_KEY (SPACE_BAR).
 	 */
 	public void jump() {
-		jump(Keyboard.SPACE_KEY);
+		jump(KeyEvent.VK_SPACE);
 	}
 
 	/**
