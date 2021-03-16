@@ -21,7 +21,7 @@ public class Paralaxe {
 	}
 
 	private void configuration() {
-		win.getKeyboard().addKey(KeyEvent.VK_ESCAPE);
+		win.getKeyboard().addKeyPressed(KeyEvent.VK_ESCAPE);
 	}
 
 	public void start() {

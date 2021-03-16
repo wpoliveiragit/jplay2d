@@ -12,7 +12,7 @@ import br.com.wellington.jplay2D.window.Window;
  * @author Gefersom Cardoso Lima Federal Fluminense University - UFF - Brazil
  *         Computer Science
  */
-public class TelaInicial {
+public class TelaInicialMegaManX3 {
 
 	private Keyboard keyboard;
 	private Animation backGround;
@@ -22,29 +22,25 @@ public class TelaInicial {
 	private int escolha = 0;
 	private Window win;
 
-	public TelaInicial() {
+	public TelaInicialMegaManX3() {
 		win = Window.create(800, 600);
-		win.getMouse().setCursorImage(Main.PATH_MOUSE);
+		win.getMouse().setCursorImage(TelaInicialMegaManX3Main.PATH_MOUSE);
 
-		backGround = new Sprite(Main.PATH_TELA_INICIAL, 3);
+		backGround = new Sprite(TelaInicialMegaManX3Main.PATH_TELA_INICIAL, 3);
 
 		keyboard = win.getKeyboard();
-		keyboard.setBehavior(KeyEvent.VK_UP, Keyboard.DETECT_INITIAL_PRESS_ONLY);
-		keyboard.setBehavior(KeyEvent.VK_DOWN, Keyboard.DETECT_INITIAL_PRESS_ONLY);
+		keyboard.addKeyPressed(KeyEvent.VK_UP);
+		keyboard.addKeyPressed(KeyEvent.VK_DOWN);
 
-		musica = new Sound(Main.PATH_MUSICA);
+		musica = new Sound(TelaInicialMegaManX3Main.PATH_MUSICA);
 		musica.setRepeat(true);
 		configuration();
 	}
 
 	private void configuration() {
-		keyboard.addKey(KeyEvent.VK_ESCAPE);
-		keyboard.addKey(KeyEvent.VK_ENTER);
-		keyboard.addKey(KeyEvent.VK_SPACE);
-		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyPressed(KeyEvent.VK_UP);
+		keyboard.addKeyPressed(KeyEvent.VK_DOWN);
 	}
 
 	public void update() {
@@ -63,7 +59,7 @@ public class TelaInicial {
 				return;
 			}
 			backGround.setCurrFrame(escolha);
-			new Sound(Main.PATH_SOM_TROCA_SELECAO).play();
+			new Sound(TelaInicialMegaManX3Main.PATH_SOM_TROCA_SELECAO).play();
 			return;
 		}
 		if (keyboard.keyDown(KeyEvent.VK_DOWN)) {// BAICO
@@ -73,7 +69,7 @@ public class TelaInicial {
 				return;
 			}
 			backGround.setCurrFrame(escolha);
-			new Sound(Main.PATH_SOM_TROCA_SELECAO).play();
+			new Sound(TelaInicialMegaManX3Main.PATH_SOM_TROCA_SELECAO).play();
 		}
 	}
 

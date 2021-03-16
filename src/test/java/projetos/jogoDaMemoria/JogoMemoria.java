@@ -49,7 +49,7 @@ public class JogoMemoria {
 
 		NUMERO_TOTAL_COMBINACOES = 10;
 
-		keyboard.addKey(KeyEvent.VK_ESCAPE);//
+		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);//
 	}
 
 	public void start() {

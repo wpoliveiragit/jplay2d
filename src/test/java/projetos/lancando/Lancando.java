@@ -38,8 +38,8 @@ public class Lancando {
 
 		windows = Window.create(width, height);
 		keyboard = windows.getKeyboard();
-		keyboard.addKey(KeyEvent.VK_RIGHT);
-		keyboard.addKey(KeyEvent.VK_LEFT);
+		keyboard.addKeyPressed(KeyEvent.VK_RIGHT);
+		keyboard.addKeyPressed(KeyEvent.VK_LEFT);
 
 		quadrado.setBullet(true); // Evita que o sprite ignore a colisão com outro objeto.
 
@@ -76,13 +76,14 @@ public class Lancando {
 	}
 
 	private void configuration() {
-		keyboard.addKey(KeyEvent.VK_ESCAPE);
-		keyboard.addKey(KeyEvent.VK_ENTER);
-		keyboard.addKey(KeyEvent.VK_SPACE);
-		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
+		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
+		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+
+		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
+		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
+		keyboard.addKeyHeldDown(KeyEvent.VK_LEFT);
+		keyboard.addKeyHeldDown(KeyEvent.VK_RIGHT);
 	}
 
 	public void start() {

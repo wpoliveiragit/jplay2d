@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import br.com.wellington.jplay2D.imageProcessing.GameImage;
 import br.com.wellington.jplay2D.imageProcessing.Physics;
 import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.oi.InputBase;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.window.Window;
 import projetos.utils.Constantes;
@@ -68,14 +69,17 @@ public class Rotacionando implements Constantes {
 		boundY2.setRotation(Math.PI / 2);
 		boundY2.setX(375);
 		boundY2.setY(300);
+
 		Keyboard keyboard = win.getKeyboard();
-		keyboard.addKey(KeyEvent.VK_ESCAPE);
-		keyboard.addKey(KeyEvent.VK_ENTER);
-		keyboard.addKey(KeyEvent.VK_SPACE);
-		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
+
+		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
+		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+
+		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
+		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
+		keyboard.addKeyHeldDown(KeyEvent.VK_LEFT);
+		keyboard.addKeyHeldDown(KeyEvent.VK_RIGHT);
 
 		while (true) {
 
@@ -84,9 +88,10 @@ public class Rotacionando implements Constantes {
 			// metódo, pois os sprites boundX, boundY e boundY2
 			// já são encarregados de limitar o quadrado dentro da tela.
 
-			quadrado.applyForceXFromKeyboard(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, 1, Keyboard.DETECT_EVERY_PRESS,
+			quadrado.applyForceXFromKeyboard(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, 1, InputBase.BEHAVIOR_KEY_HELD_DOWN,
 					false);
-			quadrado.applyForceYFromKeyboard(KeyEvent.VK_UP, KeyEvent.VK_DOWN, 50, Keyboard.DETECT_EVERY_PRESS, false);
+			quadrado.applyForceYFromKeyboard(KeyEvent.VK_UP, KeyEvent.VK_DOWN, 50, InputBase.BEHAVIOR_KEY_HELD_DOWN,
+					false);
 			// Se apertar a tecla ESC, sai da tela inicial.
 			if (win.getKeyboard().keyDown(KeyEvent.VK_ESCAPE))
 				break;

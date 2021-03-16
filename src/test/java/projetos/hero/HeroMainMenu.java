@@ -44,8 +44,8 @@ public class HeroMainMenu {
 		esc.setY(window.getJFrame().getHeight() - esc.getHeight());
 
 		// [TECLADO]
-		keyboard.addKey(KeyEvent.VK_ENTER);
-		keyboard.addKey(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
+		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
 	}
 
 	/** Inicia o aplicativo. */

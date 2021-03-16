@@ -102,7 +102,7 @@ class InputAction {
 		if (quant != 0) {
 			if (state == STATE_RELEASED) {
 				quantity = 0;
-			} else if (behavior == InputBase.DETECT_INITIAL_PRESS_ONLY) {
+			} else if (behavior == InputBase.BEHAVIOR_KEY_PRESSED) {
 				state = STATE_WAITING_FOR_RELEASE;
 				quantity = 0;
 			}

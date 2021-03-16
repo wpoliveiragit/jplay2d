@@ -23,8 +23,8 @@ public class TestJogo {
 	private WindowGameTime timeBase;
 
 	List<DisplayMode> listDisplayMode;
-	Point p1;
-	Point p2;
+//	Point p1;
+//	Point p2;
 
 	public TestJogo() {
 		Window.create(800, 600);
@@ -41,19 +41,19 @@ public class TestJogo {
 
 		// [MOUSE - configuração]
 		mouse.setCursorImage(TestMain.IMG_MOUSE);
-		mouse.setBehavior(Mouse.BUTTON_LEFT, InputBase.DETECT_EVERY_PRESS);
-		mouse.setBehavior(Mouse.BUTTON_MIDDLE, InputBase.DETECT_EVERY_PRESS);
-		mouse.setBehavior(Mouse.BUTTON_RIGHT, InputBase.DETECT_EVERY_PRESS);
+		mouse.setBehavior(Mouse.BUTTON_LEFT, InputBase.BEHAVIOR_KEY_HELD_DOWN);
+		mouse.setBehavior(Mouse.BUTTON_MIDDLE, InputBase.BEHAVIOR_KEY_HELD_DOWN);
+		mouse.setBehavior(Mouse.BUTTON_RIGHT, InputBase.BEHAVIOR_KEY_HELD_DOWN);
 
 		// [KEYBOARD - remover todas as chaves]
 		keyboard.cleanKeys();
 
 		// [KEYBOARD - configuração]
-		keyboard.addKey(KeyEvent.VK_ESCAPE, Keyboard.DETECT_INITIAL_PRESS_ONLY);
-		keyboard.addKey(KeyEvent.VK_ENTER);
-		keyboard.addKey(KeyEvent.VK_1);
-		keyboard.addKey(KeyEvent.VK_2);
-		keyboard.addKey(KeyEvent.VK_3);
+		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
+		keyboard.addKeyPressed(KeyEvent.VK_1);
+		keyboard.addKeyPressed(KeyEvent.VK_2);
+		keyboard.addKeyPressed(KeyEvent.VK_3);
 
 		// [DISPLAY MODE - remove duplicatas]
 		listDisplayMode = new ArrayList<DisplayMode>();
@@ -72,8 +72,8 @@ public class TestJogo {
 	}
 
 	void atualizaAreaMouse() {
-		p1 = new Point(0, win.getJFrame().getHeight() / 2);
-		p2 = new Point(win.getJFrame().getWidth(), win.getJFrame().getHeight());
+//		p1 = new Point(0, win.getJFrame().getHeight() / 2);
+//		p2 = new Point(win.getJFrame().getWidth(), win.getJFrame().getHeight());
 	}
 
 	public void startGame() {
@@ -169,9 +169,6 @@ public class TestJogo {
 		// -[mouse]
 		// -[window]
 		win.getGameGraphics();
-
-		// -[keyboard]
-		keyboard.setBehavior(0, 0);
 
 	}
 

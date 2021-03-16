@@ -4,129 +4,111 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Hashtable;
 
-/**
- * Classe responsável por manipular as teclas do teclado e seu comportamento.
- */
-public final class Keyboard extends InputBase implements KeyListener {
+/** Controle de entrada de digito do terclado */
+public final class Keyboard {
 
-	private Hashtable keysPressed;
+	/** Lista de chaves com seus respectivos comportamentos */
+	private Hashtable<Integer, InputAction> KeyList;
 
-	/**
-	 * Crie uma instância da classe Keyboard com as seguintes teclas e seu
-	 * comportamento: UP_KEY, LEFT_KEY, RIGHT_KEY, DOWN_KEY têm o comportamento
-	 * DETECT_EVERY_PRESS, e as teclas ESCAPE_KEY, SPACE_KEY, ENTER_KEY têm o
-	 * comportamento DETECT_INITIAL_PRESS_ONLY.
-	 * 
-	 * @version 1.0
-	 */
+	/** Cria o controle de teclas do keyboard. */
 	public Keyboard() {
-		keysPressed = new Hashtable<Integer, InputAction>();
+		KeyList = new Hashtable<Integer, InputAction>();
 	}
 
 	/**
-	 * Método usado para saber se uma tecla foi pressionada.
+	 * Verifica se a tecla foi pressionada e ou se ela esta sendo mantida em
+	 * pressão.
 	 * 
-	 * @param key O código-chave é apresentado em 'Teclado'. ou em 'KeyEvent.'
-	 * @return boolean - Verdadeiro quando pressionado, caso contrário, falso.
+	 * Obs.: A chave deve ser adicionada na lista de chaves deste objeto antes da
+	 * verificação usando os metodos 'addKeyPressed(int key)' ou 'addKeyHeldDown(int
+	 * key)'.
+	 * 
+	 * @param key A chave a ser verificada.
 	 * @see KeyEvent
-	 * @see Keyboard
-	 * @version 1.0
+	 * @return true se a tecla foi pressionada e pertence a lista de chaves.
 	 */
 	public boolean keyDown(int key) {
-		if (keysPressed.containsKey(key)) {
-			InputAction temp = (InputAction) keysPressed.get(key);
+		if (KeyList.containsKey(key)) {
+			InputAction temp = (InputAction) KeyList.get(key);
 			return temp.isPressed();
 		}
 		return false;
 	}
 
 	/**
-	 * Sobrecarregando o método void addKey (int key, int behavior), o comportamento
-	 * será DETECT_INITAL_PRESS_ONLY.
+	 * Adiciona uma nova chave ao keyboard com o comportamento de apenas ao
+	 * pressionar.
 	 * 
-	 * @param key O código da chave. O código da chave pode ser encontrado em
-	 *            'KeyEvent.'
+	 * @param key O código da chave. (encontre uma chave na classe 'KeyEvent').
 	 * @see KeyEvent
-	 * @version 1.0
 	 */
-	public void addKey(int key) {
-		addKey(key, Keyboard.DETECT_INITIAL_PRESS_ONLY);
+	public void addKeyPressed(int key) {
+		addKeyBehavior(key, InputBase.BEHAVIOR_KEY_PRESSED);
 	}
 
 	/**
-	 * Método usado para adicionar uma tecla a uma instância do teclado e seu
-	 * comportamento.
+	 * Adiciona uma nova chave ao keyboard com o comportamento de ao pressionar e/ou
+	 * manter pressionado.
 	 * 
-	 * @param key      O código da chave. O código da chave pode ser encontrado em
-	 *                 'KeyEvent.'
-	 * @param behavior O comportamento da tecla pode ser encontrado em 'Teclado'. ou
-	 *                 em 'Base de entrada.'.
+	 * @param key O código da chave. (encontre uma chave na classe 'KeyEvent').
+	 * @see KeyEvent
+	 */
+	public void addKeyHeldDown(int key) {
+		addKeyBehavior(key, InputBase.BEHAVIOR_KEY_HELD_DOWN);
+	}
+
+	/**
+	 * Adiciona uma nova chave ao keyboard com um comportamento.
+	 * 
+	 * @param key      O código da chave. (encontre uma chave na classe 'KeyEvent').
+	 * @param behavior O comportamento da tecla (pode ser encontrado em 'InputBase'.
 	 * @see KeyEvent
 	 * @see InputBase
 	 * @version 1.0
 	 */
-	public void addKey(int key, int behavior) {
+	private void addKeyBehavior(int key, int behavior) {
 		removeKey(key);
-		keysPressed.put(key, new InputAction(behavior));
+		KeyList.put(key, new InputAction(behavior));
 	}
 
 	/**
-	 * Remova uma chave da instância do teclado. Se a chave não existe na instância
-	 * do teclado não gere nenhum erro.
+	 * Remova uma chave do teclado.
 	 * 
-	 * @pram key O código da chave. Ele pode ser encontrado em 'KeyEvent'. ou em
-	 *       'Teclado'.
+	 * @pram key O código da chave. (encontre uma chave na classe 'KeyEvent').
 	 * @see KeyEvent
-	 * @see Keyboard
-	 * @version 1.0
 	 */
 	public void removeKey(int key) {
-		keysPressed.remove(key);
-	}
-
-	/**
-	 * Defina um novo comportamento para uma chave. Se a chave não existe na
-	 * instância do teclado não gera nenhum erro.
-	 * 
-	 * @param key O código da chave. Ele pode ser encontrado em 'KeyEvent'. ou em
-	 *            'Teclado'.
-	 * @see KeyEvent
-	 * @see Keyboard
-	 * @version 1.0
-	 */
-	public void setBehavior(int key, int behavior) {
-		if (keysPressed.containsKey(key))
-			addKey(key, behavior);
+		KeyList.remove(key);
 	}
 
 	/** Remove todas as keys registradas */
 	public void cleanKeys() {
-		keysPressed.clear();
+		KeyList.clear();
 	}
 
-	@Deprecated
-	public void keyTyped(KeyEvent e) {
-		// e.consume();
-	}
+	public KeyListener getKeyListener() {
+		return new KeyListener() {
 
-	@Deprecated
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		if (keysPressed.containsKey(key)) {
-			InputAction temp = (InputAction) keysPressed.get(key);
-			temp.press();
-		}
-		// e.consume();
-	}
+			public void keyTyped(KeyEvent e) {
+				// suprimido.
+			}
 
-	@Deprecated
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-		if (keysPressed.containsKey(key)) {
-			InputAction temp = (InputAction) keysPressed.get(key);
-			temp.release();
-		}
-		// e.consume();
+			public void keyPressed(KeyEvent e) {
+				int key = e.getKeyCode();
+				if (KeyList.containsKey(key)) {
+					((InputAction) KeyList.get(key)).press();
+				}
+			}
+
+			public void keyReleased(KeyEvent e) {
+				int key = e.getKeyCode();
+				if (KeyList.containsKey(key)) {
+					((InputAction) KeyList.get(key)).release();
+					;
+
+				}
+			}
+		};
 	}
 
 }

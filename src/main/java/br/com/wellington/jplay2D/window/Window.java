@@ -69,7 +69,7 @@ public class Window {
 
 		jframe.addMouseListener(mouse);
 		jframe.addMouseMotionListener(mouse);
-		jframe.addKeyListener(keyboard);
+		jframe.addKeyListener(keyboard.getKeyListener());
 
 		this.jframe = jframe;
 	}

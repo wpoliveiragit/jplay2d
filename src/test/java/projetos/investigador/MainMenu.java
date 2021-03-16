@@ -28,13 +28,16 @@ public class MainMenu {
 	}
 
 	private void configuration() {
-		keyboard.addKey(KeyEvent.VK_ESCAPE);
-		keyboard.addKey(KeyEvent.VK_ENTER);
-		keyboard.addKey(KeyEvent.VK_SPACE);
-		keyboard.addKey(KeyEvent.VK_UP, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_DOWN, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_LEFT, Keyboard.DETECT_EVERY_PRESS);
-		keyboard.addKey(KeyEvent.VK_RIGHT, Keyboard.DETECT_EVERY_PRESS);
+		// [TECLADO - add botão de evento por tecla]
+		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
+		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+
+		// [TECLADO - add botão de evento por pressão]
+		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
+		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
+		keyboard.addKeyHeldDown(KeyEvent.VK_LEFT);
+		keyboard.addKeyHeldDown(KeyEvent.VK_RIGHT);
 	}
 
 	/**
