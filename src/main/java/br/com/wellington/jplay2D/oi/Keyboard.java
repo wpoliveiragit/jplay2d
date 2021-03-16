@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.Hashtable;
 
 /** Controle de entrada de digito do terclado */
-public final class Keyboard {
+public final class Keyboard implements InputActionBehavior {
 
 	/** Lista de chaves com seus respectivos comportamentos */
 	private Hashtable<Integer, InputAction> KeyList;
@@ -23,7 +23,7 @@ public final class Keyboard {
 	 * verificação usando os metodos 'addKeyPressed(int key)' ou 'addKeyHeldDown(int
 	 * key)'.
 	 * 
-	 * @param key A chave a ser verificada.
+	 * @param key O código da chave. (encontre uma chave na classe 'KeyEvent').
 	 * @see KeyEvent
 	 * @return true se a tecla foi pressionada e pertence a lista de chaves.
 	 */
@@ -43,7 +43,7 @@ public final class Keyboard {
 	 * @see KeyEvent
 	 */
 	public void addKeyPressed(int key) {
-		addKeyBehavior(key, InputBase.BEHAVIOR_KEY_PRESSED);
+		addKeyBehavior(key, InputActionBehavior.BEHAVIOR_KEY_PRESSED);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public final class Keyboard {
 	 * @see KeyEvent
 	 */
 	public void addKeyHeldDown(int key) {
-		addKeyBehavior(key, InputBase.BEHAVIOR_KEY_HELD_DOWN);
+		addKeyBehavior(key, InputActionBehavior.BEHAVIOR_KEY_HELD_DOWN);
 	}
 
 	/**
@@ -63,8 +63,7 @@ public final class Keyboard {
 	 * @param key      O código da chave. (encontre uma chave na classe 'KeyEvent').
 	 * @param behavior O comportamento da tecla (pode ser encontrado em 'InputBase'.
 	 * @see KeyEvent
-	 * @see InputBase
-	 * @version 1.0
+	 * @see InputActionBehavior
 	 */
 	private void addKeyBehavior(int key, int behavior) {
 		removeKey(key);

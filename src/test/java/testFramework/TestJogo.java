@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.wellington.jplay2D.oi.InputBase;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.oi.Mouse;
 import br.com.wellington.jplay2D.window.Window;
@@ -41,9 +40,9 @@ public class TestJogo {
 
 		// [MOUSE - configuração]
 		mouse.setCursorImage(TestMain.IMG_MOUSE);
-		mouse.setBehavior(Mouse.BUTTON_LEFT, InputBase.BEHAVIOR_KEY_HELD_DOWN);
-		mouse.setBehavior(Mouse.BUTTON_MIDDLE, InputBase.BEHAVIOR_KEY_HELD_DOWN);
-		mouse.setBehavior(Mouse.BUTTON_RIGHT, InputBase.BEHAVIOR_KEY_HELD_DOWN);
+		mouse.setBehavior(Mouse.BUTTON_LEFT, Keyboard.BEHAVIOR_KEY_HELD_DOWN);
+		mouse.setBehavior(Mouse.BUTTON_MIDDLE, Keyboard.BEHAVIOR_KEY_HELD_DOWN);
+		mouse.setBehavior(Mouse.BUTTON_RIGHT, Keyboard.BEHAVIOR_KEY_HELD_DOWN);
 
 		// [KEYBOARD - remover todas as chaves]
 		keyboard.cleanKeys();

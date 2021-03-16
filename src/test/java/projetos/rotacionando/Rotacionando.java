@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import br.com.wellington.jplay2D.imageProcessing.GameImage;
 import br.com.wellington.jplay2D.imageProcessing.Physics;
 import br.com.wellington.jplay2D.imageProcessing.Sprite;
-import br.com.wellington.jplay2D.oi.InputBase;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.window.Window;
 import projetos.utils.Constantes;
@@ -88,9 +87,9 @@ public class Rotacionando implements Constantes {
 			// metódo, pois os sprites boundX, boundY e boundY2
 			// já são encarregados de limitar o quadrado dentro da tela.
 
-			quadrado.applyForceXFromKeyboard(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, 1, InputBase.BEHAVIOR_KEY_HELD_DOWN,
+			quadrado.applyForceXFromKeyboard(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, 1, Keyboard.BEHAVIOR_KEY_HELD_DOWN,
 					false);
-			quadrado.applyForceYFromKeyboard(KeyEvent.VK_UP, KeyEvent.VK_DOWN, 50, InputBase.BEHAVIOR_KEY_HELD_DOWN,
+			quadrado.applyForceYFromKeyboard(KeyEvent.VK_UP, KeyEvent.VK_DOWN, 50, Keyboard.BEHAVIOR_KEY_HELD_DOWN,
 					false);
 			// Se apertar a tecla ESC, sai da tela inicial.
 			if (win.getKeyboard().keyDown(KeyEvent.VK_ESCAPE))

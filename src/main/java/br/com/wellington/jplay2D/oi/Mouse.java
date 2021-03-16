@@ -12,7 +12,7 @@ import br.com.wellington.jplay2D.window.Window;
 /**
  * Classe responsável por controlar as ações do mouse.
  */
-public class Mouse implements MouseMotionListener, MouseListener {
+public class Mouse implements MouseMotionListener, MouseListener, InputActionBehavior {
 
 	private Point mousePosition;
 
@@ -33,9 +33,9 @@ public class Mouse implements MouseMotionListener, MouseListener {
 		mousePosition = new Point(0, 0);
 
 		// Adicione os botões padrão
-		leftButton = new InputAction(InputBase.BEHAVIOR_KEY_PRESSED);
-		middleButton = new InputAction(InputBase.BEHAVIOR_KEY_PRESSED);
-		rightButton = new InputAction(InputBase.BEHAVIOR_KEY_PRESSED);
+		leftButton = new InputAction(InputActionBehavior.BEHAVIOR_KEY_PRESSED);
+		middleButton = new InputAction(InputActionBehavior.BEHAVIOR_KEY_PRESSED);
+		rightButton = new InputAction(InputActionBehavior.BEHAVIOR_KEY_PRESSED);
 	}
 
 	/**

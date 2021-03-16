@@ -6,7 +6,6 @@ package br.com.wellington.jplay2D.oi;
  * 
  * @see Keyboard and a Mouse.
  */
-
 class InputAction {
 
 	private static final int STATE_RELEASED = 0;
@@ -33,7 +32,7 @@ class InputAction {
 	 * Defina o comportamento da tecla ou do botão.
 	 * 
 	 * @param behavior - pode ser DETECT_EVERY_PRESS ou DETECT_INITIAL_PRESS_ONLY.
-	 * @see InputBase
+	 * @see InputActionBehavior
 	 * @version 1.0
 	 */
 	public synchronized void setBehavior(int behavior) {
@@ -44,7 +43,7 @@ class InputAction {
 	 * É um método sobrecarregado do método press (int amount). Seu parâmetro é
 	 * quantidade = 1.
 	 * 
-	 * @see InputBase
+	 * @see InputActionBehavior
 	 * @version 1.0
 	 */
 	public synchronized void press() {
@@ -102,7 +101,7 @@ class InputAction {
 		if (quant != 0) {
 			if (state == STATE_RELEASED) {
 				quantity = 0;
-			} else if (behavior == InputBase.BEHAVIOR_KEY_PRESSED) {
+			} else if (behavior == InputActionBehavior.BEHAVIOR_KEY_PRESSED) {
 				state = STATE_WAITING_FOR_RELEASE;
 				quantity = 0;
 			}
