@@ -22,22 +22,22 @@ public class MainMenu {
 
 	public MainMenu() {
 		plano = new GameImage(InvestigadorMain.IMG_BACKGROUND);
-		win = Window.create(plano.width, plano.height);
+		win = Window.getInstance(plano.width, plano.height);
 		keyboard = win.getKeyboard();
 		configuration();
 	}
 
 	private void configuration() {
 		// [TECLADO - add botão de evento por tecla]
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
-		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
 
 		// [TECLADO - add botão de evento por pressão]
-		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
-		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
-		keyboard.addKeyHeldDown(KeyEvent.VK_LEFT);
-		keyboard.addKeyHeldDown(KeyEvent.VK_RIGHT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_UP);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_DOWN);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_LEFT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_RIGHT);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class MainMenu {
 	}
 
 	private void control() {
-		if (keyboard.keyDown(KeyEvent.VK_ENTER)) {// ENTER
+		if (keyboard.checkKey(KeyEvent.VK_ENTER)) {// ENTER
 			new Cenario01(win).start();
 		}
 
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) {
 			LOOP = false;
 		}
 	}

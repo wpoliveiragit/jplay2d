@@ -36,10 +36,10 @@ public class Lancando {
 
 		fisica.createBodyFromSprite(quadrado, false);
 
-		windows = Window.create(width, height);
+		windows = Window.getInstance(width, height);
 		keyboard = windows.getKeyboard();
-		keyboard.addKeyPressed(KeyEvent.VK_RIGHT);
-		keyboard.addKeyPressed(KeyEvent.VK_LEFT);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_RIGHT);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_LEFT);
 
 		quadrado.setBullet(true); // Evita que o sprite ignore a colisão com outro objeto.
 
@@ -76,14 +76,14 @@ public class Lancando {
 	}
 
 	private void configuration() {
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
-		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
 
-		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
-		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
-		keyboard.addKeyHeldDown(KeyEvent.VK_LEFT);
-		keyboard.addKeyHeldDown(KeyEvent.VK_RIGHT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_UP);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_DOWN);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_LEFT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_RIGHT);
 	}
 
 	public void start() {
@@ -102,17 +102,17 @@ public class Lancando {
 	}
 
 	private void controle() {
-		if (keyboard.keyDown(KeyEvent.VK_RIGHT)) {
+		if (keyboard.checkKey(KeyEvent.VK_RIGHT)) {
 			quadrado.applyForceX(5000);
 		}
-		if (keyboard.keyDown(KeyEvent.VK_LEFT)) {
+		if (keyboard.checkKey(KeyEvent.VK_LEFT)) {
 			quadrado.applyForceX(-5000);
 		}
-		if (keyboard.keyDown(KeyEvent.VK_SPACE)) {
+		if (keyboard.checkKey(KeyEvent.VK_SPACE)) {
 			quadrado.cancelForces();
 		}
 		// Se apertar a tecla ESC, sai da tela inicial.
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) {
 			LOOP = false;
 		}
 	}

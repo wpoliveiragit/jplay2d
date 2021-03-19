@@ -1,26 +1,31 @@
 package br.com.wellington.jplay2D.oi;
 
-/**
- * Classe usada para manipular ações: soltar, pressionar ou manter pressionado
- * um botão ou tecla. Esta classe não está associada a uma tecla ou botão.
- * 
- * @see Keyboard and a Mouse.
- */
-class InputAction {
+/** Classe de controle do comportamento. */
+public class InputAction implements InputActionBehavior {
 
+	/** Estado liberada */
 	private static final int STATE_RELEASED = 0;
+	/** Estado pressionado */
 	private static final int STATE_PRESSED = 1;
+	/** Estado esperando liberação */
 	private static final int STATE_WAITING_FOR_RELEASE = 2;
-	private int behavior;
+
+	/** O Comportamento */
+	int behavior;
+
+	/** */
 	private int quantity;
+
+	/** O estado da ação (ver a area estatica) */
 	private int state;
 
 	/**
-	 * Crie uma nova Ação de entrada com comportamento específico, com o estado =
-	 * liberado e a quantidade de cliques igual a 0.
+	 * Cria um novo controle de comportamento com {@link #state} = liberado e
+	 * {@link #quantity} = 0.
 	 * 
-	 * @param behavior - pode ser DETECT_EVERY_PRESS ou DETECT_INITIAL_PRESS_ONLY
-	 * @version 1.0
+	 * @param behavior O comportamento da chave.
+	 * @apiNote → Use {@link InputActionBehavior} para encontrar a lista de
+	 *          comportamentos.
 	 */
 	public InputAction(int behavior) {
 		this.behavior = behavior;
@@ -29,59 +34,44 @@ class InputAction {
 	}
 
 	/**
-	 * Defina o comportamento da tecla ou do botão.
+	 * Troca o comportamento do botão do mouse.
+	 * {@link InputActionBehavior#ACTUATOR_REQUEST} ↔
+	 * {@link InputActionBehavior#ACTUATOR_REQUEST_PRESS}.
 	 * 
-	 * @param behavior - pode ser DETECT_EVERY_PRESS ou DETECT_INITIAL_PRESS_ONLY.
-	 * @see InputActionBehavior
-	 * @version 1.0
+	 * @param button O botão a ser alterado o comportamento.
 	 */
-	public synchronized void setBehavior(int behavior) {
-		this.behavior = behavior;
-	}
-
-	/**
-	 * É um método sobrecarregado do método press (int amount). Seu parâmetro é
-	 * quantidade = 1.
-	 * 
-	 * @see InputActionBehavior
-	 * @version 1.0
-	 */
-	public synchronized void press() {
-		press(1);
-	}
-
-	/**
-	 * Coloque o estado do botão ou da tecla como pressionada e associe a eles uma
-	 * quantidade de pressionada.
-	 * 
-	 * @param amout - Quantas vezes a tecla foi pressionada.
-	 * @version 1.0
-	 */
-	public synchronized void press(int amount) {
-		if (state != STATE_WAITING_FOR_RELEASE) {
-			this.quantity += amount;
-			state = STATE_PRESSED;
+	public synchronized void changeBehavior() {
+		if (behavior == ACTUATOR_REQUEST) {
+			behavior = ACTUATOR_REQUEST_PRESS;
+			return;
 		}
+		behavior = ACTUATOR_REQUEST;
 	}
 
-	/**
-	 * Coloque o estado do botão ou da chave como solto.
-	 * 
-	 * @version 1.0
-	 */
+	/** Coloqua o estado como {@link #STATE_PRESSED}. */
+	public synchronized void press() {
+		if (state == STATE_WAITING_FOR_RELEASE) {
+			return;
+		}
+		quantity++;
+		state = STATE_PRESSED;
+	}
+
+	/** Coloqua o estado como {@link #STATE_RELEASED}. */
 	public synchronized void release() {
 		state = STATE_RELEASED;
 	}
 
 	/**
-	 * Método usado para saber se uma tecla foi pressionada.
+	 * Retorna true caso a ação tenha sido solicitada.
 	 * 
-	 * @return boolean - verdadeiro quando uma tecla é pressionada, falso caso
-	 *         contrário.
-	 * @version 1.0
+	 * @return boolean true caso a ação tenha sido colicitada.
 	 */
 	public synchronized boolean isPressed() {
-		return (getAmount() != 0);
+		if (state == STATE_RELEASED) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -97,15 +87,16 @@ class InputAction {
 	 * @version 1.0
 	 */
 	public synchronized int getAmount() {
-		int quant = quantity;
-		if (quant != 0) {
-			if (state == STATE_RELEASED) {
-				quantity = 0;
-			} else if (behavior == InputActionBehavior.BEHAVIOR_KEY_PRESSED) {
-				state = STATE_WAITING_FOR_RELEASE;
-				quantity = 0;
-			}
+		if (quantity == 0) {
+			return quantity;
 		}
-		return quant;
+
+		int qtt = quantity;
+
+		if (state == STATE_RELEASED || behavior == ACTUATOR_REQUEST) {
+			quantity = 0;
+		}
+
+		return qtt;
 	}
 }

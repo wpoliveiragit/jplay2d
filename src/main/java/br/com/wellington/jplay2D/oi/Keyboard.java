@@ -10,83 +10,12 @@ public final class Keyboard implements InputActionBehavior {
 	/** Lista de chaves com seus respectivos comportamentos */
 	private Hashtable<Integer, InputAction> KeyList;
 
+	private KeyListener keyListener;
+
 	/** Cria o controle de teclas do keyboard. */
 	public Keyboard() {
 		KeyList = new Hashtable<Integer, InputAction>();
-	}
-
-	/**
-	 * Verifica se a tecla foi pressionada e ou se ela esta sendo mantida em
-	 * pressão.
-	 * 
-	 * Obs.: A chave deve ser adicionada na lista de chaves deste objeto antes da
-	 * verificação usando os metodos 'addKeyPressed(int key)' ou 'addKeyHeldDown(int
-	 * key)'.
-	 * 
-	 * @param key O código da chave. (encontre uma chave na classe 'KeyEvent').
-	 * @see KeyEvent
-	 * @return true se a tecla foi pressionada e pertence a lista de chaves.
-	 */
-	public boolean keyDown(int key) {
-		if (KeyList.containsKey(key)) {
-			InputAction temp = (InputAction) KeyList.get(key);
-			return temp.isPressed();
-		}
-		return false;
-	}
-
-	/**
-	 * Adiciona uma nova chave ao keyboard com o comportamento de apenas ao
-	 * pressionar.
-	 * 
-	 * @param key O código da chave. (encontre uma chave na classe 'KeyEvent').
-	 * @see KeyEvent
-	 */
-	public void addKeyPressed(int key) {
-		addKeyBehavior(key, InputActionBehavior.BEHAVIOR_KEY_PRESSED);
-	}
-
-	/**
-	 * Adiciona uma nova chave ao keyboard com o comportamento de ao pressionar e/ou
-	 * manter pressionado.
-	 * 
-	 * @param key O código da chave. (encontre uma chave na classe 'KeyEvent').
-	 * @see KeyEvent
-	 */
-	public void addKeyHeldDown(int key) {
-		addKeyBehavior(key, InputActionBehavior.BEHAVIOR_KEY_HELD_DOWN);
-	}
-
-	/**
-	 * Adiciona uma nova chave ao keyboard com um comportamento.
-	 * 
-	 * @param key      O código da chave. (encontre uma chave na classe 'KeyEvent').
-	 * @param behavior O comportamento da tecla (pode ser encontrado em 'InputBase'.
-	 * @see KeyEvent
-	 * @see InputActionBehavior
-	 */
-	private void addKeyBehavior(int key, int behavior) {
-		removeKey(key);
-		KeyList.put(key, new InputAction(behavior));
-	}
-
-	/**
-	 * Remova uma chave do teclado.
-	 * 
-	 * @pram key O código da chave. (encontre uma chave na classe 'KeyEvent').
-	 * @see KeyEvent
-	 */
-	public void removeKey(int key) {
-		KeyList.remove(key);
-	}
-
-	/** Remove todas as keys registradas */
-	public void cleanKeys() {
-		KeyList.clear();
-	}
-
-	public KeyListener getKeyListener() {
-		return new KeyListener() {
+		keyListener = new KeyListener() {
 
 			public void keyTyped(KeyEvent e) {
 				// suprimido.
@@ -108,6 +37,95 @@ public final class Keyboard implements InputActionBehavior {
 				}
 			}
 		};
+	}
+
+	/**
+	 * Verifica se a chave foi solicitada.
+	 * 
+	 * @param key O código da chave.
+	 * 
+	 * @return true se a tecla foi pressionada e pertence a lista de chaves.
+	 * 
+	 * @apiNote → Apenas as chaves adicionadas a lista de chaves do keyboard serão
+	 *          verificados. *
+	 * @apiNote → Use o método {@link #addKeyBehaviorActuatorRequest(int)} ou
+	 *          {@link #addKeyBehaviorActuatorRequestPress(int)} para adicionar uma
+	 *          nova chave ao keyboard. *
+	 * @apiNote → Use as constantes VK_'key' em {@link KeyEvent} como padrão de
+	 *          velores.
+	 */
+	public boolean checkKey(int key) {
+		if (KeyList.containsKey(key)) {
+			return ((InputAction) KeyList.get(key)).isPressed();
+		}
+		return false;
+	}
+
+	/**
+	 * Adiciona uma nova chave ao keyboard com o comportamento
+	 * {@link InputActionBehavior#ACTUATOR_REQUEST}
+	 * 
+	 * @param key O código da chave.
+	 * @apiNote → Para adicionar uma nova chave ao keyboard use as constantes
+	 *          VK_'key' de {@link KeyEvent}.
+	 */
+	public void addKeyBehaviorActuatorRequest(int key) {
+		addKeyBehavior(key, ACTUATOR_REQUEST);
+	}
+
+	/**
+	 * Adiciona uma nova chave ao keyboard com o comportamento
+	 * {@link InputActionBehavior#ACTUATOR_REQUEST_PRESS}
+	 * 
+	 * @param key O código da chave.
+	 * @apiNote → Para adicionar uma nova chave ao keyboard use as constantes
+	 *          VK_'key' de {@link KeyEvent}.
+	 */
+	public void addKeyBehaviorActuatorRequestPress(int key) {
+		addKeyBehavior(key, ACTUATOR_REQUEST_PRESS);
+	}
+
+	/**
+	 * Adiciona uma nova chave ao keyboard com um comportamento.
+	 * 
+	 * @param key      O código da chave. (encontre uma chave na classe 'KeyEvent').
+	 * @param behavior O comportamento da tecla (pode ser encontrado em 'InputBase'.
+	 */
+
+	/**
+	 * Adiciona uma nova chave de comportamento ao keyboard.
+	 * 
+	 * @param key      O código da chave.
+	 * @param behavior O comportamento da chave.
+	 * @apiNote → Para adicionar uma nova chave ao keyboard use as constantes
+	 *          VK_'key' de {@link KeyEvent}.
+	 * @apiNote → Use {@link InputActionBehavior} para encontrar a lista de
+	 *          comportamentos.
+	 */
+	private void addKeyBehavior(int key, int behavior) {
+		removeKey(key);
+		KeyList.put(key, new InputAction(behavior));
+	}
+
+	/**
+	 * Remova uma chave de comportamento do teclado.
+	 * 
+	 * @pram key O código da chave.
+	 * @apiNote → Use {@link InputActionBehavior} para encontrar a lista de
+	 *          comportamentos.
+	 */
+	public void removeKey(int key) {
+		KeyList.remove(key);
+	}
+
+	/** Remove todas as chaves de comportamentos registradas */
+	public void cleanKeys() {
+		KeyList.clear();
+	}
+
+	/** Retorna o KeyListener */
+	public KeyListener getKeyListener() {
+		return keyListener;
 	}
 
 }

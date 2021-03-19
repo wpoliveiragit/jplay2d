@@ -22,7 +22,7 @@ public class JogoBase implements Controle {
 
 	/** Contrutor base do jogo. */
 	public JogoBase() {
-		janela = Window.create(800, 600);
+		janela = Window.getInstance(800, 600);
 		keyboard = janela.getKeyboard();
 		controle = this;
 		configuration();
@@ -30,14 +30,14 @@ public class JogoBase implements Controle {
 
 	private void configuration() {
 		// [TECLADO - add botão de evento por tecla]
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
-		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
 		// [TECLADO - add botão de evento por pressão]
-		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
-		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
-		keyboard.addKeyHeldDown(KeyEvent.VK_LEFT);
-		keyboard.addKeyHeldDown(KeyEvent.VK_RIGHT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_UP);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_DOWN);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_LEFT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_RIGHT);
 	}
 
 	/** Inicia o jogo. */
@@ -78,23 +78,23 @@ public class JogoBase implements Controle {
 	 * Controle da captura de digitos.
 	 */
 	public void controleDigito() {
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) { // botao esc
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) { // botao esc
 			controle.controleEsc();
 			return;
 		}
-		if (keyboard.keyDown(KeyEvent.VK_DOWN)) { // vira ou anda pra baixo
+		if (keyboard.checkKey(KeyEvent.VK_DOWN)) { // vira ou anda pra baixo
 			controle.controleCetaBaixo();
 			return;
 		}
-		if (keyboard.keyDown(KeyEvent.VK_LEFT)) {// vira ou anda pra esquerda
+		if (keyboard.checkKey(KeyEvent.VK_LEFT)) {// vira ou anda pra esquerda
 			controle.controleCetaEsquerda();
 			return;
 		}
-		if (keyboard.keyDown(KeyEvent.VK_RIGHT)) {// vira ou anda pra direita
+		if (keyboard.checkKey(KeyEvent.VK_RIGHT)) {// vira ou anda pra direita
 			controle.controleCetaDireita();
 			return;
 		}
-		if (keyboard.keyDown(KeyEvent.VK_UP)) { // vira ou anda pra cima
+		if (keyboard.checkKey(KeyEvent.VK_UP)) { // vira ou anda pra cima
 			controle.controleCetaCima();
 		}
 	}

@@ -16,12 +16,12 @@ public class Paralaxe {
 	private Window win;
 
 	public Paralaxe() {
-		win = Window.create(800, 600);
+		win = Window.getInstance(800, 600);
 		configuration();
 	}
 
 	private void configuration() {
-		win.getKeyboard().addKeyPressed(KeyEvent.VK_ESCAPE);
+		win.getKeyboard().addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
 	}
 
 	public void start() {
@@ -43,7 +43,7 @@ public class Paralaxe {
 	}
 
 	private void controle() {
-		if (win.getKeyboard().keyDown(KeyEvent.VK_ESCAPE)) {
+		if (win.getKeyboard().checkKey(KeyEvent.VK_ESCAPE)) {
 			loop = false;
 		}
 	}

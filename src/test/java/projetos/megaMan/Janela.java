@@ -24,23 +24,23 @@ public class Janela {
 	private List<Tiro> balas = new ArrayList<Tiro>();
 
 	public Janela(int x, int y) {
-		window = Window.create(x, y);
+		window = Window.getInstance(x, y);
 		keyboard = window.getKeyboard();
-		keyboard.addKeyPressed(KeyEvent.VK_CONTROL);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_CONTROL);
 		background = new GameImage(MegaManMain.IMG_BD);
 		boneco = new Boneco(window, 500);
 		configuration();
 	}
 
 	private void configuration() {
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
-		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
 
-		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
-		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
-		keyboard.addKeyHeldDown(KeyEvent.VK_LEFT);
-		keyboard.addKeyHeldDown(KeyEvent.VK_RIGHT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_UP);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_DOWN);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_LEFT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_RIGHT);
 	}
 
 	public void start() {
@@ -70,21 +70,21 @@ public class Janela {
 	}
 
 	private void controle() {
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) {
 			loop = false;
 		}
 
 		boneco.jump();
 
-		if (keyboard.keyDown(KeyEvent.VK_CONTROL)) {
+		if (keyboard.checkKey(KeyEvent.VK_CONTROL)) {
 			balas.add(boneco.atira());
 		}
 
-		if (keyboard.keyDown(KeyEvent.VK_LEFT)) {
+		if (keyboard.checkKey(KeyEvent.VK_LEFT)) {
 			boneco.andaEsquerda();
 			return;
 		}
-		if (keyboard.keyDown(KeyEvent.VK_RIGHT)) {
+		if (keyboard.checkKey(KeyEvent.VK_RIGHT)) {
 			boneco.andaDireita();
 			return;
 		}

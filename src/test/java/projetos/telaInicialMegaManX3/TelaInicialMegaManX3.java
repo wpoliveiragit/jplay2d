@@ -23,14 +23,14 @@ public class TelaInicialMegaManX3 {
 	private Window win;
 
 	public TelaInicialMegaManX3() {
-		win = Window.create(800, 600);
+		win = Window.getInstance(800, 600);
 		win.getMouse().setCursorImage(TelaInicialMegaManX3Main.PATH_MOUSE);
 
 		backGround = new Sprite(TelaInicialMegaManX3Main.PATH_TELA_INICIAL, 3);
 
 		keyboard = win.getKeyboard();
-		keyboard.addKeyPressed(KeyEvent.VK_UP);
-		keyboard.addKeyPressed(KeyEvent.VK_DOWN);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_UP);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_DOWN);
 
 		musica = new Sound(TelaInicialMegaManX3Main.PATH_MUSICA);
 		musica.setRepeat(true);
@@ -38,9 +38,9 @@ public class TelaInicialMegaManX3 {
 	}
 
 	private void configuration() {
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyPressed(KeyEvent.VK_UP);
-		keyboard.addKeyPressed(KeyEvent.VK_DOWN);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_UP);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_DOWN);
 	}
 
 	public void update() {
@@ -49,10 +49,10 @@ public class TelaInicialMegaManX3 {
 	}
 
 	private void controle() {
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {// SAIR
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) {// SAIR
 			loop = false;
 		}
-		if (keyboard.keyDown(KeyEvent.VK_UP)) {// CIMA
+		if (keyboard.checkKey(KeyEvent.VK_UP)) {// CIMA
 			escolha--;
 			if (escolha < 0) {
 				escolha = 0;
@@ -62,7 +62,7 @@ public class TelaInicialMegaManX3 {
 			new Sound(TelaInicialMegaManX3Main.PATH_SOM_TROCA_SELECAO).play();
 			return;
 		}
-		if (keyboard.keyDown(KeyEvent.VK_DOWN)) {// BAICO
+		if (keyboard.checkKey(KeyEvent.VK_DOWN)) {// BAICO
 			escolha++;
 			if (escolha > 2) {
 				escolha = 2;

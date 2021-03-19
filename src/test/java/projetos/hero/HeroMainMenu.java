@@ -22,7 +22,7 @@ public class HeroMainMenu {
 
 	public HeroMainMenu() {
 		plano = new GameImage(HeroMain.IMG_MAIN_MENU);
-		window = Window.create(plano.width, plano.height);
+		window = Window.getInstance(plano.width, plano.height);
 		keyboard = window.getKeyboard();
 		configuration();
 	}
@@ -44,8 +44,8 @@ public class HeroMainMenu {
 		esc.setY(window.getJFrame().getHeight() - esc.getHeight());
 
 		// [TECLADO]
-		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
 	}
 
 	/** Inicia o aplicativo. */
@@ -64,11 +64,11 @@ public class HeroMainMenu {
 	}
 
 	private void control() {
-		if (keyboard.keyDown(KeyEvent.VK_ENTER)) {// ENTER
+		if (keyboard.checkKey(KeyEvent.VK_ENTER)) {// ENTER
 			// new Cenario01(win).start();//entra no jogoOS
 		}
 
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) {
 			LOOP = false;
 		}
 	}

@@ -22,7 +22,7 @@ public class Movimentando {
 	private Window win;
 
 	public Movimentando() {
-		win = Window.create(800, 600);
+		win = Window.getInstance(800, 600);
 		fundo = new GameImage(Constantes.MOVIMENTANDO_FUNDO);
 
 		fisica = new Physics();
@@ -45,40 +45,40 @@ public class Movimentando {
 
 	private void configuration() {
 		Keyboard keyboard = win.getKeyboard();
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
-		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
 
-		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
-		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
-		keyboard.addKeyHeldDown(KeyEvent.VK_LEFT);
-		keyboard.addKeyHeldDown(KeyEvent.VK_RIGHT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_UP);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_DOWN);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_LEFT);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_RIGHT);
 	}
 
 	public void start() {
 		while (loop) {
 			// Se apertar a tecla ESC, sai da tela inicial.
-			if (win.getKeyboard().keyDown(KeyEvent.VK_ESCAPE)) {
+			if (win.getKeyboard().checkKey(KeyEvent.VK_ESCAPE)) {
 				loop = false;
 			}
 			fundo.draw();
 
 			if (quadrado.getX() > 0)
-				quadrado.applyForceXFromKeyboardLeft(KeyEvent.VK_LEFT, 1, Keyboard.BEHAVIOR_KEY_HELD_DOWN);
+				quadrado.applyForceXFromKeyboardLeft(KeyEvent.VK_LEFT, 1, Keyboard.ACTUATOR_REQUEST_PRESS);
 			else
 				quadrado.cancelForcesAndSetBoundsX(0, true);
 			if (quadrado.getX() + quadrado.width < 800)
-				quadrado.applyForceXFromKeyboardRight(KeyEvent.VK_RIGHT, 1, Keyboard.BEHAVIOR_KEY_HELD_DOWN);
+				quadrado.applyForceXFromKeyboardRight(KeyEvent.VK_RIGHT, 1, Keyboard.ACTUATOR_REQUEST_PRESS);
 			else
 				quadrado.cancelForcesAndSetBoundsX(800, false);
 
 			// Outra opção :
 
-			quadrado.applyForceXFromKeyboard(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, 1, Keyboard.BEHAVIOR_KEY_HELD_DOWN,
+			quadrado.applyForceXFromKeyboard(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, 1, Keyboard.ACTUATOR_REQUEST_PRESS,
 					true);
 
 			// O mesmo poderia ser feito no eixo Y(limitar manualmente os limites).
-			quadrado.applyForceYFromKeyboard(KeyEvent.VK_UP, KeyEvent.VK_DOWN, 50, Keyboard.BEHAVIOR_KEY_HELD_DOWN,
+			quadrado.applyForceYFromKeyboard(KeyEvent.VK_UP, KeyEvent.VK_DOWN, 50, Keyboard.ACTUATOR_REQUEST_PRESS,
 					true);
 
 			fisica.update();

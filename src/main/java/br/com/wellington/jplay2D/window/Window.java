@@ -21,19 +21,51 @@ public class Window {
 
 	private static Window instance = null;
 
-	private JFrame jframe = new JFrame();;
+	private JFrame jframe = new JFrame();
 	private Graphics graphics;
-	private Mouse mouse = new Mouse();
-	private Keyboard keyboard = new Keyboard();
 	private BufferStrategy buffer;
 	private DisplayMode displayMode;
-	private GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	private GraphicsDevice device;
+
 	private WindowGameTime gameTime = new WindowGameTime();
+	private Mouse mouse = new Mouse();
+	private Keyboard keyboard = new Keyboard();
 
 	/** Cria o controle do game. Não pode ser instanciado duas */
 	private Window(int width, int height) {
-		instance = this;
+		device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		setDisplayMode(new DisplayMode(width, height, 16, DisplayMode.REFRESH_RATE_UNKNOWN));
+		instance = this;
+	}
+
+	/**
+	 * Cria e retorma a instância da tela do jogo. Caso a instancia já exista, os
+	 * parâmetros serão ignorados e a instancia existente será retornada.
+	 * 
+	 * @param width  A altura da tela.
+	 * @param height O comprimento da tela
+	 * @return A instância da tela.
+	 */
+	public static Window getInstance(int width, int height) {
+		if (instance == null) {
+			return instance = new Window(width, height);
+		}
+		return instance;
+	}
+
+	/**
+	 * Retorna a instância da tela.
+	 * 
+	 * @return Window A instância da tela.
+	 * @throws Caso a instancia não seja previamente criada peo metodo
+	 *              'getInstance(int width, int height)'.
+	 */
+	public static Window getInstance() {
+		if (instance == null) {
+			throw new RuntimeException(
+					"[ERRO] Não foi definido a altura e a largura da tela do jogo, use o método 'getInstance(int width, int height)' antes de usar o métodos 'getInstance()'");
+		}
+		return instance;
 	}
 
 	/**
@@ -59,7 +91,7 @@ public class Window {
 
 		jframe.setLocationRelativeTo(null);
 		jframe.setUndecorated(true);
-		this.jframe.dispose();
+
 		jframe.setVisible(true);
 
 		jframe.createBufferStrategy(2);
@@ -67,10 +99,11 @@ public class Window {
 
 		graphics = buffer.getDrawGraphics();
 
-		jframe.addMouseListener(mouse);
-		jframe.addMouseMotionListener(mouse);
+		jframe.addMouseListener(mouse.getMouseListener());
+		jframe.addMouseMotionListener(mouse.getMouseMotionListener());
 		jframe.addKeyListener(keyboard.getKeyListener());
 
+		this.jframe.dispose();
 		this.jframe = jframe;
 	}
 
@@ -98,7 +131,6 @@ public class Window {
 			}
 		}
 		return false;
-
 	}
 
 	/** Abilita o modo de tela cheia. */
@@ -134,12 +166,19 @@ public class Window {
 	}
 
 	/**
-	 * Retorna a instância de Graphics.
+	 * Limpa a tela.
 	 * 
-	 * @return graphics A instância de Graphics.
+	 * @param color A cor que irá sobrepor tudo.
 	 */
-	public Graphics getGameGraphics() {
-		return graphics;
+	public void clear(Color color) {
+		graphics.setColor(color);
+		graphics.fillRect(0, 0, jframe.getWidth(), jframe.getHeight());
+	}
+
+	/** Encerra o programa. */
+	public void exit() {
+		jframe.dispose();
+		System.exit(0);
 	}
 
 	/**
@@ -172,15 +211,7 @@ public class Window {
 		g2.drawString(message, x, y);
 	}
 
-	/**
-	 * Limpa a tela.
-	 * 
-	 * @param color A cor que irá sobrepor tudo.
-	 */
-	public void clear(Color color) {
-		graphics.setColor(color);
-		graphics.fillRect(0, 0, jframe.getWidth(), jframe.getHeight());
-	}
+	// GETTERS /////////////////////////////////////////////////////////////////
 
 	/**
 	 * Retorna uma matriz com os modos de exibição validas.
@@ -190,31 +221,6 @@ public class Window {
 	 */
 	public DisplayMode[] getCompatibleDisplayMode() {
 		return device.getDisplayModes();
-	}
-
-	/** Encerra o programa. */
-	public void exit() {
-		jframe.dispose();
-		System.exit(0);
-	}
-
-	/**
-	 * Retorna a instância da tela.
-	 * 
-	 * @return Window A instância da tela.
-	 */
-	public static Window getInstance() {
-		if (instance == null) {
-			throw new RuntimeException("[ERRO] a classe window não foi criada, use o método 'create'");
-		}
-		return instance;
-	}
-
-	public static Window create(int x, int y) {
-		if (instance == null) {
-			return instance = new Window(x, y);
-		}
-		throw new RuntimeException("[ERRO] A instância da window já foi criada");
 	}
 
 	/** Retorna o frame da tela. */
@@ -247,6 +253,16 @@ public class Window {
 	 */
 	public WindowGameTime getGameTime() {
 		return gameTime;
+	}
+
+	/**
+	 * Retorna a instância de Graphics.
+	 * 
+	 * @return graphics A instância de Graphics.
+	 * @deprecated Deve ser usado Apenas pelo framework.
+	 */
+	public Graphics getGameGraphics() {
+		return graphics;
 	}
 
 }

@@ -45,11 +45,11 @@ public class TelaMensagemFimJogo {
 		boolean executando = true;
 		botao.pause();
 		while (executando) {
-			if (mouse.isOverObject(botao) && mouse.isLeftButtonPressed()) {
+			if (mouse.isOverObject(botao) && mouse.getLeftButton().isPressed()) {
 				botao.play();
 			}
 			botao.update();
-			if (keyboard.keyDown(KeyEvent.VK_ESCAPE) || botao.getCurrFrame() + 1 == botao.getFinalFrame()) {
+			if (keyboard.checkKey(KeyEvent.VK_ESCAPE) || botao.getCurrFrame() + 1 == botao.getFinalFrame()) {
 				executando = false;
 			}
 			desenhar();

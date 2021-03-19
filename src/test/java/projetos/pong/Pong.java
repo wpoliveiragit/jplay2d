@@ -35,7 +35,7 @@ public class Pong {
 	private TextGame txtGamePointVerde;
 
 	public Pong(int width, int height) {
-		window = Window.create(width, height);
+		window = Window.getInstance(width, height);
 		window.getMouse().setCursorImage("");
 
 		keyboard = window.getKeyboard();
@@ -71,15 +71,15 @@ public class Pong {
 	}
 
 	private void configuration() {
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
-		keyboard.addKeyPressed(KeyEvent.VK_SPACE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
 
-		keyboard.addKeyHeldDown(KeyEvent.VK_S);
-		keyboard.addKeyHeldDown(KeyEvent.VK_W);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_S);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_W);
 
-		keyboard.addKeyHeldDown(KeyEvent.VK_UP);
-		keyboard.addKeyHeldDown(KeyEvent.VK_DOWN);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_UP);
+		keyboard.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_DOWN);
 	}
 
 	public void start() {
@@ -127,7 +127,7 @@ public class Pong {
 	private void controle() {
 		barraVerde.moveY(keyboard, KeyEvent.VK_W, KeyEvent.VK_S);
 		barraRoxa.moveY(keyboard, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE) || tempo.timeEnded()) {
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE) || tempo.timeEnded()) {
 			LOOP = false;
 		}
 	}

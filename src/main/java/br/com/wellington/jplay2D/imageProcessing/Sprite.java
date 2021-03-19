@@ -66,11 +66,11 @@ public class Sprite extends Animation {
 	 */
 	public void moveX(int leftKey, int rightKey, double velocity) {
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-		if (keyboard.keyDown(leftKey) && this.x > 1) {
+		if (keyboard.checkKey(leftKey) && this.x > 1) {
 			this.x -= velocity;
 		}
 
-		if (keyboard.keyDown(rightKey) && this.x + this.width < Window.getInstance().getJFrame().getWidth()) {
+		if (keyboard.checkKey(rightKey) && this.x + this.width < Window.getInstance().getJFrame().getWidth()) {
 			this.x += velocity;
 		}
 	}
@@ -94,11 +94,11 @@ public class Sprite extends Animation {
 	 */
 	public void moveY(int upKey, int downKey, double velocity) {
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-		if (keyboard.keyDown(upKey) && this.y > 1) {
+		if (keyboard.checkKey(upKey) && this.y > 1) {
 			this.y -= velocity;
 		}
 
-		if (keyboard.keyDown(downKey) && this.y + this.height < Window.getInstance().getJFrame().getHeight()) {
+		if (keyboard.checkKey(downKey) && this.y + this.height < Window.getInstance().getJFrame().getHeight()) {
 			this.y += velocity;
 		}
 	}
@@ -117,7 +117,7 @@ public class Sprite extends Animation {
 		double px = Physics.meterToPixels_X_Axis(body.getPosition().x);
 		float velMeter = -(float) (velocity * 3 + 10);
 
-		if (keyboard.keyDown(leftKey))
+		if (keyboard.checkKey(leftKey))
 			this.body.applyForce(new Vec2(velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
 
 	}
@@ -136,7 +136,7 @@ public class Sprite extends Animation {
 		double px = Physics.meterToPixels_X_Axis(body.getPosition().x);
 		float velMeter = -(float) (velocity * 3 + 10);
 
-		if (keyboard.keyDown(rightKey))
+		if (keyboard.checkKey(rightKey))
 			this.body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
 	}
 
@@ -159,7 +159,7 @@ public class Sprite extends Animation {
 		float velMeter = -(float) (velocity * 3 + 10);
 
 		if (boundsScreen) {
-			if (keyboard.keyDown(leftKey) && px - this.width / 2 > 0)
+			if (keyboard.checkKey(leftKey) && px - this.width / 2 > 0)
 
 				this.body.applyForce(new Vec2(velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
 
@@ -168,7 +168,7 @@ public class Sprite extends Animation {
 				this.setX(0);
 			}
 
-			if (keyboard.keyDown(rightKey) && px + this.width / 2 < Window.getInstance().getJFrame().getWidth())
+			if (keyboard.checkKey(rightKey) && px + this.width / 2 < Window.getInstance().getJFrame().getWidth())
 
 				this.body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
 
@@ -178,7 +178,7 @@ public class Sprite extends Animation {
 			}
 
 		} else {
-			if (keyboard.keyDown(leftKey))
+			if (keyboard.checkKey(leftKey))
 
 				this.body.applyForce(new Vec2(velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
 
@@ -186,7 +186,7 @@ public class Sprite extends Animation {
 
 				this.setX(0);
 
-			if (keyboard.keyDown(rightKey))
+			if (keyboard.checkKey(rightKey))
 
 				this.body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
 
@@ -212,7 +212,7 @@ public class Sprite extends Animation {
 		double py = Physics.meterToPixels_Y_Axis(body.getPosition().y);
 		float velMeter = (float) ((velocity) + (this.body.getMass() * Physics.gravity));
 
-		if (keyboard.keyDown(upKey))
+		if (keyboard.checkKey(upKey))
 			this.body.applyForce(new Vec2(0, velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
 	}
 
@@ -231,7 +231,7 @@ public class Sprite extends Animation {
 		double py = Physics.meterToPixels_Y_Axis(body.getPosition().y);
 		float velMeter = (float) ((velocity) + (this.body.getMass() * Physics.gravity));
 
-		if (keyboard.keyDown(downKey))
+		if (keyboard.checkKey(downKey))
 
 			this.body.applyForce(new Vec2(0, -velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
 	}
@@ -255,7 +255,7 @@ public class Sprite extends Animation {
 		float velMeter = (float) ((velocity) + (this.body.getMass() * Physics.gravity));
 
 		if (boundsScreen) {
-			if (keyboard.keyDown(upKey) && py - this.height / 2 > 0)
+			if (keyboard.checkKey(upKey) && py - this.height / 2 > 0)
 
 				this.body.applyForce(new Vec2(0, velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
 
@@ -265,7 +265,7 @@ public class Sprite extends Animation {
 				this.setY(0);
 			}
 
-			if (keyboard.keyDown(downKey) && py + this.height / 2 < Window.getInstance().getJFrame().getHeight())
+			if (keyboard.checkKey(downKey) && py + this.height / 2 < Window.getInstance().getJFrame().getHeight())
 
 				this.body.applyForce(new Vec2(0, -velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
 
@@ -274,11 +274,11 @@ public class Sprite extends Animation {
 				this.setY(Window.getInstance().getJFrame().getHeight() - this.height);
 			}
 		} else {
-			if (keyboard.keyDown(upKey))
+			if (keyboard.checkKey(upKey))
 
 				this.body.applyForce(new Vec2(0, velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
 
-			if (keyboard.keyDown(downKey))
+			if (keyboard.checkKey(downKey))
 
 				this.body.applyForce(new Vec2(0, -velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
 		}
@@ -332,7 +332,7 @@ public class Sprite extends Animation {
 	 */
 	public void jump(int jumpKey) {
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-		if (keyboard.keyDown(jumpKey) && onFloor == true) {
+		if (keyboard.checkKey(jumpKey) && onFloor == true) {
 			onFloor = false;
 			velocityY = -jumpVelocity;
 		}

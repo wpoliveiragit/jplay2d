@@ -30,7 +30,7 @@ public class JogoMemoria {
 
 	private void configuration() {
 		// A windows SEMPRE deve ser a primeira a ser CARREGADA
-		window = Window.create(800, 600);
+		window = Window.getInstance(800, 600);
 
 		mouse = window.getMouse();
 		mouse.setCursorImage(JogoDaMemoriaMain.JOGO_DA_MEMORIA_IMG_MOUSE);
@@ -49,7 +49,7 @@ public class JogoMemoria {
 
 		NUMERO_TOTAL_COMBINACOES = 10;
 
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);//
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);//
 	}
 
 	public void start() {
@@ -76,7 +76,7 @@ public class JogoMemoria {
 				pontuacao = 0;
 			}
 
-			if (keyboard.keyDown(KeyEvent.VK_ESCAPE))
+			if (keyboard.checkKey(KeyEvent.VK_ESCAPE))
 				executanto = false;
 		}
 		// Fecha a janela de jogo
@@ -89,7 +89,7 @@ public class JogoMemoria {
 		// fora da área onde existem peças, ou seja, não está selecionando
 		// peça alguma.
 		Peca peca = pecas.getPecaSobMouse(mouse.getPosition());
-		if ((peca != null) && (peca.foiEscolhida() == false) && mouse.isLeftButtonPressed()) {
+		if ((peca != null) && (peca.foiEscolhida() == false) && mouse.getLeftButton().isPressed()) {
 			// As variáveis 'pecaUmEscolhida' e 'pecaDoisEscolhida'
 			// apontam para peças existentes na matriz de peças, isso se
 			// o jogador escolher alguma peça.

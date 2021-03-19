@@ -3,10 +3,10 @@ package br.com.wellington.jplay2D.oi;
 /** Classe de definição de comportamento de botão. */
 interface InputActionBehavior {
 
-	/** Comportamento de 'ao pressionar e/ou manter pressionado'. */
-	public static final int BEHAVIOR_KEY_HELD_DOWN = 0;
+	/** Comportamento de solicitação e/ou pressão de chave. */
+	public static final int ACTUATOR_REQUEST_PRESS = 0;
 
-	/** Comportamento de 'ao pressionar'. */
-	public static final int BEHAVIOR_KEY_PRESSED = 1;
+	/** Comportamento de apenas solicitação de chave. */
+	public static final int ACTUATOR_REQUEST = 1;
 
 }

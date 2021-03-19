@@ -2,11 +2,11 @@ package testFramework;
 
 import java.awt.Color;
 import java.awt.DisplayMode;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.wellington.jplay2D.imageProcessing.GameObject;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.oi.Mouse;
 import br.com.wellington.jplay2D.window.Window;
@@ -22,11 +22,15 @@ public class TestJogo {
 	private WindowGameTime timeBase;
 
 	List<DisplayMode> listDisplayMode;
-//	Point p1;
-//	Point p2;
+	List<TextWindow> txtList;
+	TextWindow latencia;
+	TextWindow tempo;
+	TextWindow mouseTxt;
+
+	GameObject gameObject;
 
 	public TestJogo() {
-		Window.create(800, 600);
+		Window.getInstance(800, 600);
 		win = Window.getInstance();
 		keyboard = win.getKeyboard();
 		mouse = win.getMouse();
@@ -35,24 +39,20 @@ public class TestJogo {
 	}
 
 	private void configuration() {
-		// [geral]
-		atualizaAreaMouse();
-
 		// [MOUSE - configuração]
 		mouse.setCursorImage(TestMain.IMG_MOUSE);
-		mouse.setBehavior(Mouse.BUTTON_LEFT, Keyboard.BEHAVIOR_KEY_HELD_DOWN);
-		mouse.setBehavior(Mouse.BUTTON_MIDDLE, Keyboard.BEHAVIOR_KEY_HELD_DOWN);
-		mouse.setBehavior(Mouse.BUTTON_RIGHT, Keyboard.BEHAVIOR_KEY_HELD_DOWN);
+
+		mouse.getLeftButton().changeBehavior();
 
 		// [KEYBOARD - remover todas as chaves]
 		keyboard.cleanKeys();
 
 		// [KEYBOARD - configuração]
-		keyboard.addKeyPressed(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyPressed(KeyEvent.VK_ENTER);
-		keyboard.addKeyPressed(KeyEvent.VK_1);
-		keyboard.addKeyPressed(KeyEvent.VK_2);
-		keyboard.addKeyPressed(KeyEvent.VK_3);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_1);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_2);
+		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_3);
 
 		// [DISPLAY MODE - remove duplicatas]
 		listDisplayMode = new ArrayList<DisplayMode>();
@@ -68,11 +68,74 @@ public class TestJogo {
 				listDisplayMode.add(display);
 			}
 		}
-	}
+		txtList = new ArrayList<>();
 
-	void atualizaAreaMouse() {
-//		p1 = new Point(0, win.getJFrame().getHeight() / 2);
-//		p2 = new Point(win.getJFrame().getWidth(), win.getJFrame().getHeight());
+		// [TXT -Window]
+		int x;
+		int y = 20;
+		int addY = 17;
+
+		TextWindow tw = new TextWindow(txtList.size(), 0, y, Color.blue, TestMain.FONT_COMIC_SANS_MS_20);
+		tw.setTxt(new StringBuilder().append("[TESTE] jplay 2D"));
+
+		latencia = new TextWindow(txtList.size(), 0, y, Color.red, TestMain.FONT_COMIC_SANS_MS_20);
+		latencia.setTxt(new StringBuilder().append("latencia[]"));
+
+		tempo = new TextWindow(txtList.size(), 5, Window.getInstance().getJFrame().getHeight() - 8, Color.blue,
+				TestMain.FONT_COMIC_SANS_MS_20);
+		tempo.setTxt(new StringBuilder().append("tempo(mili)["));
+
+		x = Window.getInstance().getJFrame().getWidth();
+		x -= (tw.getWidth() + latencia.getWidth());
+		x = (x / 2) - 20;
+
+		tw.setX(x);
+		latencia.setX(tw.getX() + tw.getWidth() + 10);
+
+		txtList.add(tw);
+		txtList.add(latencia);
+		txtList.add(tempo);
+
+		x = 25;
+		y += 18;
+		txtList.add(mouseTxt = new TextWindow(txtList.size(), x += 30, y += addY, Color.yellow,
+				TestMain.FONT_COMIC_SANS_MS_15));
+		mouseTxt.setTxt(new StringBuilder().append("MOUSE ["));
+
+		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
+		tw.setTxt(new StringBuilder().append("Leve o mouse ao centro da tela"));
+
+		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
+		tw.setTxt(new StringBuilder().append("[ESC] FECHAR"));
+
+		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
+		tw.setTxt(new StringBuilder().append("[1] FULLSCREEN"));
+
+		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
+		tw.setTxt(new StringBuilder().append("[2] RESTORESCREEN"));
+
+		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
+		tw.setTxt(new StringBuilder().append("[3] screen 1024 x 768"));
+
+		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
+		tw.setTxt(new StringBuilder().append("[DisplayMode]: " + listDisplayMode.size()));
+
+		x += 15;
+		y += 3;
+		addY -= 3;
+		for (DisplayMode dm : listDisplayMode) {
+			tw = new TextWindow(txtList.size(), x, y += addY, Color.white, TestMain.FONT_COMIC_SANS_MS_9);
+			txtList.add(tw);
+			tw.setTxt(new StringBuilder().append("( ").append(dm.getWidth()).append(" x ").append(dm.getHeight())
+					.append(" )"));
+		}
+
+		gameObject = new GameObject();
+		gameObject.x = win.getJFrame().getWidth() / 3;
+		gameObject.y = win.getJFrame().getHeight() / 3;
+		gameObject.width = win.getJFrame().getWidth() / 3;
+		gameObject.height = win.getJFrame().getHeight() / 3;
+
 	}
 
 	public void startGame() {
@@ -86,47 +149,15 @@ public class TestJogo {
 	}
 
 	private void drawn() {
-		int x = 25;
-		int y = 20;
-		win.clear(Color.blue);
+		win.clear(Color.black);
 
-		StringBuilder txt = new StringBuilder();
-		txt.append("[TESTE] jplay 2D").append(" [").append(win.getJFrame().getWidth()).append("x")
-				.append(win.getJFrame().getHeight()).append("]");
+		latencia.setTxt(new StringBuilder(latencia.getTxt().substring(0, 9)).append(timeBase.latecy()).append("]"));
+		tempo.setTxt(new StringBuilder(tempo.getTxt().substring(0, 12)).append(timeBase.getTotalTime()).append("]"));
+		mouseTxt.setTxt(new StringBuilder(mouseTxt.getTxt().substring(0, 7))
+				.append((mouse.isOverObject(gameObject)) ? "X]" : " ]"));
 
-		txt.append(" Mouse[").append((mouse.isLeftButtonPressed()) ? "X]" : " ]");
-		txt.append(" [").append((mouse.isMiddleButtonPressed()) ? "X]" : " ]");
-		txt.append(" [").append((mouse.isRightButtonPressed()) ? "X]" : " ]");
-		txt.append(" [").append(mouse.getPosition().x).append("x").append(mouse.getPosition().y).append("]");
-
-		win.drawText(txt.toString(), x, y, Color.black, TestMain.FONT_COMIC_SANS_MS_20);
-
-		txt = new StringBuilder();
-		txt.append("LATENCIA[").append(timeBase.latecy()).append("]");
-
-		txt.append("TEMPO (mili)[").append(timeBase.getTotalTime()).append("]");
-
-		win.drawText(txt.toString(), x, y += 25, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15);
-		win.drawText("[ESC] FECHAR", x, y += 17, Color.white);
-		win.drawText("[1] FULLSCREEN", x, y += 17, Color.white);
-		win.drawText("[2] RESTORESCREEN", x, y += 17, Color.white);
-		win.drawText("[3] screen 1024 x 768", x, y += 17, Color.white);
-
-		txt = new StringBuilder("Leve o mouse até a metade inferior da janela");
-
-		Point p1 = new Point(0, win.getJFrame().getHeight() / 2);
-		Point p2 = new Point(win.getJFrame().getWidth(), win.getJFrame().getHeight());
-
-		txt.append("[").append((mouse.isOverArea(p1, p2)) ? "X]" : " ]");
-		win.drawText(txt.toString(), x, y += 17, Color.white);
-
-		win.drawText("[DisplayMode]: " + listDisplayMode.size(), x, y += x * 2, Color.white);
-		y += 6;
-		for (DisplayMode dm : listDisplayMode) {
-			txt = new StringBuilder();
-			txt.append("[").append(dm.getWidth()).append("]");
-			txt.append("x[").append(dm.getHeight()).append("]");
-			win.drawText(txt.toString(), x + 20, y += x - 12, Color.white, TestMain.FONT_COMIC_SANS_MS_9);
+		for (TextWindow tw : txtList) {
+			tw.draw();
 		}
 
 	}
@@ -136,20 +167,20 @@ public class TestJogo {
 	}
 
 	private void control() {
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {// encerra o jogo
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) {// encerra o jogo
 			LOOP = false;
 		}
-		if (keyboard.keyDown(KeyEvent.VK_1)) {
+		if (keyboard.checkKey(KeyEvent.VK_1)) {
 			win.setFullScreen();
-			atualizaAreaMouse();
+
 		}
 
-		if (keyboard.keyDown(KeyEvent.VK_2)) {
+		if (keyboard.checkKey(KeyEvent.VK_2)) {
 			win.restoreScreen();
-			atualizaAreaMouse();
+
 		}
 
-		if (keyboard.keyDown(KeyEvent.VK_3)) {
+		if (keyboard.checkKey(KeyEvent.VK_3)) {
 			// [DISPLAY MODE - configuração]
 			for (DisplayMode item : win.getCompatibleDisplayMode()) {
 				if (item.getWidth() == 1024 && item.getHeight() == 768) {
@@ -159,7 +190,7 @@ public class TestJogo {
 					break;
 				}
 			}
-			atualizaAreaMouse();
+
 		}
 	}
 

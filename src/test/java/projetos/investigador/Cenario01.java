@@ -70,29 +70,29 @@ public class Cenario01 {
 
 	private void control() {
 		// esc
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
+		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) {
 			LOOP = false;
 		}
 
 		// atira
-		if (keyboard.keyDown(KeyEvent.VK_SPACE)) {
+		if (keyboard.checkKey(KeyEvent.VK_SPACE)) {
 			player.atirar();
 		}
 
 		// movimento player
-		if (keyboard.keyDown((KeyEvent.VK_LEFT))) {// esquerda
+		if (keyboard.checkKey((KeyEvent.VK_LEFT))) {// esquerda
 			player.andaEsquerda();
 			player.update();
-		} else if (keyboard.keyDown((KeyEvent.VK_RIGHT))) {// direita
+		} else if (keyboard.checkKey((KeyEvent.VK_RIGHT))) {// direita
 			player.andaDireita();
 			player.update();
 
 		}
 
-		if (keyboard.keyDown((KeyEvent.VK_UP))) {// cima
+		if (keyboard.checkKey((KeyEvent.VK_UP))) {// cima
 			player.andaCima();
 			player.update();
-		} else if (keyboard.keyDown((KeyEvent.VK_DOWN))) {// baixo
+		} else if (keyboard.checkKey((KeyEvent.VK_DOWN))) {// baixo
 			player.andaBaixo();
 			player.update();
 		}

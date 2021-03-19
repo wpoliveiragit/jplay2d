@@ -14,11 +14,11 @@ public class Barra extends Sprite {
 
 	public void moveY(Keyboard teclado, int upKey, int downKey) {
 
-		if (teclado.keyDown(upKey) && this.y > PongMain.LIM_Y_SUP + 5) {
+		if (teclado.checkKey(upKey) && this.y > PongMain.LIM_Y_SUP + 5) {
 			this.y -= 2;
 			sentido = PongMain.STD_CIMA;
 		} else {
-			if (teclado.keyDown(downKey) && this.y + this.height < PongMain.LIM_Y_INF - 5) {
+			if (teclado.checkKey(downKey) && this.y + this.height < PongMain.LIM_Y_INF - 5) {
 				this.y += 2;
 				sentido = PongMain.STD_BAIXO;
 			} else {
