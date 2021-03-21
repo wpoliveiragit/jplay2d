@@ -14,10 +14,10 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.wellington.jplay2D.imageProcessing.GameImage;
-import br.com.wellington.jplay2D.imageProcessing.GameObject;
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
-import br.com.wellington.jplay2D.imageProcessing.TileInfo;
+import br.com.wellington.jplay2D.image.GameImage;
+import br.com.wellington.jplay2D.image.GameObject;
+import br.com.wellington.jplay2D.image.Sprite;
+import br.com.wellington.jplay2D.image.TileInfo;
 import br.com.wellington.jplay2D.window.Window;
 
 /** Class responsible for handling a Scenario. */
@@ -80,7 +80,7 @@ public class Scene {
 			// [leitura do mapa]
 			while (!END_TILE_SET.equals(linha.append(input.readLine()).toString().trim())) {// Lê todo do mapa
 				ArrayList<TileInfo> tileLine = new ArrayList<>();
-				for (String sTile : linha.toString().trim().split(",")) {// instancia o mapa linha a linha
+				for (String sTile : linha.toString().trim().split("-")) {// instancia o mapa linha a linha
 					tileLine.add(new TileInfo(Integer.parseInt(sTile)));
 				}
 				tileLayer.add(tileLine);
@@ -93,7 +93,7 @@ public class Scene {
 			backDrop = new GameImage(linha.toString());
 			nomeTiles[qtdTiles] = linha.toString();
 
-		} catch (IOException e) {
+		} catch (IOException ex) {
 			linha.setLength(0);// limpa a instancia
 			linha.append("\n [ERRO] Problema ao carregar um arquivo '.scn', lista de possíveis problemas:");
 			linha.append("\n [1] Parâmetro 'sceneFilePath' incocrreto {").append(sceneFilePath).append("}.");
@@ -101,6 +101,8 @@ public class Scene {
 			linha.append("\n [3] Nome de tile incorreto.");
 			linha.append("\n [4] Estrutura do arquivo incorreta.");
 			throw new RuntimeException("[ERRO] arquivo");
+		} catch (Exception ex) {
+			throw new RuntimeException("[ERRO] Inesperado ", ex);
 		}
 
 //		tileLayer = new ArrayList();

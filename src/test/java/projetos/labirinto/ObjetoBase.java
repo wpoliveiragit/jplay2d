@@ -1,6 +1,6 @@
 package projetos.labirinto;
 
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.image.Sprite;
 
 public class ObjetoBase extends Sprite implements Constantes {
 

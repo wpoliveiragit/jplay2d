@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 
-import br.com.wellington.jplay2D.imageProcessing.GameImage;
+import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.sound.Sound;
 import br.com.wellington.jplay2D.time.Time;

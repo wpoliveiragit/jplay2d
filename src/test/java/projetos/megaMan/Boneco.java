@@ -1,6 +1,6 @@
 package projetos.megaMan;
 
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.window.Window;
 
 public class Boneco {

@@ -5,7 +5,7 @@
 
 package projetos.jogoDaMemoria;
 
-import br.com.wellington.jplay2D.imageProcessing.Animation;
+import br.com.wellington.jplay2D.image.Animation;
 
 public class Peca extends Animation {
 

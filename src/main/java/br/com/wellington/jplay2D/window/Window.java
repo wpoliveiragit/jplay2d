@@ -107,6 +107,15 @@ public class Window {
 		this.jframe = jframe;
 	}
 
+	public void setMouse(Mouse mouse) {
+		jframe.addMouseListener(mouse.getMouseListener());
+		jframe.addMouseMotionListener(mouse.getMouseMotionListener());
+	}
+
+	public void setKeyboard(Keyboard keyboard) {
+		jframe.addKeyListener(keyboard.getKeyListener());
+	}
+
 	/** Atualiza a tela do jogo. */
 	public void update() {
 		graphics.dispose();

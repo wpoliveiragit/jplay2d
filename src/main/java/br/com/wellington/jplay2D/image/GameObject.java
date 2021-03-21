@@ -1,4 +1,4 @@
-package br.com.wellington.jplay2D.imageProcessing;
+package br.com.wellington.jplay2D.image;
 
 /**
  * A classe mais básica apresentada no framework. Classe base para quase todas

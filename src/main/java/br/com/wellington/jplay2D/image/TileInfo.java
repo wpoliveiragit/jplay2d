@@ -1,4 +1,4 @@
-package br.com.wellington.jplay2D.imageProcessing;
+package br.com.wellington.jplay2D.image;
 
 /** Classe usada para lidar com TileInfo. */
 public class TileInfo extends GameObject {

@@ -1,6 +1,6 @@
 package projetos.pong;
 
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.sound.Sound;
 
 public class Bola extends Sprite {

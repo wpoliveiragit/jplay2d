@@ -1,4 +1,4 @@
-package br.com.wellington.jplay2D.imageProcessing;
+package br.com.wellington.jplay2D.image;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

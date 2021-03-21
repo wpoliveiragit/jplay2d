@@ -2,7 +2,7 @@ package projetos.investigador;
 
 import java.awt.event.KeyEvent;
 
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.image.Sprite;
 
 /**
  * Definição do que a classe representa ou administra

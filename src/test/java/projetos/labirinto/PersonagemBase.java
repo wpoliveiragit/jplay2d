@@ -2,7 +2,7 @@ package projetos.labirinto;
 
 import java.awt.Point;
 
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.image.Sprite;
 
 public abstract class PersonagemBase extends Sprite implements Controle {
 

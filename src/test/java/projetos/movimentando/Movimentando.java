@@ -2,9 +2,9 @@ package projetos.movimentando;
 
 import java.awt.event.KeyEvent;
 
-import br.com.wellington.jplay2D.imageProcessing.GameImage;
-import br.com.wellington.jplay2D.imageProcessing.Physics;
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.image.GameImage;
+import br.com.wellington.jplay2D.image.Physics;
+import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.window.Window;
 import projetos.utils.Constantes;

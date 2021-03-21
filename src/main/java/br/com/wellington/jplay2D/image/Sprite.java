@@ -1,4 +1,4 @@
-package br.com.wellington.jplay2D.imageProcessing;
+package br.com.wellington.jplay2D.image;
 
 import java.awt.event.KeyEvent;
 

@@ -1,31 +1,26 @@
 package br.com.wellington.jplay2D.oi;
 
-/** Classe de controle do comportamento. */
+/** Controle de comportamento de chave. */
 public class InputAction implements InputActionBehavior {
 
-	/** Estado liberada */
+	/** Chave solta. */
 	private static final int STATE_RELEASED = 0;
-	/** Estado pressionado */
+	/** chave pressionada. */
 	private static final int STATE_PRESSED = 1;
-	/** Estado esperando liberação */
+	/** Chave mantida pressionada. */
 	private static final int STATE_WAITING_FOR_RELEASE = 2;
-
-	/** O Comportamento */
-	int behavior;
-
-	/** */
+	/** Comportamento da chave. */
+	private int behavior;
+	/** Quantidade de vezes que a chave foi precionada. */
 	private int quantity;
-
-	/** O estado da ação (ver a area estatica) */
+	/** status da ação da chave. */
 	private int state;
 
 	/**
-	 * Cria um novo controle de comportamento com {@link #state} = liberado e
-	 * {@link #quantity} = 0.
+	 * Cria um novo controle de comportamento de chave.
 	 * 
-	 * @param behavior O comportamento da chave.
-	 * @apiNote → Use {@link InputActionBehavior} para encontrar a lista de
-	 *          comportamentos.
+	 * @param behavior Comportamento da chave.
+	 * @apiNote Use os comportamentos definidos em {@link InputActionBehavior}
 	 */
 	public InputAction(int behavior) {
 		this.behavior = behavior;
@@ -34,69 +29,70 @@ public class InputAction implements InputActionBehavior {
 	}
 
 	/**
-	 * Troca o comportamento do botão do mouse.
-	 * {@link InputActionBehavior#ACTUATOR_REQUEST} ↔
-	 * {@link InputActionBehavior#ACTUATOR_REQUEST_PRESS}.
+	 * Defina o comportamento da chave.
 	 * 
-	 * @param button O botão a ser alterado o comportamento.
+	 * @param behavior Comportamento da chave.
+	 * @apiNote Use os comportamentos definidos em {@link InputActionBehavior}
 	 */
-	public synchronized void changeBehavior() {
-		if (behavior == ACTUATOR_REQUEST) {
-			behavior = ACTUATOR_REQUEST_PRESS;
-			return;
-		}
-		behavior = ACTUATOR_REQUEST;
+	public synchronized void setBehavior(int behavior) {
+		this.behavior = behavior;
 	}
 
-	/** Coloqua o estado como {@link #STATE_PRESSED}. */
+	/**
+	 * Define o estado da chave como pressionada e a associa uma quantidade
+	 * pressionada de 1.
+	 */
 	public synchronized void press() {
-		if (state == STATE_WAITING_FOR_RELEASE) {
-			return;
-		}
-		quantity++;
-		state = STATE_PRESSED;
+		press(1);
 	}
 
-	/** Coloqua o estado como {@link #STATE_RELEASED}. */
+	/**
+	 * Define o estado da chave como pressionada e a associa uma quantidade
+	 * pressionada.
+	 * 
+	 * @param amount Quantas vezes a tecla foi pressionada.
+	 */
+	public synchronized void press(int amount) {
+		if (state != STATE_WAITING_FOR_RELEASE) {
+			this.quantity += amount;
+			state = STATE_PRESSED;
+		}
+	}
+
+	/** Coloque o estado do botão ou da chave como solto. */
 	public synchronized void release() {
 		state = STATE_RELEASED;
 	}
 
 	/**
-	 * Retorna true caso a ação tenha sido solicitada.
+	 * retorna true caso a chave for pressionada.
 	 * 
-	 * @return boolean true caso a ação tenha sido colicitada.
+	 * @return boolean true caso a chave for pressionada.
 	 */
 	public synchronized boolean isPressed() {
-		if (state == STATE_RELEASED) {
-			return false;
-		}
-		return true;
+		return (getAmount() != 0);
 	}
 
 	/**
-	 * Retorna uma quantidade de cliques para o mouse e para o teclado a quantidade
-	 * de vezes que o botão foi pressionado. Se o comportamento for
+	 * [ARRUMAR] - Retorna uma quantidade de cliques para o mouse e para o teclado a
+	 * quantidade de vezes que o botão foi pressionado. Se o comportamento for
 	 * DETECT_INITAL_PRESS_ONLY, este método retornará apenas o clique inicial. Para
-	 * retornar que o mouse clicou novamente o usuário precisa liberar Se o
+	 * retornar que o mouse clicou novamente o usuário precisa liberar. Se o
 	 * comportamento for DETECT_EVERY_PRESS, este método retornará a quantidade do
 	 * clique ou de quantas vezes a tecla foi pressionada.
 	 * 
 	 * @return int - quantidade de pressionado.
-	 * @see void press(int amount);
-	 * @version 1.0
 	 */
 	public synchronized int getAmount() {
-		if (quantity == 0) {
-			return quantity;
+		int quant = quantity;
+		if (quant != 0) {
+			if (state == STATE_RELEASED) {
+				quantity = 0;
+			} else if (behavior == ACTUATOR_REQUEST) {
+				state = STATE_WAITING_FOR_RELEASE;
+				quantity = 0;
+			}
 		}
-
-		int qtt = quantity;
-
-		if (state == STATE_RELEASED || behavior == ACTUATOR_REQUEST) {
-			quantity = 0;
-		}
-
-		return qtt;
+		return quant;
 	}
 }

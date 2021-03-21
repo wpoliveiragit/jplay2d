@@ -2,7 +2,7 @@ package projetos.labirinto;
 
 import java.awt.Dimension;
 
-import br.com.wellington.jplay2D.imageProcessing.TileInfo;
+import br.com.wellington.jplay2D.image.TileInfo;
 
 public class Personagem extends PersonagemBase implements Constantes {
 

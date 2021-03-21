@@ -2,7 +2,7 @@ package projetos.paralaxe;
 
 import java.awt.event.KeyEvent;
 
-import br.com.wellington.jplay2D.imageProcessing.Parallax;
+import br.com.wellington.jplay2D.image.Parallax;
 import br.com.wellington.jplay2D.window.Window;
 
 /**

@@ -2,8 +2,8 @@ package projetos.telaInicialMegaManX3;
 
 import java.awt.event.KeyEvent;
 
-import br.com.wellington.jplay2D.imageProcessing.Animation;
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
+import br.com.wellington.jplay2D.image.Animation;
+import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.sound.Sound;
 import br.com.wellington.jplay2D.window.Window;

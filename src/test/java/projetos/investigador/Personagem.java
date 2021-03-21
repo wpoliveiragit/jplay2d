@@ -5,8 +5,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
-import br.com.wellington.jplay2D.imageProcessing.TileInfo;
+import br.com.wellington.jplay2D.image.Sprite;
+import br.com.wellington.jplay2D.image.TileInfo;
 import br.com.wellington.jplay2D.scene.Scene;
 
 /**

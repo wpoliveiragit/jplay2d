@@ -24,15 +24,17 @@ public final class Keyboard implements InputActionBehavior {
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
 				if (KeyList.containsKey(key)) {
-					((InputAction) KeyList.get(key)).press();
+					InputAction temp = (InputAction) KeyList.get(key);
+					temp.press();
 				}
 			}
 
 			public void keyReleased(KeyEvent e) {
 				int key = e.getKeyCode();
 				if (KeyList.containsKey(key)) {
-					((InputAction) KeyList.get(key)).release();
-					;
+
+					InputAction temp = (InputAction) KeyList.get(key);
+					temp.release();
 
 				}
 			}

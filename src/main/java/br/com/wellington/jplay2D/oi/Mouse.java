@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import br.com.wellington.jplay2D.imageProcessing.GameObject;
+import br.com.wellington.jplay2D.image.GameObject;
 import br.com.wellington.jplay2D.window.Window;
 
 /** Classe responsável por controlar as ações do mouse. */

@@ -2,78 +2,76 @@ package testFramework;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 
+import br.com.wellington.jplay2D.image.GameObject;
 import br.com.wellington.jplay2D.window.Window;
 
-public class TextWindow {
+public class TextWindow extends GameObject {
 
 	@SuppressWarnings("deprecation")
 	private static final Color COLOR = Window.getInstance().getGameGraphics().getColor();
 	@SuppressWarnings("deprecation")
 	private static final Font FONT = Window.getInstance().getGameGraphics().getFont();
+	@SuppressWarnings("deprecation")
+	private static final Graphics GRAPHICS = Window.getInstance().getGameGraphics();
+	private static final Window WINDOW = Window.getInstance();
 
-	private StringBuilder txt;
+	private String txt;
 	private Font font;
 	private Color color;
 	private int index;
 
-	int x;
-	int y;
-	int width;
-	int height;
-
-	public TextWindow(int index, int x, int y, Color color, Font font) {
-		this.index = index;
+	public TextWindow(int x, int y, Color color, Font font) {
 		this.x = x;
 		this.y = y;
 		this.color = color;
 		this.font = font;
-		this.txt = new StringBuilder("");
-		width = Window.getInstance().getGameGraphics().getFontMetrics(font).stringWidth(txt.toString());
-		height = Window.getInstance().getGameGraphics().getFontMetrics(font).getHeight();
-
+		this.txt = "";
+		width = GRAPHICS.getFontMetrics(font).stringWidth(txt.toString());
+		height = GRAPHICS.getFontMetrics(font).getHeight();
 	}
 
-	public TextWindow(int index, int x, int y) {
-		this(index, x, y, COLOR, FONT);
+	public TextWindow(int x, int y) {
+		this(x, y, COLOR, FONT);
 	}
 
-	public TextWindow(int index, int x, int y, Font font) {
-		this(index, x, y, COLOR, font);
+	public TextWindow(int x, int y, Font font) {
+		this(x, y, COLOR, font);
 	}
 
-	public TextWindow(int index, int x, int y, Color color) {
-		this(index, x, y, color, FONT);
+	public TextWindow(int x, int y, Color color) {
+		this(x, y, color, FONT);
 	}
 
 	public void draw() {
-		Window.getInstance().drawText(txt.toString(), x, y, color, font);
+		WINDOW.drawText(txt.toString(), (int) x, (int) y, color, font);
 	}
 
-	public void setTxt(StringBuilder txt) {
+	public void setTxt(String txt) {
 		this.txt = txt;
-		width = Window.getInstance().getGameGraphics().getFontMetrics(font).stringWidth(txt.toString());
+		width = GRAPHICS.getFontMetrics(font).stringWidth(txt.toString());
 	}
 
 	public void setFont(Font font) {
 		this.font = font;
-		width = Window.getInstance().getGameGraphics().getFontMetrics(font).stringWidth(txt.toString());
-		height = Window.getInstance().getGameGraphics().getFontMetrics(font).getHeight();
+		width = GRAPHICS.getFontMetrics(font).stringWidth(txt.toString());
+		height = GRAPHICS.getFontMetrics(font).getHeight();
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 

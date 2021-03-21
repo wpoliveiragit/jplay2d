@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.com.wellington.jplay2D.imageProcessing.GameImage;
-import br.com.wellington.jplay2D.imageProcessing.Sprite;
-import br.com.wellington.jplay2D.imageProcessing.TileInfo;
+import br.com.wellington.jplay2D.image.GameImage;
+import br.com.wellington.jplay2D.image.Sprite;
+import br.com.wellington.jplay2D.image.TileInfo;
 
 public class FileScene {
 
