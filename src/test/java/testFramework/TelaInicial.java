@@ -1,65 +1,49 @@
 package testFramework;
 
 import java.awt.Color;
-import java.awt.DisplayMode;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.wellington.jplay2D.image.GameImage;
-import br.com.wellington.jplay2D.image.GameObject;
 import br.com.wellington.jplay2D.image.Sprite;
-import br.com.wellington.jplay2D.oi.Keyboard;
-import br.com.wellington.jplay2D.oi.Mouse;
 import br.com.wellington.jplay2D.sound.Sound;
-import br.com.wellington.jplay2D.window.WindowGameTime;
 import projetos.jogoDaMemoria.GameControl;
 
 public class TelaInicial extends GameControl {
-
-	private Keyboard keyboard;
-	private Mouse mouse;
+	private static final byte POSICAO_MIN = 0;
+	private static final byte POSICAO_MAX = 2;
 
 	private GameImage logoJogo;
+
+	private Sprite moeda;
 	private Sprite start;
 	private Sprite option;
 	private Sprite credits;
-	private Sprite moeda;
 
-	private static final byte POSICAO_MIN = 0;
-	private static final byte POSICAO_MAX = 2;
 	private byte escolha;
 
-	private WindowGameTime timeBase;
-
-	private List<DisplayMode> listDisplayMode;
-	private List<TextWindow> txtList;
 	private TextWindow latencia;
-	private TextWindow tempo;
-	private TextWindow mouseTxt;
-
-	GameObject gameObject;
 
 	public TelaInicial() {
 		super(30);
-		keyboard = WINDOW.getKeyboard();
-		mouse = WINDOW.getMouse();
-		timeBase = WINDOW.getGameTime();
+	}
+
+	@Override
+	protected void loadResources() {
+		KEYBOARD = WINDOW.getKeyboard();
+		KEYBOARD.cleanKeys();
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_UP);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_DOWN);
+
+		MOUSE = WINDOW.getMouse();
+		MOUSE.setCursorImage(TestMain.IMG_MOUSE);
+
 		escolha = 0;
 	}
 
 	@Override
-	protected void init() {
-
-		// [MOUSE - config]
-		mouse.setCursorImage(TestMain.IMG_MOUSE);
-
-		// [KEYBOARD - config]
-		keyboard.cleanKeys();
-		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
-		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
-		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_UP);
-		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_DOWN);
+	protected void beforeStart() {
 
 		// [SPRITES - config]
 		logoJogo = new GameImage(TestMain.IMG_LOGO_JOGO);
@@ -88,88 +72,6 @@ public class TelaInicial extends GameControl {
 		// [TEXTS- CONFIGURATION]
 		latencia = new TextWindow(50, 50, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15);
 		latencia.setTxt("latencia: ");
-//		// [DISPLAY MODE - remove duplicatas]
-//		listDisplayMode = new ArrayList<DisplayMode>();
-//		for (DisplayMode display : WINDOW.getCompatibleDisplayMode()) {
-//			boolean add = true;
-//			for (DisplayMode item : listDisplayMode) {
-//				if (item.getWidth() == display.getWidth() && item.getHeight() == display.getHeight()) {
-//					add = false;
-//					break;
-//				}
-//			}
-//			if (add) {
-//				listDisplayMode.add(display);
-//			}
-//		}
-//		txtList = new ArrayList<>();
-//
-//		// [TXT -Window]
-//		int x;
-//		int y = 20;
-//		int addY = 17;
-//
-//		TextWindow tw = new TextWindow(txtList.size(), 0, y, Color.blue, TestMain.FONT_COMIC_SANS_MS_20);
-//		tw.setTxt(new StringBuilder().append("[TESTE] jplay 2D"));
-//
-//		latencia = new TextWindow(txtList.size(), 0, y, Color.red, TestMain.FONT_COMIC_SANS_MS_20);
-//		latencia.setTxt(new StringBuilder().append("latencia[]"));
-//
-//		tempo = new TextWindow(txtList.size(), 5, Window.getInstance().getJFrame().getHeight() - 8, Color.blue,
-//				TestMain.FONT_COMIC_SANS_MS_20);
-//		tempo.setTxt(new StringBuilder().append("tempo(mili)["));
-//
-//		x = Window.getInstance().getJFrame().getWidth();
-//		x -= (tw.getWidth() + latencia.getWidth());
-//		x = (x / 2) - 20;
-//
-//		tw.setX(x);
-//		latencia.setX(tw.getX() + tw.getWidth() + 10);
-//
-//		txtList.add(tw);
-//		txtList.add(latencia);
-//		txtList.add(tempo);
-//
-//		x = 25;
-//		y += 18;
-//		txtList.add(mouseTxt = new TextWindow(txtList.size(), x += 30, y += addY, Color.yellow,
-//				TestMain.FONT_COMIC_SANS_MS_15));
-//		mouseTxt.setTxt(new StringBuilder().append("MOUSE ["));
-//
-//		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
-//		tw.setTxt(new StringBuilder().append("Leve o mouse ao centro da tela"));
-//
-//		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
-//		tw.setTxt(new StringBuilder().append("[ESC] FECHAR"));
-//
-//		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
-//		tw.setTxt(new StringBuilder().append("[1] FULLSCREEN"));
-//
-//		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
-//		tw.setTxt(new StringBuilder().append("[2] RESTORESCREEN"));
-//
-//		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
-//		tw.setTxt(new StringBuilder().append("[3] screen 1024 x 768"));
-//
-//		txtList.add(tw = new TextWindow(txtList.size(), x, y += addY, Color.yellow, TestMain.FONT_COMIC_SANS_MS_15));
-//		tw.setTxt(new StringBuilder().append("[DisplayMode]: " + listDisplayMode.size()));
-//
-//		x += 15;
-//		y += 3;
-//		addY -= 3;
-//		for (DisplayMode dm : listDisplayMode) {
-//			tw = new TextWindow(txtList.size(), x, y += addY, Color.white, TestMain.FONT_COMIC_SANS_MS_9);
-//			txtList.add(tw);
-//			tw.setTxt(new StringBuilder().append("( ").append(dm.getWidth()).append(" x ").append(dm.getHeight())
-//					.append(" )"));
-//		}
-//
-//		gameObject = new GameObject();
-//		gameObject.x = WINDOW.getJFrame().getWidth() / 3;
-//		gameObject.y = WINDOW.getJFrame().getHeight() / 3;
-//		gameObject.width = WINDOW.getJFrame().getWidth() / 3;
-//		gameObject.height = WINDOW.getJFrame().getHeight() / 3;
-
 	}
 
 	@Override
@@ -218,15 +120,15 @@ public class TelaInicial extends GameControl {
 
 	@Override
 	protected void control() {
-		if (keyboard.checkKey(KeyEvent.VK_ESCAPE)) {// encerra o jogo
+		if (KEYBOARD.checkKey(KeyEvent.VK_ESCAPE)) {// encerra o jogo
 			super.exist();
 		}
 
-		if (keyboard.checkKey(KeyEvent.VK_ENTER)) {
+		if (KEYBOARD.checkKey(KeyEvent.VK_ENTER)) {
 			switch (escolha) {
 			case 0:
 				new Cena01().start();
-				;
+				loadResources();
 				break;
 			case 1:
 				break;
@@ -236,13 +138,13 @@ public class TelaInicial extends GameControl {
 			return;
 		}
 
-		if (keyboard.checkKey(KeyEvent.VK_UP)) {
+		if (KEYBOARD.checkKey(KeyEvent.VK_UP)) {
 			escolha--;
 			ajustaSelecao();
 			return;
 		}
 
-		if (keyboard.checkKey(KeyEvent.VK_DOWN)) {
+		if (KEYBOARD.checkKey(KeyEvent.VK_DOWN)) {
 			escolha++;
 			ajustaSelecao();
 			return;
@@ -251,13 +153,13 @@ public class TelaInicial extends GameControl {
 	}
 
 	@Override
-	protected void end() {
+	protected void afterStart() {
 		WINDOW.exit();
 	}
 
 	@Override
-	protected void collisionCheck() {
-		if (mouse.isOverObject(latencia)) {
+	protected void updateScene() {
+		if (MOUSE.isOverObject(latencia)) {
 			latencia.setColor(Color.blue);
 			new Thread(new Runnable() {
 

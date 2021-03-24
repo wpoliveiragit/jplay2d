@@ -14,7 +14,7 @@ public class ObjetoBase extends Sprite implements Constantes {
 	 */
 	public ObjetoBase(Cenario cenario, String pathSprite, int nFrame, int tempo, int x, int y) {
 		super(pathSprite, nFrame);
-		cenario.getCenario().addOverlay(this);
+		cenario.getCenario().addSceneElements(this);
 		setTotalDuration(tempo);
 		this.x = DESLOQUE_CENARIO_X + (TILE_LARGURA * x);
 		this.y = DESLOQUE_CENARIO_Y + (TILE_ALTURA * y);

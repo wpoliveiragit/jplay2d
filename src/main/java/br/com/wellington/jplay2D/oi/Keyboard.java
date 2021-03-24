@@ -12,7 +12,7 @@ public final class Keyboard implements InputActionBehavior {
 
 	private KeyListener keyListener;
 
-	/** Cria o controle de teclas do keyboard. */
+	/** [VERIFICADO] Cria o controle de teclas do keyboard. */
 	public Keyboard() {
 		KeyList = new Hashtable<Integer, InputAction>();
 		keyListener = new KeyListener() {
@@ -24,18 +24,14 @@ public final class Keyboard implements InputActionBehavior {
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
 				if (KeyList.containsKey(key)) {
-					InputAction temp = (InputAction) KeyList.get(key);
-					temp.press();
+					KeyList.get(key).press();
 				}
 			}
 
 			public void keyReleased(KeyEvent e) {
 				int key = e.getKeyCode();
 				if (KeyList.containsKey(key)) {
-
-					InputAction temp = (InputAction) KeyList.get(key);
-					temp.release();
-
+					KeyList.get(key).release();
 				}
 			}
 		};
@@ -64,7 +60,7 @@ public final class Keyboard implements InputActionBehavior {
 	}
 
 	/**
-	 * Adiciona uma nova chave ao keyboard com o comportamento
+	 * [VERIFICADO] Adiciona uma nova chave ao keyboard com o comportamento
 	 * {@link InputActionBehavior#ACTUATOR_REQUEST}
 	 * 
 	 * @param key O código da chave.
@@ -95,7 +91,7 @@ public final class Keyboard implements InputActionBehavior {
 	 */
 
 	/**
-	 * Adiciona uma nova chave de comportamento ao keyboard.
+	 * [VERIFICADO] Adiciona uma nova chave de comportamento ao keyboard.
 	 * 
 	 * @param key      O código da chave.
 	 * @param behavior O comportamento da chave.
@@ -110,7 +106,7 @@ public final class Keyboard implements InputActionBehavior {
 	}
 
 	/**
-	 * Remova uma chave de comportamento do teclado.
+	 * [VERIFICADO] Remova uma chave de comportamento do teclado.
 	 * 
 	 * @pram key O código da chave.
 	 * @apiNote → Use {@link InputActionBehavior} para encontrar a lista de
@@ -120,7 +116,7 @@ public final class Keyboard implements InputActionBehavior {
 		KeyList.remove(key);
 	}
 
-	/** Remove todas as chaves de comportamentos registradas */
+	/** [VERIFICADO] Remove todas as chaves de comportamentos registradas */
 	public void cleanKeys() {
 		KeyList.clear();
 	}

@@ -28,7 +28,6 @@ public class GameObject {
 	 * Crie um GameObject posicionado em x = 0, y = 0 e sua dimensão é largura = 0 e
 	 * altura = 0.
 	 */
-
 	protected double rotation = 0;
 
 	public GameObject() {

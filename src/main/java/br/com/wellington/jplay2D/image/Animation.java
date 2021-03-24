@@ -10,52 +10,61 @@ import br.com.wellington.jplay2D.window.Window;
  * frames.
  */
 public class Animation extends GameImage {
+
+	/** Ponto inicial da sequencia corrente dos quadros da animação. */
 	private int initialFrame;
+	/** Ponto atual da sequencia corrente dos quadros da animação. */
 	private int currFrame;
+	/** Ponto final da sequencia corrente dos quadros da animação. */
 	private int finalFrame;
-
+	/** Quantidade total de frames que a imagem possui. */
 	private int totalFrames;
-
+	/** Define se a imagem esta em execução. */
 	private boolean playing;
+	/**
+	 * Indica se a sequencia de quadros esta em loop ou não. true: Quando o último
+	 * quadro for apresentado, o próximo será o primeiro. false: Quando o último
+	 * quadro for apresentado, a animação permanecerá mostrando o último quadro.
+	 */
 	private boolean loop;
-	private boolean drawable;
-
-	// Each frame has its own time
+	/** Define se a imagem estará visivel ou não. */
+	private boolean visible;
+	/** array de tempo de cada quadro. */
 	private long frameDuration[];
+	/** Duração total da animação */
 	private long totalDuration;
-
-	// It keeps the time when a frame was changed
+	/** Define o momento em que o quadro foi alterado. */
 	private long lastTime;
 
 	/**
-	 * O construtor cria uma animação de objeto de classe. A sequência é configurada
-	 * para começar no quadro um e vai até o último quadro que é igual a
-	 * totalFrames. Por exemplo: setSequence (0, totalFrames). 0 = quadro inicial.
-	 * lastFrame = totalFrames.
+	 * Instancia uma animação. Configurado para executar todos os quadros.
 	 * 
-	 * @param fileName    Caminho do nome e da imagem.
-	 * @param totalFrames Número de quadros que formam a imagem.
-	 * @param It          diz se a animação é executada repetidamente. Se o valor
-	 *                    for verdadeiro quando o último quadro for mostrado, o
-	 *                    próximo quadro será o primeiro. No entanto, se o valor for
-	 *                    falso quando o último quadro for mostrado, a animação
-	 *                    permanecerá mostrando o último quadro indefinidamente.
+	 * @param fileName    Caminho absoluto do arquivo.
+	 * @param totalFrames Número de quadros da animação.
+	 * @param loop        Indica se a sequencia de quadros esta em loop ou não.
+	 *                    true: Quando o último quadro for apresentado, o próximo
+	 *                    será o primeiro. false: Quando o último quadro for
+	 *                    apresentado, a animação permanecerá mostrando o último
+	 *                    quadro.
 	 */
 	public Animation(String fileName, int totalFrames, boolean loop) {
 		super(fileName);
 		this.totalFrames = totalFrames;
-		this.width = super.image.getWidth(null) / totalFrames;
-		this.height = super.image.getHeight(null);
-		this.lastTime = System.currentTimeMillis();
-		this.playing = true;
-		this.drawable = true;
-		this.frameDuration = new long[totalFrames];
+		super.width = super.image.getWidth(null) / totalFrames;
+		super.height = super.image.getHeight(null);
+		lastTime = System.currentTimeMillis();
+		playing = true;
+		visible = true;
+		frameDuration = new long[totalFrames];
 		setSequence(0, totalFrames, loop);
 	}
 
 	/**
-	 * Sobrecarga do construtor public Animation (String fileName, int totalFrames,
-	 * boolean loop). O parâmetro 'loop booleano' tem o valor true.
+	 * Instancia uma animacão a deixando em loop (Quando o último quadro for
+	 * apresentado, o próximo será o primeiro).
+	 * 
+	 * @param fileName    Caminho absoluto do arquivo.
+	 * @param totalFrames Número de quadros da animação.
 	 */
 	public Animation(String fileName, int totalFrames) {
 		this(fileName, totalFrames, true);
@@ -66,102 +75,109 @@ public class Animation extends GameImage {
 	 * boolean loop). O parâmetro 'loop booleano' tem o valor true. O parâmetro 'int
 	 * totalFrames' é igual a 1.
 	 */
+
+	/**
+	 * Instancia uma animacão indicando que ela tem apenas uma imagem.
+	 * 
+	 * @param fileName Caminho absoluto do arquivo.
+	 */
 	public Animation(String fileName) {
 		this(fileName, 1, true);
 	}
 
 	/**
-	 * Configure a hora em que o quadro será mostrado na tela.
+	 * Define o tempo de duração de um frame em específico.
 	 * 
-	 * @param frame Número do quadro.
-	 * @param time  Tempo em milissegundos em que o quadro será mostrado na tela.
+	 * @param index O índice do frame.
+	 * @param time  Tempo (em mili) de duração do frame.
 	 */
-	public void setDuration(int frame, long time) {
-		frameDuration[frame] = time;
+	public void setFrameDuration(int index, long time) {
+		frameDuration[index] = time;
 	}
 
 	/**
-	 * Retorne a hora em que o quadro é mostrado na tela.
+	 * Retorne o tempo de duração de um frame em específico.
 	 * 
-	 * @param frame número de quadros.
-	 * @return long o tempo em milissegundos.
+	 * @param index O índice do frame.
+	 * @return long Tempo (em mili) de duração do frame.
 	 */
-	public long getDuration(int frame) {
-		return frameDuration[frame];
+	public long getFrameDuration(int index) {
+		return frameDuration[index];
 	}
 
 	/**
-	 * Defina o quadro inicial e final na sequência de animação. A sequência será
-	 * executada indefinidamente.
+	 * Defina a sequenciados de quadros desejados da animação a ser executado.
 	 * 
-	 * @param initialFrame
-	 * @param finalFrame
+	 * @param initFrame  Quadro inicial.
+	 * @param finalFrame Quadro final.
+	 * @param loop       Indica se a sequencia de quadros esta em loop ou não. true:
+	 *                   Quando o último quadro for apresentado, o próximo será o
+	 *                   primeiro. false: Quando o último quadro for apresentado, a
+	 *                   animação permanecerá mostrando o último quadro.
 	 */
-	public void setSequence(int initialFrame, int finalFrame) {
-		setSequence(initialFrame, finalFrame, true);
+	public void setSequence(int initFrame, int finalFrame, boolean loop) {
+		this.initialFrame = initFrame;
+		this.currFrame = initFrame;
+		this.finalFrame = finalFrame;
+		this.loop = loop;
 	}
 
 	/**
-	 * Defina o quadro inicial e final na sequência de animação. E se a animação vai
-	 * rodar indefinidamente.
+	 * Defina a sequenciados de quadros desejados da animação a ser executado (em
+	 * loop).
 	 * 
-	 * @param initialFrame
-	 * @param finalFrame
-	 * @param loop
+	 * @param initFrame  Quadro inicial.
+	 * @param finalFrame Quadro final.
 	 */
-	public void setSequence(int initialFrame, int finalFrame, boolean loop) {
-		setInitialFrame(initialFrame);
-		setCurrFrame(initialFrame);
-		setFinalFrame(finalFrame);
-		setLoop(loop);
+	public void setSequence(int initFrame, int finalFrame) {
+		setSequence(initFrame, finalFrame, true);
 	}
 
 	/**
-	 * Defina o quadro inicial e final na sequência de animação e o tempo de
-	 * execução.
+	 * Defina a sequenciados de quadros desejados da animação a ser executado.
 	 * 
-	 * @param initialFrame
-	 * @param finalFrame
-	 * @param time
+	 * @param initFrame  Quadro inicial.
+	 * @param finalFrame Quadro final.
+	 * @param time       tempo total da execução desta sequencia.
+	 * @param loop       Indica se a sequencia de quadros esta em loop ou não. true:
+	 *                   Quando o último quadro for apresentado, o próximo será o
+	 *                   primeiro. false: Quando o último quadro for apresentado, a
+	 *                   animação permanecerá mostrando o último quadro.
 	 */
-	public void setSequenceTime(int initialFrame, int finalFrame, long time) {
-		setSequenceTime(initialFrame, finalFrame, true, time);
-	}
-
-	/**
-	 * Defina o quadro inicial e final na sequência de animação, o tempo de execução
-	 * e se ela será executada indefinidamente.
-	 * 
-	 * @param initialFrame
-	 * @param finalFrame
-	 * @param time
-	 * @param loop         True para indefinidamente, falso caso contrário.
-	 */
-
-	public void setSequenceTime(int initialFrame, int finalFrame, boolean loop, long time) {
-		setSequence(initialFrame, finalFrame, loop);
-		time = time / (finalFrame - initialFrame + 1);
-		for (int i = initialFrame; i <= finalFrame; i++)
+	public void setSequenceTime(int initFrame, int finalFrame, boolean loop, long time) {
+		setSequence(initFrame, finalFrame, loop);
+		time = time / (finalFrame - initFrame + 1);
+		for (int i = initFrame; i <= finalFrame; i++) {
 			this.frameDuration[i] = time;
+		}
 	}
 
 	/**
-	 * Este método informa se a animação está em loop.
+	 * Defina a sequenciados de quadros desejados da animação a ser executado (em
+	 * loop).
 	 * 
-	 * @return boolean
+	 * @param initFrame  Quadro inicial.
+	 * @param finalFrame Quadro final.
+	 * @param time       tempo total da execução desta sequencia.
+	 */
+	public void setSequenceTime(int initFrame, int finalFrame, long time) {
+		setSequenceTime(initFrame, finalFrame, true, time);
+	}
+
+	/**
+	 * Informa se a animação está em loop.
+	 * 
+	 * @return boolean true: esta em loop.
 	 */
 	public boolean isLooping() {
 		return loop;
 	}
 
 	/**
-	 * Define a hora para todos os quadros. Quando o tempo passa, a divisão entre
-	 * totalDuration e totalFrames deixará algum resto: Exemplo: totalDuration = 100
-	 * totalFrames = 11 timeFrame = 100/11 = 9 rest = 100 - 11 * 9 = 1
-	 *
-	 * So, the real totalDuration is (time / numberFrames) * numberFrames
+	 * Define o tempo total da execução desta animação. Este tempo será dividido
+	 * entre os quadros.
 	 * 
-	 * @param time milissegundo.
+	 * @param time O tempo (mili).
 	 */
 	public void setTotalDuration(long time) {
 		long timeFrame = time / totalFrames;
@@ -171,27 +187,23 @@ public class Animation extends GameImage {
 	}
 
 	/**
-	 * Retorna a soma de todos os intervalos de tempo.
+	 * Retorna o tempo total da animação.
 	 * 
-	 * @return long
+	 * @return long O tempo total da animação (mili).
 	 */
-
 	public long getTotalDuration() {
 		return totalDuration;
 	}
 
-	/**
-	 * Método responsável por realizar a troca de frames.
-	 */
+	/** Método responsável por realizar a troca de frames. */
 	public void update() {
-		if (playing) {
+		if (playing) {// troca do quadro
 			long time = System.currentTimeMillis();
 			if (time - lastTime > frameDuration[currFrame] && finalFrame != 0) {
 				currFrame++;
 				lastTime = time;
 			}
-
-			if (currFrame == finalFrame && loop) {
+			if (loop && currFrame == finalFrame) {// loop
 				currFrame = initialFrame;
 			} else if ((!loop) && (currFrame + 1 >= finalFrame)) {
 				currFrame = finalFrame - 1;
@@ -200,138 +212,121 @@ public class Animation extends GameImage {
 		}
 	}
 
-	/**
-	 * Para a execução e coloca o quadro inicial como o quadro atual.
-	 */
+	/** Desabilita a troca de quadros. */
+	public void play() {
+		this.playing = true;
+	}
+
+	/** Desabilita a troca de quadros. */
+	public void pause() {
+		this.playing = false;
+	}
+
+	/** Desabilita a troca de quadros e volta o frame corrente para o inicial. */
 	public void stop() {
 		this.currFrame = initialFrame;
 		this.playing = false;
 	}
 
 	/**
-	 * Método responsável por iniciar a execução da animação.
-	 */
-	public void play() {
-		this.playing = true;
-	}
-
-	/**
-	 * Método responsável por pausar a animação.
-	 */
-	public void pause() {
-		this.playing = false;
-	}
-
-	/**
-	 * Define o quadro inicial da seqüência de quadros.
+	 * Define o quadro inicial.
 	 * 
-	 * @param frame número de quadros.
+	 * @param index O indice do quadros.
 	 */
-	public void setInitialFrame(int frame) {
-		this.initialFrame = frame;
+	public void setInitialFrame(int index) {
+		this.initialFrame = index;
 	}
 
 	/**
-	 * Retorna o número do quadro inicial.
+	 * Retorna o indice do quadro inicial.
 	 * 
-	 * @return int
+	 * @return int O indice do quadro inicial.
 	 */
 	public int getInitialFrame() {
 		return initialFrame;
 	}
 
 	/**
-	 * Define o quadro final da sequência de quadros.
+	 * Define o quadro final.
 	 * 
-	 * @param frame número de quadros.
+	 * @param frame Indice do quadro.
 	 */
 	public void setFinalFrame(int frame) {
 		this.finalFrame = frame;
 	}
 
 	/**
-	 * Retorna o número do quadro final da sequência de quadros.
+	 * Retorna indice do quadro final.
 	 * 
-	 * @return int
+	 * @return int Indice do quadro final.
 	 */
 	public int getFinalFrame() {
 		return finalFrame;
 	}
 
 	/**
-	 * Define o quadro atual que será desenhado.
+	 * Define o indice do quadra corrente.
 	 * 
-	 * @param frame número de quadros.
+	 * @param frame Indice desejado do quadro corrente.
 	 */
 	public void setCurrFrame(int frame) {
 		currFrame = frame;
 	}
 
 	/**
-	 * Retorna o número do quadro atual.
+	 * Retorna indice do quadro corrente.
 	 * 
-	 * @return int
+	 * @return int Indice do quadro corrente.
 	 */
 	public int getCurrFrame() {
 		return currFrame;
 	}
 
 	/**
-	 * Returns verdadeiro se a animação estiver sendo executada, falso caso
-	 * contrário.
+	 * Returns informa se a animação esta em execução ou não.
 	 * 
-	 * @return boolean
+	 * @return boolean true: esta em execução.
 	 */
 	public boolean isPlaying() {
 		return playing;
 	}
 
 	/**
-	 * Este método é responsável por não permitir o desenho da animação na tela.
+	 * Define se a imagem esta visivel ou não.
+	 * 
+	 * @param visible true para visivel.
 	 */
-	public void hide() {
-		this.drawable = false;
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 
 	/**
-	 * Método responsável por permitir que a animação seja desenhada na tela.
+	 * Indica se a sequencia de quadros esta em loop ou não.
+	 * 
+	 * @param loop true: Quando o último quadro for apresentado, o próximo será o
+	 *             primeiro. false: Quando o último quadro for apresentado, a
+	 *             animação permanecerá mostrando o último quadro.
 	 */
-	public void unhide() {
-		this.drawable = true;
+	public void setLoop(boolean loop) {
+		this.loop = loop;
 	}
 
-	/**
-	 * Método responsável por informar a classe que a animação não será executada
-	 * indefinidamente. Verdadeiro para executar indefinidamente, falso caso
-	 * contrário.
-	 */
-
-	public void setLoop(boolean value) {
-		this.loop = value;
-	}
-
-	/**
-	 * Desenha a animação na tela.
-	 */
+	/** Desenha a animação na tela. */
 	@Override
 	public void draw() {
-		if (drawable) {
-			// Window.instance.getGameGraphics()
-			// .drawImage(image, (int)x, (int)y, (int)x + width, (int)y + height,
-			// currFrame * width, 0, (currFrame +1) * width, height, null);
-			double rot = rotation;
-
+		if (visible) {
+			@SuppressWarnings("deprecation")
 			Graphics2D g2d = (Graphics2D) Window.getInstance().getGameGraphics();
 			AffineTransform tx = new AffineTransform();
 
-			tx.setToRotation(-rot, width / 2, height / 2);
+			tx.setToRotation(-super.rotation, super.width / 2, super.height / 2);
 
-			int newy = (int) (x * Math.sin(rot) + y * Math.cos(rot));
-			int newx = (int) (x * Math.cos(rot) - y * Math.sin(rot));
+			int newy = (int) (super.x * Math.sin(super.rotation) + super.y * Math.cos(super.rotation));
+			int newx = (int) (super.x * Math.cos(super.rotation) - super.y * Math.sin(super.rotation));
 
 			g2d.setTransform(tx);
-			g2d.drawImage(image, newx, newy, newx + width, newy + height, currFrame * width, 0, (currFrame + 1) * width,
-					height, null);
+			g2d.drawImage(super.image, newx, newy, newx + super.width, newy + super.height, currFrame * super.width, 0,
+					(currFrame + 1) * super.width, super.height, null);
 		}
 	}
 

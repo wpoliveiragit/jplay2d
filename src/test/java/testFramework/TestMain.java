@@ -21,6 +21,7 @@ public class TestMain {
 	public static final String SPT_CREDITS = PATH_SPT + "credits.png";
 	public static final String SPT_OPTIONS = PATH_SPT + "options.png";
 	public static final String SPT_MOEDA_OURO = PATH_SPT + "moedaOuro.png";
+	public static final String SPT_MEGAMAN = PATH_SPT + "megaman.png";
 
 	// [PATH-SOUND]
 	private static final String PATH_SND = ROOT + "sound/";

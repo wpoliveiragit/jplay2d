@@ -39,12 +39,13 @@ public class Window {
 	}
 
 	/**
-	 * Cria e retorma a instância da tela do jogo. Caso a instancia já exista, os
-	 * parâmetros serão ignorados e a instancia existente será retornada.
+	 * [VERIFICADO] Cria e retorma a instância da tela do jogo. Caso a instancia já
+	 * exista, os parâmetros serão ignorados e a instancia existente será retornada.
 	 * 
 	 * @param width  A altura da tela.
 	 * @param height O comprimento da tela
 	 * @return A instância da tela.
+	 * @throws A
 	 */
 	public static Window getInstance(int width, int height) {
 		if (instance == null) {
@@ -54,23 +55,24 @@ public class Window {
 	}
 
 	/**
-	 * Retorna a instância da tela.
+	 * [VERIFICADO] Retorna a instância da tela.
 	 * 
 	 * @return Window A instância da tela.
-	 * @throws Caso a instancia não seja previamente criada peo metodo
-	 *              'getInstance(int width, int height)'.
+	 * @throws Caso a instancia não seja previamente criada será considado como erro
+	 *              sistemico.
+	 * @see #getInstance(int, int)
 	 */
 	public static Window getInstance() {
 		if (instance == null) {
-			throw new RuntimeException(
-					"[ERRO] Não foi definido a altura e a largura da tela do jogo, use o método 'getInstance(int width, int height)' antes de usar o métodos 'getInstance()'");
+			throw new RuntimeException("[ERRO]\n -Crie uma instancia da classe pelo método 'getInstance(int, int)'");
 		}
 		return instance;
 	}
 
 	/**
-	 * Configura um novo display ao jogo. Caso tenha guardado a instancia 'graphics'
-	 * utilize o método 'getGameGraphics()' para atualizar a insrtância.
+	 * [MELHORAR-não recriar o jframe] Configura um novo display ao jogo. Caso tenha
+	 * guardado a instancia 'graphics' utilize o método 'getGameGraphics()' para
+	 * atualizar a insrtância.
 	 */
 	public void setDisplayMode(DisplayMode dm) {
 		JFrame jframe = new JFrame();
@@ -107,16 +109,26 @@ public class Window {
 		this.jframe = jframe;
 	}
 
+	/**
+	 * [VERIFICADO] Adiciona um novo mouse ao Window.
+	 * 
+	 * @param mouse o novo mouse.
+	 */
 	public void setMouse(Mouse mouse) {
 		jframe.addMouseListener(mouse.getMouseListener());
 		jframe.addMouseMotionListener(mouse.getMouseMotionListener());
 	}
 
+	/**
+	 * [VERIFICADO] Adiciona um novo teclado ao Window.
+	 * 
+	 * @param keyboard o teclado.
+	 */
 	public void setKeyboard(Keyboard keyboard) {
 		jframe.addKeyListener(keyboard.getKeyListener());
 	}
 
-	/** Atualiza a tela do jogo. */
+	/** [VERIFICADO] Atualiza a tela do jogo. */
 	public void update() {
 		graphics.dispose();
 		buffer.show();
@@ -142,7 +154,7 @@ public class Window {
 		return false;
 	}
 
-	/** Abilita o modo de tela cheia. */
+	/** [VERIFICADO] HAbilita o modo de tela cheia. */
 	public void setFullScreen() {
 		DisplayMode old = device.getDisplayMode();
 		jframe.setIgnoreRepaint(true);
@@ -155,14 +167,14 @@ public class Window {
 		}
 	}
 
-	/** Desabilita o modo tela cheia. */
+	/** [VERIFICADO] Desabilita o modo tela cheia. */
 	public void restoreScreen() {
 		device.setFullScreenWindow(null);
 		jframe.setLocationRelativeTo(null);
 	}
 
 	/**
-	 * Controla o tempode execução do programa.
+	 * [VERIFICADO] Controla o tempode execução do programa.
 	 * 
 	 * @param time Tempo em milisegundos.
 	 */
@@ -184,14 +196,14 @@ public class Window {
 		graphics.fillRect(0, 0, jframe.getWidth(), jframe.getHeight());
 	}
 
-	/** Encerra o programa. */
+	/** [VERIFICADO] Encerra o programa. */
 	public void exit() {
 		jframe.dispose();
 		System.exit(0);
 	}
 
 	/**
-	 * Desenha uma mensagem na tela.
+	 * [VERIFICADO] Desenha uma mensagem na tela.
 	 * 
 	 * @param message a mensagem a ser desenhada na tela.
 	 * @param x       Ponto do eixo x.
@@ -204,7 +216,7 @@ public class Window {
 	}
 
 	/**
-	 * Desenha uma mensagem na tela.
+	 * [VERIFICADO] Desenha uma mensagem na tela.
 	 * 
 	 * @param message a mensagem a ser desenhada na tela.
 	 * @param x       Ponto do eixo x.
@@ -223,7 +235,7 @@ public class Window {
 	// GETTERS /////////////////////////////////////////////////////////////////
 
 	/**
-	 * Retorna uma matriz com os modos de exibição validas.
+	 * [VERIFICADO] Retorna uma matriz com os modos de exibição validas.
 	 * 
 	 * @return DisplayMode[] Matriz com os modos de exibição validas.
 	 * @see DisplayMode
@@ -232,13 +244,13 @@ public class Window {
 		return device.getDisplayModes();
 	}
 
-	/** Retorna o frame da tela. */
+	/** [VERIFICADO] Retorna o frame da tela. */
 	public JFrame getJFrame() {
 		return jframe;
 	}
 
 	/**
-	 * Retorna a instância do teclado.
+	 * [VERIFICADO] Retorna a instância do teclado.
 	 * 
 	 * @return Keyboard A instancia do teclado.
 	 */
@@ -247,7 +259,7 @@ public class Window {
 	}
 
 	/**
-	 * Retorna a instância do teclado.
+	 * [VERIFICADO] Retorna a instância do teclado.
 	 * 
 	 * @return Mouse A instância do mouse.
 	 */
@@ -256,7 +268,7 @@ public class Window {
 	}
 
 	/**
-	 * Retorna a base do tempo do jogo.
+	 * [VERIFICADO] Retorna a base do tempo do jogo.
 	 * 
 	 * @return A base do tempo do jogo.
 	 */
@@ -265,7 +277,7 @@ public class Window {
 	}
 
 	/**
-	 * Retorna a instância de Graphics.
+	 * [VERIFICADO] Retorna a instância de Graphics.
 	 * 
 	 * @return graphics A instância de Graphics.
 	 * @deprecated Deve ser usado Apenas pelo framework.

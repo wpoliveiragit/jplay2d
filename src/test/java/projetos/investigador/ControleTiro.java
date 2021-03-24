@@ -23,7 +23,7 @@ public class ControleTiro {
 	public void adicionaTiro(double x, double y, int caminho, Scene cena) {
 		Tiro tiro = new Tiro(x, y, caminho);
 		tiros.add(tiro);
-		cena.addOverlay(tiro);
+		cena.addSceneElements(tiro);
 	}
 
 	public void run() {

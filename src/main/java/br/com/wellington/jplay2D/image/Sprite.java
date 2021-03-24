@@ -8,17 +8,16 @@ import org.jbox2d.dynamics.Body;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.window.Window;
 
-/**
- * Classe responsável por controlar todas as ações e comportamentos do sprite.
- */
+/** Controle de Sprites. */
 public class Sprite extends Animation {
+
 	private double mass = 0.5;
 	private double friction = 0.5;
 	private double restitution = 0.5;
 	private float forceX = 0;
 	private float forceY = 0;
 
-	private Body body = null; // É usado em física
+	private Body body = null; // Usado na física do objeto
 
 	private double jumpVelocity = 5.3;// É usado para o salto
 	private double velocityY = 0;
@@ -27,80 +26,24 @@ public class Sprite extends Animation {
 	private int floor;
 
 	/**
-	 * Construtor da classe. Cria uma classe com um quadro.
+	 * Instancia uma sprite e assume que ela possui um único quadro.
 	 * 
-	 * @param fileName Caminho do arquivo.
+	 * @param fileName Caminho absoluto do arquivo.
 	 */
 	public Sprite(String fileName) {
 		this(fileName, 1);
 	}
 
 	/**
-	 * Construtor da classe.
+	 * Instancia uma sprite a deixando em loop (Quando o último quadro for
+	 * apresentado, o próximo será o primeiro)..
 	 * 
-	 * @param fileName  Caminho do arquivo.
-	 * @param numFrames número de quadros.
+	 * @param fileName  Caminho absoluto do arquivo.
+	 * @param numFrames Quantidade de quadros que a sprite possui.
 	 */
 	public Sprite(String fileName, int numFrames) {
 		super(fileName, numFrames);
 		velocityY = 0;
-	}
-
-	/**
-	 * Método usado para mover o sprite pelo eixo x. As chaves usadas para mover o
-	 * sprite são LEFT_KEY e RIGHT_KEY.
-	 * 
-	 * @param velocity velocidade de locomoção em pixels.
-	 */
-
-	public void moveX(double velocity) {
-		moveX(KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, velocity);
-	}
-
-	/**
-	 * Método usado para mover o sprite pelo eixo x.
-	 * 
-	 * @param leftKey  Chave usada para mover o sprite para a esquerda.
-	 * @param rightKey Chave usada para mover o sprite para a direita.
-	 * @param velocity velocidade de locomoção em pixels.
-	 */
-	public void moveX(int leftKey, int rightKey, double velocity) {
-		Keyboard keyboard = Window.getInstance().getKeyboard();
-		if (keyboard.checkKey(leftKey) && this.x > 1) {
-			this.x -= velocity;
-		}
-
-		if (keyboard.checkKey(rightKey) && this.x + this.width < Window.getInstance().getJFrame().getWidth()) {
-			this.x += velocity;
-		}
-	}
-
-	/**
-	 * Método usado para mover o sprite pelo eixo y. As teclas usadas para mover o
-	 * sprite são UP_KEY e DOWN_KEY.
-	 * 
-	 * @param velocity velocidade de locomoção em pixels.
-	 */
-	public void moveY(double velocity) {
-		this.moveY(KeyEvent.VK_UP, KeyEvent.VK_DOWN, velocity);
-	}
-
-	/**
-	 * Método usado para mover o sprite pelo eixo y.
-	 * 
-	 * @param upKey    Chave usada para mover o sprite para a esquerda.
-	 * @param downKey  Chave usada para mover o sprite para a direita.
-	 * @param velocity velocidade de locomoção em pixels.
-	 */
-	public void moveY(int upKey, int downKey, double velocity) {
-		Keyboard keyboard = Window.getInstance().getKeyboard();
-		if (keyboard.checkKey(upKey) && this.y > 1) {
-			this.y -= velocity;
-		}
-
-		if (keyboard.checkKey(downKey) && this.y + this.height < Window.getInstance().getJFrame().getHeight()) {
-			this.y += velocity;
-		}
 	}
 
 	/**
@@ -111,14 +54,12 @@ public class Sprite extends Animation {
 	 * @param behaviorKeyboard
 	 */
 	public void applyForceXFromKeyboardLeft(int leftKey, double velocity, int behaviorKeyboard) {
-
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-
-		double px = Physics.meterToPixels_X_Axis(body.getPosition().x);
+		Physics.meterToPixels_X_Axis(body.getPosition().x);// pra que?
 		float velMeter = -(float) (velocity * 3 + 10);
-
-		if (keyboard.checkKey(leftKey))
-			this.body.applyForce(new Vec2(velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
+		if (keyboard.checkKey(leftKey)) {
+			body.applyForce(new Vec2(velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
+		}
 
 	}
 
@@ -130,14 +71,12 @@ public class Sprite extends Animation {
 	 * @param behaviorKeyboard
 	 */
 	public void applyForceXFromKeyboardRight(int rightKey, double velocity, int behaviorKeyboard) {
-
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-
-		double px = Physics.meterToPixels_X_Axis(body.getPosition().x);
+		Physics.meterToPixels_X_Axis(body.getPosition().x);
 		float velMeter = -(float) (velocity * 3 + 10);
-
-		if (keyboard.checkKey(rightKey))
-			this.body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
+		if (keyboard.checkKey(rightKey)) {
+			body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
+		}
 	}
 
 	/**
@@ -154,45 +93,33 @@ public class Sprite extends Animation {
 			boolean boundsScreen) {
 
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-
 		double px = Physics.meterToPixels_X_Axis(body.getPosition().x);
 		float velMeter = -(float) (velocity * 3 + 10);
-
 		if (boundsScreen) {
-			if (keyboard.checkKey(leftKey) && px - this.width / 2 > 0)
-
+			if (keyboard.checkKey(leftKey) && px - this.width / 2 > 0) {
 				this.body.applyForce(new Vec2(velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
-
-			else if (px - this.width / 2 < 0) {
+			} else if (px - this.width / 2 < 0) {
 				this.cancelForces();
 				this.setX(0);
 			}
 
-			if (keyboard.checkKey(rightKey) && px + this.width / 2 < Window.getInstance().getJFrame().getWidth())
-
+			if (keyboard.checkKey(rightKey) && px + this.width / 2 < Window.getInstance().getJFrame().getWidth()) {
 				this.body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
-
-			else if (px + this.width / 2 > Window.getInstance().getJFrame().getWidth()) {
+			} else if (px + this.width / 2 > Window.getInstance().getJFrame().getWidth()) {
 				this.cancelForces();
 				this.setX(Window.getInstance().getJFrame().getWidth() - this.width);
 			}
-
 		} else {
-			if (keyboard.checkKey(leftKey))
-
+			if (keyboard.checkKey(leftKey)) {
 				this.body.applyForce(new Vec2(velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
-
-			else if (px - this.width / 2 < 0)
-
+			} else if (px - this.width / 2 < 0) {
 				this.setX(0);
-
-			if (keyboard.checkKey(rightKey))
-
+			}
+			if (keyboard.checkKey(rightKey)) {
 				this.body.applyForce(new Vec2(-velMeter, 0), new Vec2(body.getPosition().x, body.getPosition().y));
-
-			else if (px + this.width / 2 > Window.getInstance().getJFrame().getWidth())
-
+			} else if (px + this.width / 2 > Window.getInstance().getJFrame().getWidth()) {
 				this.setX(Window.getInstance().getJFrame().getWidth() - this.width);
+			}
 
 		}
 	}
@@ -206,14 +133,12 @@ public class Sprite extends Animation {
 	 * @param behaviorKeyboard
 	 */
 	public void applyForceYFromKeyboardUp(int upKey, int downKey, double velocity, int behaviorKeyboard) {
-
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-
-		double py = Physics.meterToPixels_Y_Axis(body.getPosition().y);
+		Physics.meterToPixels_Y_Axis(body.getPosition().y);
 		float velMeter = (float) ((velocity) + (this.body.getMass() * Physics.gravity));
-
-		if (keyboard.checkKey(upKey))
+		if (keyboard.checkKey(upKey)) {
 			this.body.applyForce(new Vec2(0, velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
+		}
 	}
 
 	/**
@@ -225,15 +150,12 @@ public class Sprite extends Animation {
 	 * @param behaviorKeyboard
 	 */
 	public void applyForceYFromKeyboardDown(int upKey, int downKey, double velocity, int behaviorKeyboard) {
-
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-
 		double py = Physics.meterToPixels_Y_Axis(body.getPosition().y);
 		float velMeter = (float) ((velocity) + (this.body.getMass() * Physics.gravity));
-
-		if (keyboard.checkKey(downKey))
-
+		if (keyboard.checkKey(downKey)) {
 			this.body.applyForce(new Vec2(0, -velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
+		}
 	}
 
 	/**
@@ -250,37 +172,29 @@ public class Sprite extends Animation {
 			boolean boundsScreen) {
 
 		Keyboard keyboard = Window.getInstance().getKeyboard();
-
 		double py = Physics.meterToPixels_Y_Axis(body.getPosition().y);
 		float velMeter = (float) ((velocity) + (this.body.getMass() * Physics.gravity));
-
 		if (boundsScreen) {
-			if (keyboard.checkKey(upKey) && py - this.height / 2 > 0)
-
+			if (keyboard.checkKey(upKey) && py - this.height / 2 > 0) {
 				this.body.applyForce(new Vec2(0, velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
-
-			else if (py - this.height / 2 < 0) {
-
+			} else if (py - this.height / 2 < 0) {
 				this.cancelForces();
 				this.setY(0);
 			}
 
-			if (keyboard.checkKey(downKey) && py + this.height / 2 < Window.getInstance().getJFrame().getHeight())
-
+			if (keyboard.checkKey(downKey) && py + this.height / 2 < Window.getInstance().getJFrame().getHeight()) {
 				this.body.applyForce(new Vec2(0, -velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
-
-			else if (py + this.height / 2 > Window.getInstance().getJFrame().getHeight()) {
+			} else if (py + this.height / 2 > Window.getInstance().getJFrame().getHeight()) {
 				this.cancelForces();
 				this.setY(Window.getInstance().getJFrame().getHeight() - this.height);
 			}
 		} else {
-			if (keyboard.checkKey(upKey))
-
+			if (keyboard.checkKey(upKey)) {
 				this.body.applyForce(new Vec2(0, velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
-
-			if (keyboard.checkKey(downKey))
-
+			}
+			if (keyboard.checkKey(downKey)) {
 				this.body.applyForce(new Vec2(0, -velMeter), new Vec2(body.getPosition().x, body.getPosition().y));
+			}
 		}
 	}
 

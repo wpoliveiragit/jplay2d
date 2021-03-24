@@ -5,117 +5,99 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
+import br.com.wellington.jplay2D.exception.Jplay2DRuntimeException;
 import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.image.TileInfo;
 
-public class FileScene {
+class FileScene {
 
-	private static final String END_TILE_SET = "%";
+	private static final String END_MAP_MATRIZ = "%";
+	private static final String TILES_SEPARATOR = "-";
+	private static final String NONE = "-";
 
-	/** lista das imagens das tiles */
-	private GameImage[] tiles;
-
-	/***/
-	private ArrayList<ArrayList<TileInfo>> tileLayer;
-
-	/***/
-	private String nomeTiles[];// É usado quando queremos salvar o estado da cena
-
-	/***/
-	private GameImage backDrop;
+	/** Matriz do mapa */
+	protected ArrayList<ArrayList<TileInfo>> mapMatriz;
+	/** Caminho de todas as tiles do arquivo */
+	protected String nameTiles[];
+	/** Lista referente ao bloco de tiles do arquivo */
+	protected GameImage[] tileList;
+	/** Desenho de plano de fundo do cenário */
+	protected GameImage backDrop;
+	/** Largura de um tile. */
+	protected int tileWidth;
+	/** Altura de um tile. */
+	protected int tileHeight;
 
 	/**
-	 * * Carrega um arquivo de cena.
+	 * Carrega uma cena de um arquivo.
 	 * 
-	 * @param sceneFilePath Caminho até o arquivo. (Exemplo:
-	 *                      "src/java/resources/scenes/scene.scn").
-	 * @param tilesPath     diretorio onde fica todos os tiles definidos no arquivo.
-	 *                      (Exemplo: "src/java/resources/tiles").
+	 * @param sceneFile Caminho de arquivo.
 	 */
 	public void loadFromFile(String sceneFilePath, String tilesPath) {
-		tileLayer = new ArrayList<>();
-		// overlays = new ArrayList();
+		mapMatriz = new ArrayList<>();
 
-		StringBuilder linha = new StringBuilder();// controle de linha
-		try {
-			// [acesso ao arquivo]
+		List<String> fileLines = new ArrayList<>();
+
+		try {// [CARREGA O ARQUILO .scn]
 			BufferedReader input = new BufferedReader(new FileReader(new File(sceneFilePath)));
+			String linha;
+			while (true) {
+				if ((linha = input.readLine()) == null) {
+					break;
+				}
+				fileLines.add(linha);
+			}
+		} catch (Exception ex) {
+			throw new Jplay2DRuntimeException(new StringBuilder("[ERRO] {Scene.loadFromFile}")//
+					.append("\n -Problemas ao carregar o arquivo {")//
+					.append(sceneFilePath).append("}").toString(), ex);
+		}
 
-			// [leitura da 1a linha]
-			linha.append(input.readLine());// resgate da primeira linha
+		try {
+			int indexLine = -1;// indice da linha do arquivo carregado
 
-			int qtdTiles = Integer.parseInt(linha.toString(), 10);// converte para número
+			// [1A LINHA]
+			int numberTiles = Integer.parseInt(fileLines.get(++indexLine), 10);
 
-			// preparação do resgate dos arquivos das tiles
-			tiles = new GameImage[qtdTiles];
-			nomeTiles = new String[qtdTiles + 1];
+			tileList = new GameImage[numberTiles];
+			nameTiles = new String[numberTiles + 1];
 
-			// [Leitura do bloco de imagens]
-			for (int i = 0; i < qtdTiles; i++) {
-				linha.setLength(0);// limpa a instancia
-				linha.append(tilesPath).append("/").append(input.readLine());// prepara a próxima linha
-				tiles[i] = new Sprite(linha.toString());// guarda a imagem da tile
-				nomeTiles[i] = linha.toString(); // guarda o caminho da tile
+			// [LEITURA DO BLOCO DE IMAGENS DAS TILES]
+			for (int i = 0; i < numberTiles; i++) {
+				String nameImage = fileLines.get(++indexLine);
+				if (NONE.equals(nameImage)) {
+					nameTiles[i] = NONE;
+					continue;
+				}
+				tileList[i] = new Sprite(new StringBuilder(tilesPath).append(nameImage).toString());
+				nameTiles[i] = nameImage;
 			}
 
-			linha.setLength(0);// limpa a instancia
-			// [leitura do mapa]
-			while (!END_TILE_SET.equals(linha.append(input.readLine()).toString().trim())) {// Lê todo do mapa
+			// [LEITURA DA MATRIZ DO MAPA]
+			StringBuilder linha = new StringBuilder();
+			while (!END_MAP_MATRIZ.equals(linha.append(fileLines.get(++indexLine)).toString().trim())) {
 				ArrayList<TileInfo> tileLine = new ArrayList<>();
-				for (String sTile : linha.toString().trim().split(",")) {// instancia o mapa linha a linha
+				for (String sTile : linha.toString().trim().split(TILES_SEPARATOR)) {
 					tileLine.add(new TileInfo(Integer.parseInt(sTile)));
 				}
-				tileLayer.add(tileLine);
-				linha.setLength(0);// limpa a instancia
+				mapMatriz.add(tileLine);
+				linha.setLength(0);
 			}
 
-			// agora leia o arquivo do pano de fundo
-			linha.setLength(0);// limpa a instancia
-			linha.append(input.readLine());
-			backDrop = new GameImage(linha.toString());
-			nomeTiles[qtdTiles] = linha.toString();
+			// [CARREGA O BACKDROP]
+			nameTiles[numberTiles] = fileLines.get(++indexLine);
+			backDrop = new GameImage(new StringBuilder(tilesPath).append(nameTiles[numberTiles]).toString());
 
-		} catch (IOException e) {
-			linha.setLength(0);// limpa a instancia
-			linha.append("\n [ERRO] Problema ao carregar um arquivo '.scn', lista de possíveis problemas:");
-			linha.append("\n [1] Parâmetro 'sceneFilePath' incocrreto {").append(sceneFilePath).append("}.");
-			linha.append("\n [2] Parâmetro 'tilesPath' incorreto {").append(tilesPath).append("}.");
-			linha.append("\n [3] Nome de tile incorreto.");
-			linha.append("\n [4] Estrutura do arquivo incorreta.");
-			throw new RuntimeException("[ERRO] arquivo");
+			// [CARREGA AS DIMENÇÕES DAS TILES]
+			tileWidth = tileList[0].width;
+			tileHeight = tileList[0].height;
+		} catch (Exception ex) {
+			throw new RuntimeException("[ERRO] Inesperado ", ex);
 		}
-	}
-
-	/**
-	 * Remove um ladrilho da matriz.
-	 * 
-	 * @param row    Eixo x da posição do tile
-	 * @param colunm Eixo y da posição do tile
-	 */
-	public void removeTile(int row, int colunm) {
-		ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(row);
-		if (colunm < tileLine.size()) {
-			tileLine.remove(colunm);
-		}
-	}
-
-	/**
-	 * Altera o armazenamento do bloco de id na matriz.
-	 * 
-	 * @param row       Linha da matriz.
-	 * @param colunm    Coluna da matriz.
-	 * @param newTileId Novo código que irá substituir o antigo Id representado pela
-	 *                  linha e coluna.
-	 */
-	public void changeTile(int row, int colunm, int newTileId) {
-		ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(row);
-		tileLine.get(colunm).id = newTileId;
 	}
 
 	/**
@@ -123,32 +105,27 @@ public class FileScene {
 	 * 
 	 * @param fileName Caminho do arquivo para salvar a cena.
 	 */
-	public void saveToFile(String fileName) {
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
-
-			out.write(this.tiles.length + "\n");
-			for (int i = 0; i < tiles.length; i++)
-				out.write(nomeTiles[i] + "\n");
-
-			for (int i = 0; i < tileLayer.size(); i++) {
-				ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(i);
-				int j = 0;
-				for (j = 0; j < tileLine.size() - 1; j++)
-					out.write(tileLine.get(j).id + ",");
-
-				out.write(tileLine.get(j).id + "\n");
-			}
-
-			out.write(END_TILE_SET + "\n");
-			out.write(this.nomeTiles[tiles.length]);
-
-			out.close();
-
-		} catch (IOException ex) {
-			Logger.getLogger(Scene.class.getName()).log(Level.SEVERE, null, ex);
+	public void save(String fileName) {
+		StringBuilder rows = new StringBuilder();
+		rows.append(tileList.length);// [1a linha]
+		for (int i = 0; i < nameTiles.length - 1; i++) {// [BLOCO DE IMAGENS DAS TILES]
+			rows.append("\n").append(nameTiles[i]);
 		}
-
+		for (ArrayList<TileInfo> tileLine : mapMatriz) {// [MATRIZ DO MAPA]
+			rows.append("\n");
+			for (TileInfo tile : tileLine) {
+				rows.append(tile.id).append(TILES_SEPARATOR);
+			}
+			rows.deleteCharAt(rows.length() - 1);
+		}
+		rows.append("\n").append(END_MAP_MATRIZ) // [TERMINAL DA MATRIZ]
+				.append("\n").append(nameTiles[nameTiles.length - 1]);// [BACKDROP]
+		try {// [GRAVA NO ARQUIVO]
+			BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+			out.write(rows.toString());
+			out.close();
+		} catch (Exception ex) {
+			throw new Jplay2DRuntimeException("Erro ao gravar o arquivo", ex);
+		}
 	}
-
 }

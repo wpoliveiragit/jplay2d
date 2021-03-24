@@ -3,9 +3,11 @@ package br.com.wellington.jplay2D.image;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 
+import br.com.wellington.jplay2D.exception.Jplay2DRuntimeException;
 import br.com.wellington.jplay2D.window.Window;
 
 /** Classe responsável por modelar uma imagem. */
@@ -21,23 +23,28 @@ public class GameImage extends GameObject {
 	/**
 	 * Construtor de classe, carrega uma imagem.
 	 * 
-	 * @param fileName caminho da imagem e seu nome.
-	 * @see #loadImage(java.lang.String)
+	 * @param fileName Caminho absoluto do arquivo.
 	 */
 	public GameImage(String fileName) {
 		loadImage(fileName);
 	}
 
 	/**
-	 * Este método carrega uma imagem.
+	 * [VERIFICADO] Este método carrega uma imagem.
 	 * 
 	 * @param fileName caminho da imagem e seu nome.
 	 */
 	public void loadImage(String fileName) {
-		ImageIcon icon = new ImageIcon(fileName);
-		this.image = icon.getImage();
-		this.width = image.getWidth(null);
-		this.height = image.getHeight(null);
+		File f = new File(fileName);
+		if (f.exists()) {
+			ImageIcon icon = new ImageIcon(fileName);
+			this.image = icon.getImage();
+			this.width = image.getWidth(null);
+			this.height = image.getHeight(null);
+			return;
+		}
+		throw new Jplay2DRuntimeException(new StringBuilder("[ERRO]{GameImage.loadImage(String)}")//
+				.append("\n -Problemas ao carregar o arquivo {").append(fileName).append("}").toString());
 	}
 
 	/** Desenhe uma imagem na tela. */

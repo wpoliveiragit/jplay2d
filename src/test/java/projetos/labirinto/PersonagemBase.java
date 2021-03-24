@@ -24,7 +24,7 @@ public abstract class PersonagemBase extends Sprite implements Controle {
 		setTotalDuration(tempo);
 		pose = -1;
 		this.cenario = cenario;
-		cenario.getCenario().addOverlay(this);
+		cenario.getCenario().addSceneElements(this);
 	}
 
 	/**

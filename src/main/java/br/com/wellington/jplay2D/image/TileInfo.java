@@ -7,7 +7,6 @@ public class TileInfo extends GameObject {
 	public int id;
 
 	public TileInfo() {
-
 	}
 
 	public TileInfo(int id) {

@@ -1,69 +1,78 @@
 package testFramework;
 
-import br.com.wellington.jplay2D.image.Sprite;
-import br.com.wellington.jplay2D.oi.Keyboard;
-import br.com.wellington.jplay2D.oi.Mouse;
+import java.awt.event.KeyEvent;
+
 import br.com.wellington.jplay2D.scene.Scene;
 import projetos.jogoDaMemoria.GameControl;
+import projetos.megaMan.MegaManMain;
 
 public class Cena01 extends GameControl {
 
-	private Keyboard keyboardOld;
-	private Keyboard keyboard;
-
-	private Mouse mouseOld;
-	private Mouse mouse;
-
 	private Scene cena;
 
-	private Sprite moeda;
+	private Jogador megaMan;
 
 	public Cena01() {
 		super(30);
 	}
 
 	@Override
-	protected void init() {
+	protected void loadResources() {
+		KEYBOARD = WINDOW.getKeyboard();
+		KEYBOARD.cleanKeys();
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_W);
+		KEYBOARD.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_A);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_S);
+		KEYBOARD.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_D);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
+	}
+
+	@Override
+	protected void beforeStart() {
+		// [SCENE]
 		cena = new Scene();
 		cena.loadFromFile(TestMain.SCN_CENA01, TestMain.PATH_TILE);
 
-		keyboardOld = WINDOW.getKeyboard();
-		keyboard = new Keyboard();
-		WINDOW.setKeyboard(keyboard);
+		// [SPRITE]
+		megaMan = new Jogador();
+		megaMan.x = 0;
+		megaMan.y = 0;
+		megaMan.setFloor(200);
+		cena.addSceneElements(megaMan);
 
-		mouseOld = WINDOW.getMouse();
-		mouse = new Mouse();
-		WINDOW.setMouse(mouse);
+	}
 
-		moeda = new Sprite(TestMain.SPT_MOEDA_OURO, 10);
-		moeda.setTotalDuration(175);
-		moeda.setLoop(true);
-		
+	@Override
+	protected void updateScene() {
+		megaMan.jump();
 	}
 
 	@Override
 	protected void draw() {
-		cena.drawnMoveScene(moeda);
-		moeda.update();
-		moeda.draw();
+		megaMan.update();
+		cena.drawnMoveScene(megaMan);
 	}
 
 	@Override
 	protected void control() {
-		// TODO Auto-generated method stub
+		if (KEYBOARD.checkKey(KeyEvent.VK_ESCAPE)) {// volta a tela inicial
+			super.exist();
+		}
+		if (KEYBOARD.checkKey(KeyEvent.VK_A)) {
+			megaMan.x -= 3;
 
+		} else if (KEYBOARD.checkKey(KeyEvent.VK_D)) {
+			megaMan.x += 3;
+		}
+
+		megaMan.x += cena.getXOffset();
 	}
 
 	@Override
-	protected void end() {
-		WINDOW.setKeyboard(keyboardOld);
-		WINDOW.setMouse(mouseOld);
-	}
-
-	@Override
-	protected void collisionCheck() {
-		// TODO Auto-generated method stub
-
+	protected void afterStart() {
+		cena.save("src/test/resources/geral/scene/Teste_scene01.scn");
 	}
 
 }

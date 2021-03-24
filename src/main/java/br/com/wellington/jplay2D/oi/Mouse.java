@@ -29,6 +29,7 @@ public class Mouse implements InputActionBehavior {
 	 * com o comportamento "apenas ao clicar".
 	 */
 	public Mouse() {
+
 		position = new Point(0, 0);
 		leftButton = new InputAction(ACTUATOR_REQUEST);
 		middleButton = new InputAction(ACTUATOR_REQUEST);
@@ -91,7 +92,7 @@ public class Mouse implements InputActionBehavior {
 	}
 
 	/**
-	 * Define uma nova imagem ao cursor do mouse.
+	 * [VERIFICADO] Define uma nova imagem ao cursor do mouse.
 	 * 
 	 * @param filePath O caminho do arquivo da nova imagem.
 	 * @apiNoteSe Se o parâmetro {@link filePath} estiver em branco ("") o mouse

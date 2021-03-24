@@ -35,7 +35,7 @@ public class Cenario01 {
 		cena.loadFromFile(InvestigadorMain.SCN_CENARIO, InvestigadorMain.FILE_TILE);
 		player = new Jogador(win, cena, 640, 350);
 		zumbi = new Zumbi(50, 400);
-		cena.addOverlay(zumbi);
+		cena.addSceneElements(zumbi);
 	}
 
 	public void start() {

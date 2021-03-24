@@ -3,165 +3,33 @@ package br.com.wellington.jplay2D.scene;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.image.GameObject;
-import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.image.TileInfo;
 import br.com.wellington.jplay2D.window.Window;
 
 /** Class responsible for handling a Scenario. */
-public class Scene {
-	private static final String END_TILE_SET = "%";
+public class Scene extends FileScene {
+	private static Window WINDOW;
 
-	private GameImage backDrop;
-	private GameImage[] tiles;
-	/***/
-	private String nomeTiles[];// É usado quando queremos salvar o estado da cena
-	private ArrayList tileLayer;
-	private ArrayList overlays;
+	private ArrayList<GameObject> sceneElements;
 	private int drawStartX = 0;
 	private int drawStartY = 0;
-	private int centerPositionX;
-	private int centerPositionY;
+	private double centerPointX;
+	private double centerPointY;
 	private boolean movedx;
 	private boolean movedy;
 	private double xOffset = 0;
 	private double yOffset = 0;
 
 	public Scene() {
-		centerPositionX = Window.getInstance().getJFrame().getWidth() / 2;
-		centerPositionY = Window.getInstance().getJFrame().getHeight() / 2;
-	}
-
-	/**
-	 * Carrega uma cena de um arquivo.
-	 * 
-	 * @param sceneFile Caminho de arquivo.
-	 */
-	public void loadFromFile(String sceneFilePath, String tilesPath) {
-
-		tileLayer = new ArrayList<>();
-		overlays = new ArrayList();
-
-		StringBuilder linha = new StringBuilder();// controle de linha
-		try {
-			// [acesso ao arquivo]
-			BufferedReader input = new BufferedReader(new FileReader(new File(sceneFilePath)));
-
-			// [leitura da 1a linha]
-			linha.append(input.readLine());// resgate da primeira linha
-
-			int qtdTiles = Integer.parseInt(linha.toString(), 10);// converte para número
-
-			// preparação do resgate dos arquivos das tiles
-			tiles = new GameImage[qtdTiles];
-			nomeTiles = new String[qtdTiles + 1];
-
-			// [Leitura do bloco de imagens]
-			for (int i = 0; i < qtdTiles; i++) {
-				linha.setLength(0);// limpa a instancia
-				linha.append(tilesPath).append("/").append(input.readLine());// prepara a próxima linha
-				tiles[i] = new Sprite(linha.toString());// guarda a imagem da tile
-				nomeTiles[i] = linha.toString(); // guarda o caminho da tile
-			}
-
-			linha.setLength(0);// limpa a instancia
-			// [leitura do mapa]
-			while (!END_TILE_SET.equals(linha.append(input.readLine()).toString().trim())) {// Lê todo do mapa
-				ArrayList<TileInfo> tileLine = new ArrayList<>();
-				for (String sTile : linha.toString().trim().split("-")) {// instancia o mapa linha a linha
-					tileLine.add(new TileInfo(Integer.parseInt(sTile)));
-				}
-				tileLayer.add(tileLine);
-				linha.setLength(0);// limpa a instancia
-			}
-
-			// agora leia o arquivo do pano de fundo
-			linha.setLength(0);// limpa a instancia
-			linha.append(input.readLine());
-			backDrop = new GameImage(linha.toString());
-			nomeTiles[qtdTiles] = linha.toString();
-
-		} catch (IOException ex) {
-			linha.setLength(0);// limpa a instancia
-			linha.append("\n [ERRO] Problema ao carregar um arquivo '.scn', lista de possíveis problemas:");
-			linha.append("\n [1] Parâmetro 'sceneFilePath' incocrreto {").append(sceneFilePath).append("}.");
-			linha.append("\n [2] Parâmetro 'tilesPath' incorreto {").append(tilesPath).append("}.");
-			linha.append("\n [3] Nome de tile incorreto.");
-			linha.append("\n [4] Estrutura do arquivo incorreta.");
-			throw new RuntimeException("[ERRO] arquivo");
-		} catch (Exception ex) {
-			throw new RuntimeException("[ERRO] Inesperado ", ex);
-		}
-
-//		tileLayer = new ArrayList();
-//		overlays = new ArrayList();
-//
-//		try {
-//			BufferedReader input = new BufferedReader(new FileReader(new File(sceneFile)));
-//
-//			// primeiro leia o número de imagens de blocos
-//			String line = input.readLine();
-//			int numOfTileImages = Integer.parseInt(line, 10);
-//			tiles = new GameImage[numOfTileImages];
-//			nameImages = new String[numOfTileImages + 1];
-//
-//			for (int i = 0; i < numOfTileImages; i++) {
-//				// leia o nome de cada imagem de bloco
-//				line = input.readLine();
-//				tiles[i] = new Sprite(rootTiles + "/" + line);
-//				nameImages[i] = line;
-//			}
-//
-//			// agora leia o mapa do conjunto de blocos até o final
-//			// caractere encontrado "%"
-//			String endTileSet = "%";
-//
-//			line = input.readLine();
-//
-//			while (line.equals(endTileSet) != true) {
-//				ArrayList tileLine = new ArrayList();
-//
-//				String[] tileIndices = line.split(",");
-//
-//				for (int i = 0; i < tileIndices.length; i++) {
-//					TileInfo tileInfo = new TileInfo();
-//					tileInfo.id = Integer.parseInt(tileIndices[i]);
-//					tileLine.add(tileInfo);
-//				}
-//				tileLayer.add(tileLine);
-//
-//				line = input.readLine();
-//			}
-//
-//			// agora leia o arquivo do pano de fundo
-//			line = input.readLine();
-//			backDrop = new GameImage(line);
-//			nameImages[numOfTileImages] = line;
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-	}
-
-	/**
-	 * Adiciona uma cena de sobreposição.
-	 * 
-	 * @param overlay Qualquer GameObject.
-	 */
-	public void addOverlay(GameObject overlay) {
-		overlays.add(overlay);
+		super();
+		centerPointX = Window.getInstance().getJFrame().getWidth() / 2;
+		centerPointY = Window.getInstance().getJFrame().getHeight() / 2;
+		WINDOW = Window.getInstance();
 	}
 
 	/**
@@ -178,8 +46,7 @@ public class Scene {
 	/** Draws the scene on the screen. */
 	public void draw() {
 		// primeiro limpe a cena
-		Graphics g = Window.getInstance().getGameGraphics();
-		Window.getInstance().clear(Color.BLACK);
+		WINDOW.clear(Color.BLACK);
 
 		// primeiro desenhe o pano de fundo
 		int startDrawX = drawStartX;
@@ -188,14 +55,11 @@ public class Scene {
 		backDrop.draw();
 
 		// agora desenhe o conjunto de peças
-		int tileWidth = tiles[0].width;
-		int tileHeight = tiles[0].height;
-
 		int line = 0;
 		int drawY = startDrawY;
 
 		do {
-			ArrayList tileLine = (ArrayList) tileLayer.get(line);
+			ArrayList<TileInfo> tileLine = mapMatriz.get(line);
 
 			int drawX = startDrawX;
 
@@ -205,19 +69,19 @@ public class Scene {
 				if (tileInfo.id == 0) {
 					continue;
 				}
-				tiles[tileInfo.id - 1].x = drawX;
-				tiles[tileInfo.id - 1].y = drawY;
-				tiles[tileInfo.id - 1].draw();
+				tileList[tileInfo.id - 1].x = drawX;
+				tileList[tileInfo.id - 1].y = drawY;
+				tileList[tileInfo.id - 1].draw();
 			}
 
 			drawY += tileHeight;
 			line++;
 
-		} while (line < tileLayer.size());
+		} while (line < mapMatriz.size());
 
-		// finalmente desenhe as sobreposições
-		for (int i = 0; i < overlays.size(); i++) {
-			GameImage element = (GameImage) overlays.get(i);
+		// finalmente desenha os elementos do cenário
+		for (int i = 0; i < sceneElements.size(); i++) {
+			GameImage element = (GameImage) sceneElements.get(i);
 			element.draw();
 		}
 	}
@@ -231,8 +95,7 @@ public class Scene {
 	 * @return TileInfo
 	 */
 	public TileInfo getTile(int row, int colunm) {
-		ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(row);
-		return tileLine.get(colunm);
+		return mapMatriz.get(row).get(colunm);
 	}
 
 	/**
@@ -242,34 +105,31 @@ public class Scene {
 	 * @param max Ponto inferior direito da área.
 	 * @return Vector
 	 */
-	@SuppressWarnings("UseOfObsoleteCollectionType")
-	public Vector getTilesFromRect(Point min, Point max) {
-		Vector v = new Vector();
+	public Vector<TileInfo> getTilesFromRect(Point min, Point max) {
+		Vector<TileInfo> v = new Vector<>();
 
 		int startDrawX = drawStartX;
 		int startDrawY = drawStartY;
 
-		int tileWidth = tiles[0].width;
-		int tileHeight = tiles[0].height;
+		int minLine = max(0, (centerPointY - WINDOW.getJFrame().getHeight() / 2) / tileHeight);
 
-		int minLine = max(0, (centerPositionY - Window.getInstance().getJFrame().getHeight() / 2) / tileHeight);
-		int maxLine = min(tileLayer.size(), (int) Math.ceil(
-				((double) centerPositionY + Window.getInstance().getJFrame().getHeight() / 2) / (double) tileHeight));
+		int maxLine = min(mapMatriz.size(),
+				Math.ceil((centerPointY + WINDOW.getJFrame().getHeight() / 2) / tileHeight));
 
 		int line = minLine;
 		int drawY = startDrawY;
 
 		do {
-			ArrayList tileLine = (ArrayList) tileLayer.get(line);
+			ArrayList<TileInfo> tileLine = mapMatriz.get(line);
 
 			int drawX = startDrawX;
 
-			int minColumn = max(0, (centerPositionX - Window.getInstance().getJFrame().getWidth() / 2) / tileWidth);
-			int maxColumn = min(tileLine.size(),
-					(int) Math.ceil(((double) centerPositionX + Window.getInstance().getJFrame().getWidth() / 2.0)
-							/ (double) tileWidth));
+			double minColumn = max(0, (centerPointX - WINDOW.getJFrame().getWidth() / 2) / tileWidth);
 
-			for (int c = minColumn; c < maxColumn; c++) {
+			int maxColumn = min(tileLine.size(), (int) Math
+					.ceil(((double) centerPointX + WINDOW.getJFrame().getWidth() / 2.0) / (double) tileWidth));
+
+			for (int c = (int) minColumn; c < maxColumn; c++) {
 				TileInfo tile = (TileInfo) tileLine.get(c);
 
 				// tile.x = drawX;
@@ -284,7 +144,7 @@ public class Scene {
 				if ((min.y > drawY + tileHeight + 1) || (max.y < tile.y)) {
 					continue;
 				}
-				boolean add = v.add(tile);
+				v.add(tile);
 			}
 
 			drawY += tileHeight;
@@ -295,20 +155,19 @@ public class Scene {
 		return v;
 	}
 
-	@SuppressWarnings("UseOfObsoleteCollectionType")
-	public Vector getTilesFromPosition(Point min, Point max) {
-		Vector v = new Vector();
+	public Vector<TileInfo> getTilesFromPosition(Point min, Point max) {
+		Vector<TileInfo> v = new Vector<>();
 
-		int tileWidth = tiles[0].width;
-		int tileHeight = tiles[0].height;
+		int tileWidth = tileList[0].width;
+		int tileHeight = tileList[0].height;
 
 		int line = 0;
-		int drawY = -(centerPositionY - Window.getInstance().getJFrame().getHeight() / 2);
+		int drawY = (int) -(centerPointY - Window.getInstance().getJFrame().getHeight() / 2);
 
 		do {
-			ArrayList tileLine = (ArrayList) tileLayer.get(line);
+			ArrayList<TileInfo> tileLine = mapMatriz.get(line);
 
-			int drawX = -(centerPositionX - Window.getInstance().getJFrame().getWidth() / 2);
+			int drawX = (int) -(centerPointX - Window.getInstance().getJFrame().getWidth() / 2);
 
 			for (int c = 0; c < tileLine.size(); c++) {
 				TileInfo tile = (TileInfo) tileLine.get(c);
@@ -325,13 +184,13 @@ public class Scene {
 				if ((min.y > drawY + tileHeight + 1) || (max.y < tile.y)) {
 					continue;
 				}
-				boolean add = v.add(tile);
+				v.add(tile);
 			}
 
 			drawY += tileHeight;
 			line++;
 
-		} while (line < tileLayer.size());
+		} while (line < mapMatriz.size());
 
 		return v;
 	}
@@ -343,7 +202,7 @@ public class Scene {
 	 * @param colunm
 	 */
 	public void removeTile(int row, int colunm) {
-		ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(row);
+		ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) mapMatriz.get(row);
 		if (colunm < tileLine.size())
 			tileLine.remove(colunm);
 	}
@@ -357,41 +216,7 @@ public class Scene {
 	 *               linha e coluna.
 	 */
 	public void changeTile(int row, int colunm, int newID) {
-		ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(row);
-		tileLine.get(colunm).id = newID;
-	}
-
-	/**
-	 * Salve o estado atual da cena em um novo arquivo.
-	 * 
-	 * @param fileName Caminho do arquivo para salvar a cena.
-	 */
-	public void saveToFile(String fileName) {
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
-
-			out.write(this.tiles.length + "\n");
-			for (int i = 0; i < tiles.length; i++)
-				out.write(nomeTiles[i] + "\n");
-
-			for (int i = 0; i < tileLayer.size(); i++) {
-				ArrayList<TileInfo> tileLine = (ArrayList<TileInfo>) tileLayer.get(i);
-				int j = 0;
-				for (j = 0; j < tileLine.size() - 1; j++)
-					out.write(tileLine.get(j).id + ",");
-
-				out.write(tileLine.get(j).id + "\n");
-			}
-
-			out.write("%\n");
-			out.write(this.nomeTiles[tiles.length]);
-
-			out.close();
-
-		} catch (IOException ex) {
-			Logger.getLogger(Scene.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
+		mapMatriz.get(row).get(colunm).id = newID;
 	}
 
 	/**
@@ -400,17 +225,18 @@ public class Scene {
 	 * @param object O objeto a ser centralizado.
 	 */
 	public void drawnMoveScene(GameObject object) {
-		// primeiro limpe a cena
 
+		// first clear the scene
+		Graphics g = Window.getInstance().getGameGraphics();
 		Window.getInstance().clear(Color.BLACK);
 		xOffset = 0;
 		yOffset = 0;
 
 		backDrop.draw();
 
-		// agora desenhe o conjunto de peças
-		int tileWidth = tiles[0].width;
-		int tileHeight = tiles[0].height;
+		// now draw the tile set
+		int tileWidth = tileList[0].width;
+		int tileHeight = tileList[0].height;
 
 		double x = object.x - Window.getInstance().getJFrame().getWidth() / 2;
 		double y = object.y - Window.getInstance().getJFrame().getHeight() / 2;
@@ -418,12 +244,12 @@ public class Scene {
 		UpdateCenterPosition(x, y);
 
 		int line = 0;
-		int drawY = -(centerPositionY - Window.getInstance().getJFrame().getHeight() / 2);
+		int drawY = (int) -(centerPointY - Window.getInstance().getJFrame().getHeight() / 2);
 
 		do {
-			ArrayList tileLine = (ArrayList) tileLayer.get(line);
+			ArrayList<TileInfo> tileLine = mapMatriz.get(line);
 
-			int drawX = -(centerPositionX - Window.getInstance().getJFrame().getWidth() / 2);
+			int drawX = (int) -(centerPointX - Window.getInstance().getJFrame().getWidth() / 2);
 
 			for (int c = 0; c < tileLine.size(); c++) {
 				TileInfo tileInfo = (TileInfo) tileLine.get(c);
@@ -431,20 +257,20 @@ public class Scene {
 				if (tileInfo.id != 0) {
 					tileInfo.x = drawX;
 					tileInfo.y = drawY;
-					tiles[tileInfo.id - 1].x = drawX;
-					tiles[tileInfo.id - 1].y = drawY;
-					tiles[tileInfo.id - 1].draw();
+					tileList[tileInfo.id - 1].x = drawX;
+					tileList[tileInfo.id - 1].y = drawY;
+					tileList[tileInfo.id - 1].draw();
 				}
 				drawX += tileWidth;
 			}
 			drawY += tileHeight;
 			line++;
 
-		} while (line < tileLayer.size());
+		} while (line < mapMatriz.size());
 
-		// finalmente desenhe as sobreposições
-		for (int i = 0; i < overlays.size(); i++) {
-			GameImage element = (GameImage) overlays.get(i);
+		// finally draw the overlays
+		for (int i = 0; i < sceneElements.size(); i++) {
+			GameImage element = (GameImage) sceneElements.get(i);
 			element.draw();
 		}
 		if (movedx)
@@ -460,52 +286,61 @@ public class Scene {
 	 * @param y
 	 */
 	private void UpdateCenterPosition(double x, double y) {
-		centerPositionX += x;
-		centerPositionY += y;
+		centerPointX += x;
+		centerPointY += y;
 		movedx = true;
 		movedy = true;
 
-		int tileWidth = tiles[0].width;
-		int tileHeight = tiles[0].height;
+		int tileWidth = tileList[0].width;
+		int tileHeight = tileList[0].height;
 
-		ArrayList tileLine = (ArrayList) tileLayer.get(0);
+		ArrayList<TileInfo> tileLine = mapMatriz.get(0);
 
-		if (centerPositionX > tileWidth * tileLine.size() - Window.getInstance().getJFrame().getWidth() / 2) {
-			centerPositionX = tileWidth * tileLine.size() - Window.getInstance().getJFrame().getWidth() / 2;
+		if (centerPointX > tileWidth * tileLine.size() - Window.getInstance().getJFrame().getWidth() / 2) {
+			centerPointX = tileWidth * tileLine.size() - Window.getInstance().getJFrame().getWidth() / 2;
 			movedx = false;
-		} else if (centerPositionX < Window.getInstance().getJFrame().getWidth() / 2) {
-			centerPositionX = Window.getInstance().getJFrame().getWidth() / 2;
+		} else if (centerPointX < Window.getInstance().getJFrame().getWidth() / 2) {
+			centerPointX = Window.getInstance().getJFrame().getWidth() / 2;
 			movedx = false;
 		}
 
-		if (centerPositionY > tileHeight * tileLayer.size() - Window.getInstance().getJFrame().getHeight() / 2) {
-			centerPositionY = tileHeight * tileLayer.size() - Window.getInstance().getJFrame().getHeight() / 2;
+		if (centerPointY > tileHeight * mapMatriz.size() - Window.getInstance().getJFrame().getHeight() / 2) {
+			centerPointY = tileHeight * mapMatriz.size() - Window.getInstance().getJFrame().getHeight() / 2;
 			movedy = false;
-		} else if (centerPositionY < Window.getInstance().getJFrame().getHeight() / 2) {
-			centerPositionY = Window.getInstance().getJFrame().getHeight() / 2;
+		} else if (centerPointY < Window.getInstance().getJFrame().getHeight() / 2) {
+			centerPointY = Window.getInstance().getJFrame().getHeight() / 2;
 			movedy = false;
 		}
 	}
 
 	public double getXOffset() {
-		return (xOffset);
+		return xOffset;
 	}
 
 	public double getYOffset() {
-		return (yOffset);
+		return yOffset;
 	}
 
-	private int max(int a, int b) {
-		if (a > b)
-			return a;
-		else
-			return b;
+	private int max(double a, double b) {
+		return (int) ((a > b) ? a : b);
 	}
 
-	private int min(int a, int b) {
-		if (a < b)
-			return a;
-		else
-			return b;
+	private int min(double a, double b) {
+		return (int) ((a < b) ? a : b);
+	}
+
+	@Override
+	public void loadFromFile(String sceneFilePath, String tilesPath) {
+		super.loadFromFile(sceneFilePath, tilesPath);
+		sceneElements = new ArrayList<>();
+	}
+
+	/**
+	 * Adiciona um novo elemento a cena a ser desenhado após o do mapa.
+	 * 
+	 * @param elements Um GameObject.
+	 */
+	public void addSceneElements(GameObject elements) {
+		sceneElements.add(elements);
 	}
 }
