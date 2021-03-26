@@ -1,10 +1,12 @@
 package testFramework;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.Vector;
 
+import br.com.wellington.jplay2D.image.TileInfo;
 import br.com.wellington.jplay2D.scene.Scene;
 import projetos.jogoDaMemoria.GameControl;
-import projetos.megaMan.MegaManMain;
 
 public class Cena01 extends GameControl {
 
@@ -20,13 +22,15 @@ public class Cena01 extends GameControl {
 	protected void loadResources() {
 		KEYBOARD = WINDOW.getKeyboard();
 		KEYBOARD.cleanKeys();
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
 		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
 		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
-		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_W);
+
+		KEYBOARD.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_W);
 		KEYBOARD.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_A);
-		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_S);
+		KEYBOARD.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_S);
 		KEYBOARD.addKeyBehaviorActuatorRequestPress(KeyEvent.VK_D);
-		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_SPACE);
+
 	}
 
 	@Override
@@ -37,20 +41,21 @@ public class Cena01 extends GameControl {
 
 		// [SPRITE]
 		megaMan = new Jogador();
-		megaMan.x = 0;
-		megaMan.y = 0;
-		megaMan.setFloor(200);
+		megaMan.x = -0;
+		megaMan.y = 705;
+		megaMan.setFloor(753);
 		cena.addSceneElements(megaMan);
 
 	}
 
 	@Override
 	protected void updateScene() {
-		megaMan.jump();
+
 	}
 
 	@Override
 	protected void draw() {
+		megaMan.fall();
 		megaMan.update();
 		cena.drawnMoveScene(megaMan);
 	}
@@ -62,12 +67,30 @@ public class Cena01 extends GameControl {
 		}
 		if (KEYBOARD.checkKey(KeyEvent.VK_A)) {
 			megaMan.x -= 3;
-
 		} else if (KEYBOARD.checkKey(KeyEvent.VK_D)) {
 			megaMan.x += 3;
+
+			Point min = new Point((int) megaMan.x, (int) megaMan.y);
+			Point max = new Point((int) (megaMan.x + megaMan.width + 20), ((int) megaMan.y) + megaMan.height + 20);
+
+			Vector<TileInfo> quadrante = cena.getTilesFromRect(min, max);
+			for (TileInfo tile : quadrante) {
+				if (tile.id == 4) {
+					megaMan.y -= 1;
+					megaMan.setFloor((int) tile.x);
+				} else if (tile.id == 7) {
+					megaMan.y += 1;
+					megaMan.setFloor((int) tile.x);
+				}
+			}
+		} else if (KEYBOARD.checkKey(KeyEvent.VK_W)) {
+			megaMan.y -= 3;
+		} else if (KEYBOARD.checkKey(KeyEvent.VK_S)) {
+			megaMan.y += 3;
 		}
 
 		megaMan.x += cena.getXOffset();
+		megaMan.y += cena.getYOffset();
 	}
 
 	@Override

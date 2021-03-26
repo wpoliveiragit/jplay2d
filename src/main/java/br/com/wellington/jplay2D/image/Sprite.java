@@ -254,9 +254,9 @@ public class Sprite extends Animation {
 		velocityY += gravity;
 		this.y += velocityY;
 
-		if (this.y + this.height - floor > 0.0001) {
+		if (this.y + super.height - floor > 0.0001) {
 			velocityY = 0;
-			this.y = floor - this.height;
+			super.y = floor - super.height;
 			onFloor = true;
 		}
 	}

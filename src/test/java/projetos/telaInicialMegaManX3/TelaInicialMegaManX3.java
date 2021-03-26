@@ -2,10 +2,10 @@ package projetos.telaInicialMegaManX3;
 
 import java.awt.event.KeyEvent;
 
+import br.com.wellington.jplay2D.audio.Audio;
 import br.com.wellington.jplay2D.image.Animation;
 import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.oi.Keyboard;
-import br.com.wellington.jplay2D.sound.Sound;
 import br.com.wellington.jplay2D.window.Window;
 
 /**
@@ -17,7 +17,7 @@ public class TelaInicialMegaManX3 {
 	private Keyboard keyboard;
 	private Animation backGround;
 
-	private Sound musica;
+	private Audio musica;
 	private boolean loop = true;
 	private int escolha = 0;
 	private Window win;
@@ -32,8 +32,8 @@ public class TelaInicialMegaManX3 {
 		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_UP);
 		keyboard.addKeyBehaviorActuatorRequest(KeyEvent.VK_DOWN);
 
-		musica = new Sound(TelaInicialMegaManX3Main.PATH_MUSICA);
-		musica.setRepeat(true);
+		musica = new Audio(TelaInicialMegaManX3Main.PATH_MUSICA);
+		musica.setLoop(true);
 		configuration();
 	}
 
@@ -59,7 +59,7 @@ public class TelaInicialMegaManX3 {
 				return;
 			}
 			backGround.setCurrFrame(escolha);
-			new Sound(TelaInicialMegaManX3Main.PATH_SOM_TROCA_SELECAO).play();
+			new Audio(TelaInicialMegaManX3Main.PATH_SOM_TROCA_SELECAO).play();
 			return;
 		}
 		if (keyboard.checkKey(KeyEvent.VK_DOWN)) {// BAICO
@@ -69,7 +69,7 @@ public class TelaInicialMegaManX3 {
 				return;
 			}
 			backGround.setCurrFrame(escolha);
-			new Sound(TelaInicialMegaManX3Main.PATH_SOM_TROCA_SELECAO).play();
+			new Audio(TelaInicialMegaManX3Main.PATH_SOM_TROCA_SELECAO).play();
 		}
 	}
 

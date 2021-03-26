@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 
+import br.com.wellington.jplay2D.audio.Audio;
 import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.oi.Keyboard;
-import br.com.wellington.jplay2D.sound.Sound;
 import br.com.wellington.jplay2D.time.Time;
 import br.com.wellington.jplay2D.window.Window;
 
@@ -25,7 +25,7 @@ public class Pong {
 	private Time tempo;
 	private Font fonte = PongMain.FONT_COMIC_SANS_MS_24;
 
-	private Sound musica;
+	private Audio musica;
 	private static boolean LOOP;
 
 	private int pontuacaoRoxo = 0;
@@ -54,8 +54,8 @@ public class Pong {
 		tempo.setColor(Color.WHITE);
 		tempo.setFont(PongMain.FONT_COMIC_SANS_MS_16);
 
-		musica = new Sound(PongMain.SOM_MUSICA);
-		musica.setRepeat(true);// faz a música ser tocada continuamente.
+		musica = new Audio(PongMain.SOM_MUSICA);
+		musica.setLoop(true);// faz a música ser tocada continuamente.
 
 		txtGameOvertime = new TextGame(window, 247, 105, Color.cyan, fonte);
 		txtGameOvertime.setTxt("O tempo está terminando!");
@@ -164,7 +164,7 @@ public class Pong {
 		barraRoxa.sentido = PongMain.STD_PARADO;
 
 		// som de ponto
-		new Sound(PongMain.SOM_PONTO).play();
+		new Audio(PongMain.SOM_PONTO).play();
 
 	}
 

@@ -12,7 +12,8 @@ public class Jogador extends Sprite {
 	public Jogador() {
 		super(TestMain.SPT_MEGAMAN, 90);
 		setTotalDuration(3200);
-		setSequence(parado.a, parado.b);
+		setSequence(andandoDireita.a, andandoDireita.b);
+		setGravity(0.2);
 	}
 
 }

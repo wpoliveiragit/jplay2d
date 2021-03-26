@@ -3,10 +3,10 @@ package projetos.jogoDaMemoria;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
+import br.com.wellington.jplay2D.audio.Audio;
 import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.oi.Keyboard;
 import br.com.wellington.jplay2D.oi.Mouse;
-import br.com.wellington.jplay2D.sound.Sound;
 import br.com.wellington.jplay2D.time.Time;
 import br.com.wellington.jplay2D.window.Window;
 
@@ -96,7 +96,7 @@ public class JogoMemoria {
 			if (pecaUmEscolhida == null) {
 				pecaUmEscolhida = peca;
 				pecaUmEscolhida.mostrar();
-				new Sound(JogoDaMemoriaMain.SOM_SOM1).play();
+				new Audio(JogoDaMemoriaMain.SOM_SOM1).play();
 			} else { // A segunda condição do if previne que a
 						// primeiraPecaEscolhida e a SegundaPecaEscolhida
 						// sejam a mesma peça
@@ -122,13 +122,13 @@ public class JogoMemoria {
 			if (pecaUmEscolhida.getID() == pecaDoisEscolhida.getID()) {
 				numPecasCombinadas++;
 				pontuacao += 5;
-				new Sound(JogoDaMemoriaMain.SOM_SOM3).play();
+				new Audio(JogoDaMemoriaMain.SOM_SOM3).play();
 			} else {
 				if (tempoPassado > 500) {
 					pontuacao -= 5;
 					pecaUmEscolhida.esconder();
 					pecaDoisEscolhida.esconder();
-					new Sound(JogoDaMemoriaMain.SOM_SOM2).play();
+					new Audio(JogoDaMemoriaMain.SOM_SOM2).play();
 					tempoPassado = 0;
 				} else {
 					tempoPassado += window.getGameTime().latecy();

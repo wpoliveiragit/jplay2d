@@ -1,7 +1,7 @@
 package projetos.pong;
 
+import br.com.wellington.jplay2D.audio.Audio;
 import br.com.wellington.jplay2D.image.Sprite;
-import br.com.wellington.jplay2D.sound.Sound;
 
 public class Bola extends Sprite {
 	int sentidoY = PongMain.STD_PARADO;
@@ -32,12 +32,12 @@ public class Bola extends Sprite {
 		}
 		if ((this.y + this.height) >= PongMain.LIM_Y_INF) {// bateu em baixo
 			sentidoY = PongMain.STD_CIMA;
-			new Sound(PongMain.SOM_BATEU).play();
+			new Audio(PongMain.SOM_BATEU).play();
 			return;
 		}
 		if (this.y <= PongMain.LIM_Y_SUP) {// bateu em sima
 			sentidoY = PongMain.STD_BAIXO;
-			new Sound(PongMain.SOM_BATEU).play();
+			new Audio(PongMain.SOM_BATEU).play();
 		}
 		//
 	}
@@ -59,7 +59,7 @@ public class Bola extends Sprite {
 	}
 
 	public void somColisao() {
-		Sound somColisao = new Sound(PongMain.SOM_BATEU);
+		Audio somColisao = new Audio(PongMain.SOM_BATEU);
 		somColisao.play();
 	}
 }

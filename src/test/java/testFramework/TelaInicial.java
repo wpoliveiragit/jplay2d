@@ -3,9 +3,9 @@ package testFramework;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
+import br.com.wellington.jplay2D.audio.Audio;
 import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.image.Sprite;
-import br.com.wellington.jplay2D.sound.Sound;
 import projetos.jogoDaMemoria.GameControl;
 
 public class TelaInicial extends GameControl {
@@ -13,6 +13,8 @@ public class TelaInicial extends GameControl {
 	private static final byte POSICAO_MAX = 2;
 
 	private GameImage logoJogo;
+
+	private Audio musica;
 
 	private Sprite moeda;
 	private Sprite start;
@@ -22,6 +24,8 @@ public class TelaInicial extends GameControl {
 	private byte escolha;
 
 	private TextWindow latencia;
+
+	private Volume volume;
 
 	public TelaInicial() {
 		super(30);
@@ -35,10 +39,18 @@ public class TelaInicial extends GameControl {
 		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_ENTER);
 		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_UP);
 		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_DOWN);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_LEFT);
+		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_RIGHT);
 
 		MOUSE = WINDOW.getMouse();
 		MOUSE.setCursorImage(TestMain.IMG_MOUSE);
 
+		musica = new Audio(TestMain.SND_ENTRADA_MEGAMAN);
+		musica.setLoop(true);
+		volume = new Volume(musica.getMinimumVolume());
+
+		musica.setVolume(volume.getVolume());
+		musica.play();
 		escolha = 0;
 	}
 
@@ -114,7 +126,7 @@ public class TelaInicial extends GameControl {
 			break;
 		}
 
-		new Sound(TestMain.SND_SELECAO).play();
+		new Audio(TestMain.SND_SELECAO).play();
 
 	}
 
@@ -127,7 +139,9 @@ public class TelaInicial extends GameControl {
 		if (KEYBOARD.checkKey(KeyEvent.VK_ENTER)) {
 			switch (escolha) {
 			case 0:
+				musica.stop();
 				new Cena01().start();
+
 				loadResources();
 				break;
 			case 1:
@@ -138,15 +152,23 @@ public class TelaInicial extends GameControl {
 			return;
 		}
 
-		if (KEYBOARD.checkKey(KeyEvent.VK_UP)) {
+		// [CONTROLE]
+		if (KEYBOARD.checkKey(KeyEvent.VK_UP)) {// [SOBE]
 			escolha--;
+			ajustaSelecao();
+			return;
+		} else if (KEYBOARD.checkKey(KeyEvent.VK_DOWN)) {// [DESCE]
+			escolha++;
 			ajustaSelecao();
 			return;
 		}
 
-		if (KEYBOARD.checkKey(KeyEvent.VK_DOWN)) {
-			escolha++;
-			ajustaSelecao();
+		// [VOLUME]
+		if (KEYBOARD.checkKey(KeyEvent.VK_LEFT)) {// [AUMENTA]
+			musica.setVolume(volume.diminueVolume());
+			return;
+		} else if (KEYBOARD.checkKey(KeyEvent.VK_RIGHT)) {// [DIMINUE]
+			musica.setVolume(volume.aumentaVolume());
 			return;
 		}
 
@@ -175,6 +197,43 @@ public class TelaInicial extends GameControl {
 			}).start();
 		}
 
+	}
+
+	class Volume {
+
+		static final int MAX = 5;
+		int volumeMax;
+		int corrente;
+		int base;
+
+		Volume(float min) {
+			volumeMax = (int) min;
+			corrente = MAX;
+			base = -(volumeMax / MAX);
+			System.out.println("BASE: " + base);
+			System.out.println("CORRENTE: " + corrente);
+			System.out.println("VOLUME MAX: " + volumeMax);
+		}
+
+		int aumentaVolume() {
+			if (corrente < MAX) {
+				corrente++;
+				System.out.println("CORRENTE: " + corrente);
+			}
+			return volumeMax + (base * corrente);
+		}
+
+		int diminueVolume() {
+			if (corrente > 1) {
+				corrente--;
+				System.out.println("CORRENTE: " + corrente);
+			}
+			return volumeMax + (base * corrente);
+		}
+
+		int getVolume() {
+			return volumeMax + (base * corrente);
+		}
 	}
 
 }

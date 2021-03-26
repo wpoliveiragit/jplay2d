@@ -2,8 +2,8 @@ package projetos.megaMan;
 
 import javax.swing.JFrame;
 
+import br.com.wellington.jplay2D.audio.Audio;
 import br.com.wellington.jplay2D.image.Sprite;
-import br.com.wellington.jplay2D.sound.Sound;
 
 public class Tiro {
 
@@ -27,7 +27,7 @@ public class Tiro {
 			spriteTiro.x = spriteBoneco.x + 20;
 			passo = 6;
 		}
-		new Sound(MegaManMain.SOM_MUZZLESHOT).play();
+		new Audio(MegaManMain.SOM_MUZZLESHOT).play();
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class Tiro {
 	public boolean move() {
 
 		if (spriteTiro.isOnFloor() || spriteTiro.x < 1 || spriteTiro.x + spriteTiro.width > quadro.getWidth()) {
-			new Sound(MegaManMain.SOM_EXPLOSAO).play();
+			new Audio(MegaManMain.SOM_EXPLOSAO).play();
 			return true;
 		}
 		spriteTiro.fall();

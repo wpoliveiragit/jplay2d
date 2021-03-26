@@ -26,6 +26,7 @@ public class TestMain {
 	// [PATH-SOUND]
 	private static final String PATH_SND = ROOT + "sound/";
 	public static final String SND_SELECAO = PATH_SND + "selecao.wav";
+	public static final String SND_ENTRADA_MEGAMAN = PATH_SND + "entradaMegaMan.wav";
 
 	// [PATH-SCENE]
 	private static final String PATH_SCN = ROOT + "scene/";
