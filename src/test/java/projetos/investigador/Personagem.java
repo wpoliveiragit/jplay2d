@@ -7,7 +7,7 @@ import java.util.List;
 
 import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.image.TileInfo;
-import br.com.wellington.jplay2D.scene.Scene;
+import br.com.wellington.jplay2D.scenery.Scenery;
 
 /**
  * Definição do que a classe representa ou administra
@@ -52,7 +52,7 @@ public class Personagem extends Sprite {
 	 *
 	 * @param cena
 	 */
-	public void caminho(Scene cena) {
+	public void caminho(Scenery cena) {
 		// coleta a posição atual do personagem
 		local.min.x = (int) x;
 		local.min.y = (int) y;

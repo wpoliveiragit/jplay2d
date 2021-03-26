@@ -3,7 +3,7 @@ package projetos.investigador;
 import java.awt.event.KeyEvent;
 
 import br.com.wellington.jplay2D.oi.Keyboard;
-import br.com.wellington.jplay2D.scene.Scene;
+import br.com.wellington.jplay2D.scenery.Scenery;
 import br.com.wellington.jplay2D.window.Window;
 
 /**
@@ -19,14 +19,14 @@ public class Cenario01 {
 	private Window win;
 	private Keyboard keyboard;
 
-	private Scene cena; // define o arquivo que move o cenário
+	private Scenery cena; // define o arquivo que move o cenário
 	private Jogador player;
 	private Zumbi zumbi;
 
 	public Cenario01(Window win) {
 		this.win = win;
 		keyboard = win.getKeyboard();
-		cena = new Scene();
+		cena = new Scenery();
 		LOOP = false;
 		init();
 	}

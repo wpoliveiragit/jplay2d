@@ -32,7 +32,7 @@ public abstract class GameControl {
 	}
 
 	/** Método de atualização da cena */
-	abstract protected void updateScene();
+	abstract protected void update();
 
 	/** Executado antes de iniciar o loop do método start. */
 	abstract protected void beforeStart();
@@ -55,7 +55,7 @@ public abstract class GameControl {
 		beforeStart();
 		loop = true;
 		while (loop) {
-			updateScene();
+			update();
 			draw();
 			WINDOW.update();
 			control();

@@ -3,7 +3,7 @@ package projetos.investigador;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.wellington.jplay2D.scene.Scene;
+import br.com.wellington.jplay2D.scenery.Scenery;
 
 /**
  * Definição do que a classe representa ou administra
@@ -20,7 +20,7 @@ public class ControleTiro {
 		tiros = new ArrayList<Tiro>();
 	}
 
-	public void adicionaTiro(double x, double y, int caminho, Scene cena) {
+	public void adicionaTiro(double x, double y, int caminho, Scenery cena) {
 		Tiro tiro = new Tiro(x, y, caminho);
 		tiros.add(tiro);
 		cena.addSceneElements(tiro);

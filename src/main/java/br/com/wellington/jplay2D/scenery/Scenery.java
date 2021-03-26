@@ -1,4 +1,4 @@
-package br.com.wellington.jplay2D.scene;
+package br.com.wellington.jplay2D.scenery;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,7 +12,7 @@ import br.com.wellington.jplay2D.image.TileInfo;
 import br.com.wellington.jplay2D.window.Window;
 
 /** Class responsible for handling a Scenario. */
-public class Scene extends FileScene {
+public class Scenery extends FileScenery {
 	private static Window WINDOW;
 
 	private ArrayList<GameObject> sceneElements;
@@ -25,7 +25,7 @@ public class Scene extends FileScene {
 	private double xOffset = 0;
 	private double yOffset = 0;
 
-	public Scene() {
+	public Scenery() {
 		super();
 		centerPointX = Window.getInstance().getJFrame().getWidth() / 2;
 		centerPointY = Window.getInstance().getJFrame().getHeight() / 2;

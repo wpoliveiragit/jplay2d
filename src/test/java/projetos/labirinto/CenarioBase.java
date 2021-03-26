@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.wellington.jplay2D.image.TileInfo;
-import br.com.wellington.jplay2D.scene.Scene;
+import br.com.wellington.jplay2D.scenery.Scenery;
 
 public class CenarioBase implements Constantes {
 
 	/**
 	 * O cenario corrente.
 	 */
-	protected Scene cena;
+	protected Scenery cena;
 
 	/**
 	 * O jogo.
@@ -27,7 +27,7 @@ public class CenarioBase implements Constantes {
 	 */
 	public CenarioBase(Jogo jogo, String pathScn) {
 		this.jogo = jogo;
-		cena = new Scene();
+		cena = new Scenery();
 		cena.loadFromFile(pathScn,"Colocar aqui o raiz onde estão os tiles deste projeto");
 		cena.setDrawStartPos(DESLOQUE_CENARIO_X, DESLOQUE_CENARIO_Y);
 	}
@@ -44,7 +44,7 @@ public class CenarioBase implements Constantes {
 	 * 
 	 * @return O cenario corrente.
 	 */
-	public Scene getCenario() {
+	public Scenery getCenario() {
 		return cena;
 	}
 

@@ -1,4 +1,4 @@
-package testFramework;
+package br.com.wellington.projetos.game.utils;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import br.com.wellington.jplay2D.image.GameObject;
 import br.com.wellington.jplay2D.window.Window;
+import br.com.wellington.projetos.game.constants.Constants;
 
 public class TextWindow extends GameObject {
 
@@ -22,26 +23,18 @@ public class TextWindow extends GameObject {
 	private Color color;
 	private int index;
 
-	public TextWindow(int x, int y, Color color, Font font) {
-		this.x = x;
-		this.y = y;
+	public TextWindow(Color color, Font font, String txt) {
+		this.x = 0;
+		this.y = 0;
 		this.color = color;
 		this.font = font;
-		this.txt = "";
-		width = GRAPHICS.getFontMetrics(font).stringWidth(txt.toString());
+		this.txt = txt;
+		width = GRAPHICS.getFontMetrics(font).stringWidth(txt);
 		height = GRAPHICS.getFontMetrics(font).getHeight();
 	}
 
-	public TextWindow(int x, int y) {
-		this(x, y, COLOR, FONT);
-	}
-
-	public TextWindow(int x, int y, Font font) {
-		this(x, y, COLOR, font);
-	}
-
-	public TextWindow(int x, int y, Color color) {
-		this(x, y, color, FONT);
+	public TextWindow(String txt) {
+		this(COLOR, FONT, txt);
 	}
 
 	public void draw() {
@@ -87,8 +80,12 @@ public class TextWindow extends GameObject {
 		return height;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setColorOff() {
+		color = Constants.COR_OFF;
+	}
+
+	public void setColorOn() {
+		color = Constants.COR_ON;
 	}
 
 	public StringBuilder getTxt() {

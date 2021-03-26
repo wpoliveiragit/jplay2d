@@ -2,7 +2,7 @@ package projetos.investigador;
 
 import java.awt.event.KeyEvent;
 
-import br.com.wellington.jplay2D.scene.Scene;
+import br.com.wellington.jplay2D.scenery.Scenery;
 import br.com.wellington.jplay2D.window.Window;
 
 /**
@@ -16,10 +16,10 @@ public class Jogador extends Personagem {
 
 	private ControleTiro tiros = new ControleTiro();
 	private Window janela;
-	private Scene cena;
+	private Scenery cena;
 
 	// private Keyboard teclado;
-	public Jogador(Window janela, Scene cena, int x, int y) {
+	public Jogador(Window janela, Scenery cena, int x, int y) {
 		super(InvestigadorMain.SPRITE_PLAYER, 20);
 		this.janela = janela;
 		this.cena = cena;

@@ -1,4 +1,4 @@
-package br.com.wellington.jplay2D.scene;
+package br.com.wellington.jplay2D.scenery;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,7 +13,7 @@ import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.image.Sprite;
 import br.com.wellington.jplay2D.image.TileInfo;
 
-class FileScene {
+class FileScenery {
 
 	private static final String END_MAP_MATRIZ = "%";
 	private static final String TILES_SEPARATOR = "-";

@@ -1,6 +1,7 @@
-package testFramework;
+package br.com.wellington.projetos.game.personagens;
 
 import br.com.wellington.jplay2D.image.Sprite;
+import br.com.wellington.projetos.game.constants.Constants;
 
 public class Jogador extends Sprite {
 
@@ -10,7 +11,7 @@ public class Jogador extends Sprite {
 	Sequencia andandoDireita = new Sequencia(11, 21);
 
 	public Jogador() {
-		super(TestMain.SPT_MEGAMAN, 90);
+		super(Constants.SPT_MEGAMAN, 90);
 		setTotalDuration(3200);
 		setSequence(andandoDireita.a, andandoDireita.b);
 		setGravity(0.2);

@@ -1,20 +1,22 @@
-package testFramework;
+package br.com.wellington.projetos.game.cenarios;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 import br.com.wellington.jplay2D.image.TileInfo;
-import br.com.wellington.jplay2D.scene.Scene;
+import br.com.wellington.jplay2D.scenery.Scenery;
+import br.com.wellington.projetos.game.constants.Constants;
+import br.com.wellington.projetos.game.personagens.Jogador;
 import projetos.jogoDaMemoria.GameControl;
 
-public class Cena01 extends GameControl {
+public class Cenario01 extends GameControl {
 
-	private Scene cena;
+	private Scenery cena;
 
 	private Jogador megaMan;
 
-	public Cena01() {
+	public Cenario01() {
 		super(30);
 	}
 
@@ -36,8 +38,8 @@ public class Cena01 extends GameControl {
 	@Override
 	protected void beforeStart() {
 		// [SCENE]
-		cena = new Scene();
-		cena.loadFromFile(TestMain.SCN_CENA01, TestMain.PATH_TILE);
+		cena = new Scenery();
+		cena.loadFromFile(Constants.SCN_CENA01, Constants.PATH_TILE);
 
 		// [SPRITE]
 		megaMan = new Jogador();
@@ -49,7 +51,7 @@ public class Cena01 extends GameControl {
 	}
 
 	@Override
-	protected void updateScene() {
+	protected void update() {
 
 	}
 
