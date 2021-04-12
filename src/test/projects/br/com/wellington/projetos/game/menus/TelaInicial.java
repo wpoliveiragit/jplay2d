@@ -1,17 +1,23 @@
-package br.com.wellington.projetos.game.telas;
+package br.com.wellington.projetos.game.menus;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import br.com.wellington.jplay2D.audio.Audio;
 import br.com.wellington.jplay2D.image.GameImage;
+import br.com.wellington.jplay2D.window.TextWindow;
 import br.com.wellington.projetos.game.cenarios.Cenario01;
-import br.com.wellington.projetos.game.constants.Constants;
 import br.com.wellington.projetos.game.controles.ControleVolume;
+import br.com.wellington.projetos.game.utils.Constants;
 import br.com.wellington.projetos.game.utils.VerticalOptionsMenu;
-import br.com.wellington.projetos.game.utils.TextWindow;
 import projetos.jogoDaMemoria.GameControl;
 
+
+// Barulho de troca de seleção
+// Barulho ao escolher
+// entrar no jogo
+// vai pro menu de configur ações
+// Vai pro menu de créditos
 public class TelaInicial extends GameControl {
 
 	private VerticalOptionsMenu menu;
@@ -50,7 +56,7 @@ public class TelaInicial extends GameControl {
 	}
 
 	@Override
-	protected void loadResources() {
+	protected void load() {
 		// [Keyboard]
 		KEYBOARD.cleanKeys();
 		KEYBOARD.addKeyBehaviorActuatorRequest(KeyEvent.VK_ESCAPE);
@@ -102,12 +108,12 @@ public class TelaInicial extends GameControl {
 			case 0:// [START]
 				musica.stop();
 				new Cenario01().start();
-				loadResources();
+				load();
 				break;
 			case 1:// [OPTIONS]
 				musica.stop();
 				new TelaOptions().start();
-				loadResources();
+				load();
 				break;
 			case 2:// [CREDITS]
 				break;
@@ -131,19 +137,19 @@ public class TelaInicial extends GameControl {
 	private void ajustaSelecao() {
 		switch (menu.getSelecao()) {
 		case 0:
-			start.setColorOn();
-			options.setColorOff();
-			credits.setColorOff();
+			start.setColor(Constants.COR_ON);
+			options.setColor(Constants.COR_OFF);
+			credits.setColor(Constants.COR_OFF);
 			break;
 		case 1:
-			start.setColorOff();
-			options.setColorOn();
-			credits.setColorOff();
+			start.setColor(Constants.COR_OFF);
+			options.setColor(Constants.COR_ON);
+			credits.setColor(Constants.COR_OFF);
 			break;
 		case 2:
-			start.setColorOff();
-			options.setColorOff();
-			credits.setColorOn();
+			start.setColor(Constants.COR_OFF);
+			options.setColor(Constants.COR_OFF);
+			credits.setColor(Constants.COR_ON);
 			break;
 		}
 		new Audio(Constants.SND_SELECAO).play();

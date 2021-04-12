@@ -1,34 +1,40 @@
-package br.com.wellington.projetos.game.utils;
+package br.com.wellington.jplay2D.window;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
 import br.com.wellington.jplay2D.image.GameObject;
-import br.com.wellington.jplay2D.window.Window;
-import br.com.wellington.projetos.game.constants.Constants;
 
 public class TextWindow extends GameObject {
 
-	@SuppressWarnings("deprecation")
-	private static final Color COLOR = Window.getInstance().getGameGraphics().getColor();
-	@SuppressWarnings("deprecation")
-	private static final Font FONT = Window.getInstance().getGameGraphics().getFont();
-	@SuppressWarnings("deprecation")
-	private static final Graphics GRAPHICS = Window.getInstance().getGameGraphics();
 	private static final Window WINDOW = Window.getInstance();
 
-	private String txt;
-	private Font font;
+	/** A cor do texto atual do sistema. */
+	@SuppressWarnings("deprecation")
+	private static final Color COLOR = WINDOW.getGameGraphics().getColor();
+
+	/** A fonte do texto atual do sistema. */
+	@SuppressWarnings("deprecation")
+	private static final Font FONT = WINDOW.getGameGraphics().getFont();
+
+	/** O controle grafico do sistema. */
+	@SuppressWarnings("deprecation")
+	private static final Graphics GRAPHICS = WINDOW.getGameGraphics();
+
+	/** A cor do texto */
 	private Color color;
-	private int index;
+	/** O texto */
+	private String txt;
+	/** A conte do texto */
+	private Font font;
 
 	public TextWindow(Color color, Font font, String txt) {
-		this.x = 0;
-		this.y = 0;
 		this.color = color;
 		this.font = font;
 		this.txt = txt;
+		this.x = 0;
+		this.y = 0;
 		width = GRAPHICS.getFontMetrics(font).stringWidth(txt);
 		height = GRAPHICS.getFontMetrics(font).getHeight();
 	}
@@ -38,7 +44,7 @@ public class TextWindow extends GameObject {
 	}
 
 	public void draw() {
-		WINDOW.drawText(txt.toString(), (int) x, (int) y, color, font);
+		WINDOW.drawText(txt, (int) super.x, (int) super.y, color, font);
 	}
 
 	public void setTxt(String txt) {
@@ -48,7 +54,7 @@ public class TextWindow extends GameObject {
 
 	public void setFont(Font font) {
 		this.font = font;
-		width = GRAPHICS.getFontMetrics(font).stringWidth(txt.toString());
+		width = GRAPHICS.getFontMetrics(font).stringWidth(txt);
 		height = GRAPHICS.getFontMetrics(font).getHeight();
 	}
 
@@ -68,10 +74,6 @@ public class TextWindow extends GameObject {
 		this.y = y;
 	}
 
-	public int getIndex() {
-		return index;
-	}
-
 	public int getWidth() {
 		return width;
 	}
@@ -80,16 +82,20 @@ public class TextWindow extends GameObject {
 		return height;
 	}
 
-	public void setColorOff() {
-		color = Constants.COR_OFF;
+	public String getTxt() {
+		return txt;
 	}
 
-	public void setColorOn() {
-		color = Constants.COR_ON;
+	public Color getColor() {
+		return color;
 	}
 
-	public StringBuilder getTxt() {
-		return new StringBuilder(txt);
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public Font getFont() {
+		return font;
 	}
 
 }

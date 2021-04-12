@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.oi.Keyboard;
-import br.com.wellington.jplay2D.window.TextGame;
+import br.com.wellington.jplay2D.window.TextWindow;
 import br.com.wellington.jplay2D.window.Window;
 
 public class HeroMainMenu {
@@ -16,9 +16,9 @@ public class HeroMainMenu {
 	private GameImage plano;
 	private Keyboard keyboard;
 
-	private TextGame nome;
-	private TextGame esc;
-	private TextGame enter;
+	private TextWindow nome;
+	private TextWindow esc;
+	private TextWindow enter;
 
 	public HeroMainMenu() {
 		plano = new GameImage(HeroMain.IMG_MAIN_MENU);
@@ -28,18 +28,16 @@ public class HeroMainMenu {
 	}
 
 	private void configuration() {
-		nome = TextGame.builder().setCor(Color.red).setFont(HeroMain.FONT_COMIC_SANS_MS_40)
-				.setText("WELLINGTON PIRES DE OLIVEIRA").build();
+		// [TEXTOS]
+		nome = new TextWindow(Color.red, HeroMain.FONT_COMIC_SANS_MS_40, "WELLINGTON PIRES DE OLIVEIRA");
 		nome.setX((window.getJFrame().getWidth() - nome.getWidth()) / 2);
 		nome.setY((int) (1.3 * nome.getHeight()));
 
-		enter = TextGame.builder().setCor(Color.yellow).setFont(HeroMain.FONT_COMIC_SANS_MS_40)
-				.setText("[ENTER] INICIAR").build();
+		enter = new TextWindow(Color.yellow, HeroMain.FONT_COMIC_SANS_MS_40, "[ENTER] INICIAR");
 		enter.setX((window.getJFrame().getWidth() - enter.getWidth()) / 2);
 		enter.setY(window.getJFrame().getHeight() - 2 * enter.getHeight());
 
-		esc = TextGame.builder().setCor(Color.yellow).setFont(HeroMain.FONT_COMIC_SANS_MS_40).setText("[ESC] SAIR")
-				.build();
+		esc = new TextWindow(Color.yellow, HeroMain.FONT_COMIC_SANS_MS_40, "[ESC] SAIR");
 		esc.setX((window.getJFrame().getWidth() - esc.getWidth()) / 2);
 		esc.setY(window.getJFrame().getHeight() - esc.getHeight());
 

@@ -96,6 +96,8 @@ class FileScenery {
 			tileWidth = tileList[0].width;
 			tileHeight = tileList[0].height;
 		} catch (Exception ex) {
+
+			// #[criar um erro de verificaão de tamanho de tiles diferente]
 			throw new RuntimeException("[ERRO] Inesperado ", ex);
 		}
 	}
@@ -104,17 +106,21 @@ class FileScenery {
 	 * Salve o estado atual da cena em um novo arquivo.
 	 * 
 	 * @param fileName Caminho do arquivo para salvar a cena.
+	 * @param padding  Quantidade de casa que o id da tile pode possuir no mapa.
 	 */
-	public void save(String fileName) {
+	public void save(String fileName, String padding) {
 		StringBuilder rows = new StringBuilder();
 		rows.append(tileList.length);// [1a linha]
 		for (int i = 0; i < nameTiles.length - 1; i++) {// [BLOCO DE IMAGENS DAS TILES]
 			rows.append("\n").append(nameTiles[i]);
 		}
+
+		padding = "%0" + padding + "d";
 		for (ArrayList<TileInfo> tileLine : mapMatriz) {// [MATRIZ DO MAPA]
 			rows.append("\n");
 			for (TileInfo tile : tileLine) {
-				rows.append(tile.id).append(TILES_SEPARATOR);
+
+				rows.append(String.format(padding, tile.id)).append(TILES_SEPARATOR);
 			}
 			rows.deleteCharAt(rows.length() - 1);
 		}

@@ -14,8 +14,6 @@ public class Sprite extends Animation {
 	private double mass = 0.5;
 	private double friction = 0.5;
 	private double restitution = 0.5;
-	private float forceX = 0;
-	private float forceY = 0;
 
 	private Body body = null; // Usado na física do objeto
 
@@ -23,7 +21,7 @@ public class Sprite extends Animation {
 	private double velocityY = 0;
 	private double gravity = 0.098;
 	private boolean onFloor = false;
-	private int floor;
+	private double floor;
 
 	/**
 	 * Instancia uma sprite e assume que ela possui um único quadro.
@@ -222,24 +220,6 @@ public class Sprite extends Animation {
 	}
 
 	/**
-	 * Define o piso que será utilizado para os métodos de salto ou queda.
-	 * 
-	 * @param floor Valor da coordenada x.
-	 */
-	public void setFloor(int floor) {
-		this.floor = floor;
-	}
-
-	/**
-	 * Retorna o valor do andar atual.
-	 * 
-	 * @return int
-	 */
-	public int getFloor() {
-		return floor;
-	}
-
-	/**
 	 * Faz o sprite pular.
 	 * 
 	 * @param jumpKey tecla usada para iniciar o salto.
@@ -275,18 +255,15 @@ public class Sprite extends Animation {
 		return !onFloor;
 	}
 
-	/**
-	 * Este método simula a gravidade. É necessário definir o piso antes de chamar
-	 * este método.
-	 */
+	/** Simulador de gravidade. Defina o piso antes de chamar este método. */
 	public void fall() {
-		if (floor - this.y - this.height < 1) {
+		if (floor - (y + height) < 1) {
 			velocityY = 0;
-			this.y = floor - this.height;
-		} else
+			y = floor - height;
+		} else {
 			velocityY += gravity;
-
-		this.y += velocityY;
+		}
+		y += velocityY;
 	}
 
 	/**
@@ -631,6 +608,24 @@ public class Sprite extends Animation {
 	 */
 	public boolean isBullet() {
 		return body.isBullet();
+	}
+
+	/**
+	 * Define o piso que será utilizado para os métodos de salto ou queda.
+	 * 
+	 * @param floor Valor da coordenada x.
+	 */
+	public void setFloor(double floor) {
+		this.floor = floor;
+	}
+
+	/**
+	 * Retorna o valor do andar atual.
+	 * 
+	 * @return int
+	 */
+	public double getFloor() {
+		return floor;
 	}
 
 }

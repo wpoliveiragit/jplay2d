@@ -1,7 +1,7 @@
 package br.com.wellington.projetos.game;
 
 import br.com.wellington.jplay2D.window.Window;
-import br.com.wellington.projetos.game.telas.TelaInicial;
+import br.com.wellington.projetos.game.menus.TelaInicial;
 
 public class ApplicationMain {
 

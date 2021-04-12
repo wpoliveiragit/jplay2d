@@ -60,10 +60,10 @@ public class Personagem extends Sprite {
 		local.max.y = (int) y + height;
 
 		// obtem a lista dos tiles adjacentes do personagem
-		@SuppressWarnings("unchecked")
-		List<TileInfo> listaTiles = new ArrayList<>(cena.getTilesFromPosition(local.min, local.max));
 
-		for (TileInfo tile : listaTiles) {
+		List<TileInfo> list = new ArrayList<>(cena.getTilesFromPosition(this));
+
+		for (TileInfo tile : list) {
 			if (controle.colisao(this, tile)) {
 				if (posicao == ESQUERDA) { // indo para esquerda
 					x = tile.x + tile.width;

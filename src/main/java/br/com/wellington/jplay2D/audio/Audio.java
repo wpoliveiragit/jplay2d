@@ -38,7 +38,7 @@ public class Audio {
 	/** Caminho absoluto do arquivo. */
 	private String pathName;
 	/** Controle de volume. */
-	private FloatControl vCtrl;
+	private FloatControl volumeCtrl;
 
 	/**
 	 * Cria um executor de sons.
@@ -63,7 +63,7 @@ public class Audio {
 			Info dataLineInfo = new Info(SourceDataLine.class, audioFormat);
 			sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
 			sourceDataLine.open(audioFormat);
-			vCtrl = (FloatControl) sourceDataLine.getControl(FloatControl.Type.MASTER_GAIN);
+			volumeCtrl = (FloatControl) sourceDataLine.getControl(FloatControl.Type.MASTER_GAIN);
 		} catch (UnsupportedAudioFileException ex) {
 			throw new Jplay2DRuntimeException(//
 					new StringBuilder("[ERRO] {br.com.wellington.jplay2D.audio.load(String)}")
@@ -160,7 +160,7 @@ public class Audio {
 	 * @return O valor mínimo que o volume pode assumir.
 	 */
 	public float getMinimumVolume() {
-		return vCtrl.getMinimum();
+		return volumeCtrl.getMinimum();
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class Audio {
 	 * @return O valor corrente do volume.
 	 */
 	public float getVolumeCurrent() {
-		return vCtrl.getValue();
+		return volumeCtrl.getValue();
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class Audio {
 	 * @return O valor máximo que o volume pode assumir.
 	 */
 	public float getVolumeMax() {
-		return vCtrl.getMaximum();
+		return volumeCtrl.getMaximum();
 	}
 
 	/** Classe responsavel pelo controle da execução do audio. */
@@ -201,7 +201,7 @@ public class Audio {
 					count = audioIn.read(bfr, 0, LENGTH);
 					if (count > 0) {
 						if (volumeChanged) {// [VERIFICAÇÃO DE ALTERAÇÃO DE VOLUME]
-							vCtrl.setValue(volume);
+							volumeCtrl.setValue(volume);
 							volumeChanged = false;
 						}
 						sourceDataLine.write(bfr, 0, count);// [executa o treixo do audio coletado]

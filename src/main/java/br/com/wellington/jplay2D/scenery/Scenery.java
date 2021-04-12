@@ -1,10 +1,12 @@
 package br.com.wellington.jplay2D.scenery;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
+
+import javax.swing.JFrame;
 
 import br.com.wellington.jplay2D.image.GameImage;
 import br.com.wellington.jplay2D.image.GameObject;
@@ -155,44 +157,82 @@ public class Scenery extends FileScenery {
 		return v;
 	}
 
-	public Vector<TileInfo> getTilesFromPosition(Point min, Point max) {
-		Vector<TileInfo> v = new Vector<>();
+	/**
+	 * 
+	 * @param gameObject
+	 * @return
+	 */
+	public List<TileInfo> getTilesFromPosition(GameObject gameObject) {
+		TileInfo obj = new TileInfo();
+		obj.x = gameObject.x;
+		obj.y = gameObject.y;
+		obj.width = (int) gameObject.x + gameObject.width + 1;
+		obj.height = (int) gameObject.y + gameObject.height + 1;
+		Check.tile = obj;
 
-		int tileWidth = tileList[0].width;
-		int tileHeight = tileList[0].height;
+		List<TileInfo> list = new ArrayList<>();
 
-		int line = 0;
-		int drawY = (int) -(centerPointY - Window.getInstance().getJFrame().getHeight() / 2);
+		int drawX;
+		int drawY = (int) -(centerPointY - WINDOW.getJFrame().getHeight() / 2);
 
-		do {
-			ArrayList<TileInfo> tileLine = mapMatriz.get(line);
+		for (ArrayList<TileInfo> tileLine : mapMatriz) {
+			drawX = (int) -(centerPointX - WINDOW.getJFrame().getWidth() / 2);
+			for (TileInfo tile : tileLine) {
+				tile.x = drawX;
+				tile.y = drawY;
+				tile.width = super.tileWidth;
+				tile.height = super.tileWidth;
 
-			int drawX = (int) -(centerPointX - Window.getInstance().getJFrame().getWidth() / 2);
+				drawX += super.tileWidth;
 
-			for (int c = 0; c < tileLine.size(); c++) {
-				TileInfo tile = (TileInfo) tileLine.get(c);
-
-				// tile.x = drawX;
-				// tile.y = drawY;
-				tile.width = tileWidth;
-				tile.height = tileHeight;
-
-				drawX += tileWidth;
-				if ((min.x > drawX + tileWidth - 1) || (max.x < tile.x)) {
-					continue;
+				if ((Check.axisX((int) tile.x) || Check.axisX((int) tile.x + tile.width))
+						&& (Check.axisY((int) tile.y) || Check.axisY((int) tile.y + tile.height))) {
+					list.add(tile);
 				}
-				if ((min.y > drawY + tileHeight + 1) || (max.y < tile.y)) {
-					continue;
+
+			}
+			drawY += super.tileHeight;
+		}
+		return list;
+	}
+
+	/** ALTERANDO AQUI */
+	public List<List<TileInfo>> getMatrixFromPosition(GameObject go) {
+		List<List<TileInfo>> subMatrix = new ArrayList<>();
+		TileInfo obj = new TileInfo();
+		obj.x = go.x;
+		obj.y = go.y;
+		obj.width = (int) go.x + go.width + 1;
+		obj.height = (int) go.y + go.height + 1;
+		Check.tile = obj;
+
+		int drawX;
+		int drawY = (int) -(centerPointY - WINDOW.getJFrame().getHeight() / 2);
+
+		for (ArrayList<TileInfo> tileLine : mapMatriz) {
+			List<TileInfo> list = new ArrayList<>();
+			drawX = (int) -(centerPointX - WINDOW.getJFrame().getWidth() / 2);
+			for (TileInfo tile : tileLine) {
+				tile.x = drawX;
+				tile.y = drawY;
+				tile.width = super.tileWidth;
+				tile.height = super.tileWidth;
+
+				drawX += super.tileWidth;
+
+				if ((Check.axisX((int) tile.x) || Check.axisX((int) tile.x + tile.width))
+						&& (Check.axisY((int) tile.y) || Check.axisY((int) tile.y + tile.height))) {
+					list.add(tile);
 				}
-				v.add(tile);
+
+			}
+			if (!list.isEmpty()) {
+				subMatrix.add(list);
 			}
 
-			drawY += tileHeight;
-			line++;
-
-		} while (line < mapMatriz.size());
-
-		return v;
+			drawY += super.tileHeight;
+		}
+		return subMatrix;
 	}
 
 	/**
@@ -225,36 +265,50 @@ public class Scenery extends FileScenery {
 	 * @param object O objeto a ser centralizado.
 	 */
 	public void drawnMoveScene(GameObject object) {
-
 		// first clear the scene
-		Graphics g = Window.getInstance().getGameGraphics();
-		Window.getInstance().clear(Color.BLACK);
+		WINDOW.clear(Color.BLACK);
+		backDrop.draw();
 		xOffset = 0;
 		yOffset = 0;
+		JFrame frame = WINDOW.getJFrame();
 
-		backDrop.draw();
+		// UpdateCenterPosition
+		centerPointX += (object.x - frame.getWidth() / 2);
+		centerPointY += object.y - frame.getHeight() / 2;
+		movedx = true;
+		movedy = true;
 
-		// now draw the tile set
-		int tileWidth = tileList[0].width;
-		int tileHeight = tileList[0].height;
+		ArrayList<TileInfo> lin = mapMatriz.get(0);
+		double value = (tileWidth * lin.size()) - frame.getWidth() / 2;
+		if (centerPointX > value) {
+			centerPointX = value;
+			movedx = false;
+		} else {
+			value = frame.getWidth() / 2;
+			if (centerPointX < value) {
+				centerPointX = value;
+				movedx = false;
+			}
+		}
+		value = tileHeight * mapMatriz.size() - frame.getHeight() / 2;
+		if (centerPointY > value) {
+			centerPointY = value;
+			movedy = false;
+		} else {
+			value = frame.getHeight() / 2;
+			if (centerPointY < value) {
+				centerPointY = value;
+				movedy = false;
+			}
+		}
+		// UpdateCenterPosition
 
-		double x = object.x - Window.getInstance().getJFrame().getWidth() / 2;
-		double y = object.y - Window.getInstance().getJFrame().getHeight() / 2;
-
-		UpdateCenterPosition(x, y);
-
-		int line = 0;
-		int drawY = (int) -(centerPointY - Window.getInstance().getJFrame().getHeight() / 2);
-
-		do {
-			ArrayList<TileInfo> tileLine = mapMatriz.get(line);
-
-			int drawX = (int) -(centerPointX - Window.getInstance().getJFrame().getWidth() / 2);
-
-			for (int c = 0; c < tileLine.size(); c++) {
-				TileInfo tileInfo = (TileInfo) tileLine.get(c);
-
-				if (tileInfo.id != 0) {
+		value = centerPointX - frame.getWidth() / 2;
+		double drawY = -(centerPointY - frame.getHeight() / 2);
+		for (ArrayList<TileInfo> tileLine : mapMatriz) {
+			double drawX = -value;
+			for (TileInfo tileInfo : tileLine) {
+				if (tileInfo.id > 0 && drawX > -tileWidth && drawY > -tileHeight) {
 					tileInfo.x = drawX;
 					tileInfo.y = drawY;
 					tileList[tileInfo.id - 1].x = drawX;
@@ -264,9 +318,7 @@ public class Scenery extends FileScenery {
 				drawX += tileWidth;
 			}
 			drawY += tileHeight;
-			line++;
-
-		} while (line < mapMatriz.size());
+		}
 
 		// finally draw the overlays
 		for (int i = 0; i < sceneElements.size(); i++) {
@@ -274,43 +326,10 @@ public class Scenery extends FileScenery {
 			element.draw();
 		}
 		if (movedx)
-			xOffset = Window.getInstance().getJFrame().getWidth() / 2 - object.x;
+			xOffset = frame.getWidth() / 2 - object.x;
 		if (movedy)
-			yOffset = Window.getInstance().getJFrame().getHeight() / 2 - object.y;
+			yOffset = frame.getHeight() / 2 - object.y;
 
-	}
-
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	private void UpdateCenterPosition(double x, double y) {
-		centerPointX += x;
-		centerPointY += y;
-		movedx = true;
-		movedy = true;
-
-		int tileWidth = tileList[0].width;
-		int tileHeight = tileList[0].height;
-
-		ArrayList<TileInfo> tileLine = mapMatriz.get(0);
-
-		if (centerPointX > tileWidth * tileLine.size() - Window.getInstance().getJFrame().getWidth() / 2) {
-			centerPointX = tileWidth * tileLine.size() - Window.getInstance().getJFrame().getWidth() / 2;
-			movedx = false;
-		} else if (centerPointX < Window.getInstance().getJFrame().getWidth() / 2) {
-			centerPointX = Window.getInstance().getJFrame().getWidth() / 2;
-			movedx = false;
-		}
-
-		if (centerPointY > tileHeight * mapMatriz.size() - Window.getInstance().getJFrame().getHeight() / 2) {
-			centerPointY = tileHeight * mapMatriz.size() - Window.getInstance().getJFrame().getHeight() / 2;
-			movedy = false;
-		} else if (centerPointY < Window.getInstance().getJFrame().getHeight() / 2) {
-			centerPointY = Window.getInstance().getJFrame().getHeight() / 2;
-			movedy = false;
-		}
 	}
 
 	public double getXOffset() {
@@ -343,4 +362,17 @@ public class Scenery extends FileScenery {
 	public void addSceneElements(GameObject elements) {
 		sceneElements.add(elements);
 	}
+
+	private static class Check {
+		static TileInfo tile = new TileInfo();
+
+		static boolean axisX(int x) {
+			return (tile.x < x) && (x < tile.width);
+		}
+
+		static boolean axisY(int y) {
+			return (tile.y < y) && (y < tile.height);
+		}
+	}
+
 }

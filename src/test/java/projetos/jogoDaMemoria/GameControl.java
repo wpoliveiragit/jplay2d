@@ -27,7 +27,7 @@ public abstract class GameControl {
 	public GameControl(int delay) {
 		this.delay = delay;
 		loop = false;
-		loadResources();
+		load();
 
 	}
 
@@ -37,7 +37,7 @@ public abstract class GameControl {
 	/** Executado antes de iniciar o loop do método start. */
 	abstract protected void beforeStart();
 
-	abstract protected void loadResources();
+	abstract protected void load();
 
 	/** Define a sequencia de atualização dos objetos. */
 	abstract protected void draw();

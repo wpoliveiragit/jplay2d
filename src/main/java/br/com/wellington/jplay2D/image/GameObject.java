@@ -6,29 +6,23 @@ package br.com.wellington.jplay2D.image;
  */
 public class GameObject {
 
-	/**
-	 * Posição da imagem na tela. Eixo x (horizontal). Quando seu valor é usado para
-	 * desenho, ele é convertido em um inteiro.
-	 */
+	/** Ponto superior esquerdo no eixo x do GameObject. */
 	public double x;
 
-	/**
-	 * Posição da imagem na tela. Eixo y (vertical). Quando seu valor é usado para
-	 * desenho, ele é convertido em um inteiro.
-	 */
+	/** Ponto superior esquerdo no eixo y do GameObject. */
 	public double y;
 
-	/** A largura em pixels da imagem. */
+	/** A largura em pixels do GameObject. */
 	public int width;
 
-	/** A altura em pixels da imagem. */
+	/** A altura em pixels dGameObject. */
 	public int height;
 
 	/**
 	 * Crie um GameObject posicionado em x = 0, y = 0 e sua dimensão é largura = 0 e
 	 * altura = 0.
 	 */
-	protected double rotation = 0;
+	protected double rotation = 0;// acredito que esta no local errado
 
 	public GameObject() {
 		this.x = 0;

@@ -1,4 +1,4 @@
-package br.com.wellington.projetos.game.constants;
+package br.com.wellington.projetos.game.utils;
 
 import java.awt.Color;
 import java.awt.Font;

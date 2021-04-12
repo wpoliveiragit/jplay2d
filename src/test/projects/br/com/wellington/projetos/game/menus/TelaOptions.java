@@ -1,16 +1,26 @@
-package br.com.wellington.projetos.game.telas;
+package br.com.wellington.projetos.game.menus;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import br.com.wellington.jplay2D.audio.Audio;
 import br.com.wellington.jplay2D.image.GameImage;
-import br.com.wellington.projetos.game.constants.Constants;
+import br.com.wellington.jplay2D.window.TextWindow;
 import br.com.wellington.projetos.game.controles.ControleVolume;
+import br.com.wellington.projetos.game.utils.Constants;
 import br.com.wellington.projetos.game.utils.VerticalOptionsMenu;
-import br.com.wellington.projetos.game.utils.TextWindow;
 import projetos.jogoDaMemoria.GameControl;
 
+// musica
+// Barulho de troca de escolha
+// barulho de escolha
+// botão '+' Aumenta o volume
+// botão '-' baixa o volume
+// Barulho de alteração de volume
+// voltar as configurações padroes
+// som de volta as configura ções padroes
+// volta para o menu anterior
+// persistir as informações
 public class TelaOptions extends GameControl {
 
 	private VerticalOptionsMenu menu;
@@ -38,7 +48,7 @@ public class TelaOptions extends GameControl {
 	}
 
 	@Override
-	protected void loadResources() {
+	protected void load() {
 		MOUSE.setCursorImage("");
 
 		KEYBOARD.cleanKeys();
@@ -132,12 +142,12 @@ public class TelaOptions extends GameControl {
 	private void ajustaSelecao() {
 		switch (menu.getSelecao()) {
 		case 0:
-			volume.setColorOn();
-			voltar.setColorOff();
+			volume.setColor(Constants.COR_ON);
+			voltar.setColor(Constants.COR_OFF);
 			break;
 		case 1:
-			volume.setColorOff();
-			voltar.setColorOn();
+			volume.setColor(Constants.COR_OFF);
+			voltar.setColor(Constants.COR_ON);
 			break;
 		}
 		new Audio(Constants.SND_SELECAO).play();
